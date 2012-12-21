@@ -2,9 +2,15 @@ steal(
     '../javascriptMVC/jquery/class/class.js',
     function () {
         var undefined = undefined,
+            isFunction = $.isFunction,
             darkStore = window.DarkStore = {},
             __s_defGetters = {},
-            __s_defSetters = {},
+            __s_defSetters = {
+            },
+            __s_defDefValues = {
+                '[]' : function(){ return []; },
+                '{}' : function(){ return {}; }
+            },
             __s_dependenceProperty = undefined,
             /**
              * Добавление текущего класса в спец.хранилище которое содержит
@@ -60,7 +66,7 @@ steal(
 
                 // Физически значение хранится в в свойстве '__' + property,
                 // само же свойство превращается в геттер / сеттер
-                if (descriptor.field === undefined) descriptor.field = '__' + property;
+                if (descriptor.field === undefined) descriptor.field = '__i' + property;
 
                 // Имя события которое срабатывает при $(this).triggerHandler(...)
                 if (descriptor.eventName === undefined) descriptor.eventName = property;
@@ -79,7 +85,7 @@ steal(
                 // а на клиенте он преобразуется в другой формат
                 if (descriptor.fnSerialize === undefined) descriptor.fnSerialize = undefined;
 
-                return __s_createBoth(property, descriptor);
+                return __s_createBoth.call(this, property, descriptor);
             },
             /**
              * @context Static Class
@@ -172,7 +178,7 @@ steal(
                     __s_dependenceProperty = [];
                 }
                 for (key in props) {
-                    __s_prepareProperty(key);
+                    __s_prepareProperty.call(me, key);
                 }
             },
             /**
@@ -207,10 +213,10 @@ steal(
                         if (pType == 'array') {
                             types = dep;
                             for (type in types) {
-                                __s_prepareProperty(types[type]);
+                                __s_prepareProperty.call(me, types[type]);
                             }
                         } else if (pType == 'string') {
-                            __s_prepareProperty(dep);
+                            __s_prepareProperty.call(me, dep);
                         }
                     }
                 } catch (error) {
@@ -264,20 +270,18 @@ steal(
                  */
                 setup: function (baseClass, fullName, staticProps, protoProps) {
                     var me = this,
-                        meProperty,
                         prop;
                     __s_addStore.call(me);
 
                     if (me._property === baseClass._property)
-                        me._property = meProperty = {};
+                        me._property = {};
 
-                    for (prop in meProperty) {
-                        if (meProperty.hasOwnProperty(prop))
-                            me.prototype[prop] = __s_initProperty.call(me, prop, meProperty[prop]);
+                    for (prop in me._property) {
+                        me.prototype[prop] = __s_initProperty.call(me, prop, me._property[prop]);
                     }
 
                     if (baseClass._property)
-                        me._property = $.extend({}, baseClass._property, meProperty);
+                        me._property = $.extend({}, baseClass._property, me._property);
 
                     __s_initDependenceProperty.call(me);
                     __s_clearMarkProperty.call(me);
@@ -288,9 +292,41 @@ steal(
                 __initializing:false,
 
                 setup:function (attributes) {
-                    this.__initializing = true;
+                    var me = this,
+                        prop = __s_dependenceProperty[me.Class.shortName],
+                        key;
+
+                    this.Class._initializing = true;
+
+                    for (key in prop) {
+                        me.__p_extendProp(prop[key], attributes);
+                    }
 
                     this.__initializing = false;
+                },
+
+                __p_extendProp: function(key, attr){
+                    var me = this,
+                        prop = me.Class._property;
+                    try {
+
+
+                        if ( !!attr && attr[key] !== undefined ) {
+                            me[key](attr[key]);
+                        } else if ( prop[key].defValue !== undefined ) {
+
+                            if ( isFunction(prop[key].defValue) ) {
+                                me[key](prop[key].defValue.call(this));
+                            }else if (!!__s_defDefValues[prop[key].defValue] && isFunction(__s_defDefValues[prop[key].defValue])) {
+                                me[key](__s_defDefValues[prop[key].defValue].call(me));
+                            }else{
+                                me[key](prop[key].defValue);
+                            }
+
+                        }
+                    }catch (exception_var) {
+
+                    }
                 },
 
                 init:function () {
