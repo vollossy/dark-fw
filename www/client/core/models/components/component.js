@@ -28,11 +28,11 @@ steal(
                         defValue: 'T'
                     },
                     css:{
-                        convert: 'bindOC',
+                        converter: 'bindOC',
                         defValue: 'bindOC'
                     },
                     styles:{
-                        convert: 'bindOC',
+                        converter: 'bindOC',
                         defValue: 'bindOC'
                     }
 //                    ,

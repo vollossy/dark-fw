@@ -8,6 +8,7 @@ steal(
     function () {
         var isArray = $.isArray,
             isPlainObject = $.isPlainObject,
+            isString      = $.isString,
             __EVENTS = {
                 ADD     :  "addElementFromCollection",
                 SET     : "setElementFromCollection",
@@ -87,7 +88,7 @@ steal(
              */
             __p_containObjKey = function(key){
                 var objKeys = this.__objKey();
-                return this.isString(key) && !!objKeys[key] ? objKeys[key] : false;
+                return isString(key) && !!objKeys[key] ? objKeys[key] : false;
             },
             /**
              * Проверяет есть ли переданный ключ в инвертированном массиве
@@ -111,7 +112,7 @@ steal(
              */
             __p_convertKey = function(key){
                 var me = this;
-                return me.isString(key) && __p_containObjKey.call(me, key) ? me.__objKey()[key] : key;
+                return isString(key) && __p_containObjKey.call(me, key) ? me.__objKey()[key] : key;
             },
             /**
              * Конвертирует переданный ключ в нужный строковый формат
@@ -174,7 +175,7 @@ steal(
                     removedItem = elements[convertKey];
                     elements.splice(convertKey, 1);
 
-                    if( me.isString(key) ){
+                    if( isString(key) ){
                         delete me.__objKey()[key];
                         delete me.__iObjKey()[convertKey];
                     }
@@ -232,7 +233,7 @@ steal(
                      * @protected Приходит с сервера
                      */
                     _elements: {
-                        convert: function(property, raw){
+                        converter: function(property, raw){
                             var me = this,
                                 e = [],
                                 prop,  pushed;
@@ -592,7 +593,7 @@ steal(
                     if( !me.contains(element) ){
                         pushed = elements.push(element);
 
-                        if( me.isString(key) ){
+                        if( isString(key) ){
                             this.__objKey()[key] = --pushed;
                             this.__iObjKey()[pushed] = key;
                         }

@@ -6,6 +6,9 @@ steal(
             isArray         = $.isArray,
             darkStore = window.DarkStore = {};
 
+        $.isString = function(object){
+            return Object.prototype.toString.call(object) == "[object String]";
+        };
         $.isRawComponent = function(raw){
             return !!raw.cType;
         };
@@ -258,9 +261,9 @@ steal(
                     // Если value переданно как функция - значит хотят подписаться на данное свойство
                     // Делаем подписку и возвращаем функцию отписки от события
                     if (isFunction(value)) {
-                        me.__bind(eventName, value);
+                        $(me).bind(eventName, value);
                         return function unBinder(value) {
-                            this.__unbind(eventName, value);
+                            $(me).unbind(eventName, value);
                         }
                     }
 
@@ -351,13 +354,13 @@ steal(
                 var me = this,
                     prop = me.Class._property,
                     property = prop[key],
-                    convert = property.convert,
+                    convert = property.converter,
                     defProp = property.defValue;
 
                 if ( !!attr && attr[key] !== undefined ) {
                     me[key]( !!convert && !!__s_defConvert[convert] && isFunction(__s_defConvert[convert])
                         ? __s_defConvert[convert].call(me, property, attr[key])
-                        : attr[key]
+                        : (isFunction(convert) ? convert.call(me, property, attr[key]) : attr[key])
                     );
                 } else if ( defProp !== undefined ) {
 
@@ -422,31 +425,32 @@ steal(
             {
                 _initializing: false,
 
+                setup:function (attributes) {
+                    var me = this,
+                        prop = __s_dependenceProperty[me.Class.shortName],
+                        key;
+
+                    me._initializing = true;
+
+                    for (key in prop) {
+                        __p_extendProp.call(me, prop[key], attributes);
+                    }
+
+                    me._initializing = false;
+                },
+
+                init:function () {
+
+                },
+
                 toComponent: function(raw){
                     return toComponent(raw);
                 },
 
                 toManyComponent: function(raw){
                     return toManyComponent(raw);
-                },
-
-                setup:function (attributes) {
-                    var me = this,
-                        prop = __s_dependenceProperty[me.Class.shortName],
-                        key;
-
-                    this._initializing = true;
-
-                    for (key in prop) {
-                        __p_extendProp.call(me, prop[key], attributes);
-                    }
-
-                    this._initializing = false;
-                },
-
-                init:function () {
-
                 }
+
             }
         );
     }
