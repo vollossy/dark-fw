@@ -10,7 +10,15 @@ header('Content-Type: text/html; charset=utf-8');
         <script src="client/core/javascriptMVC/steal/steal.js?/client/core/bootstrap.js,development"></script>
     </head>
     <body>
-
+        <script type="text/javascript">
+            steal(
+                function(){
+                    $(document).ready(function(){
+                        var component = $.toComponent({ 'cType' : 'Component' });
+                    });
+                }
+            );
+        </script>
     </body>
 </html>
 

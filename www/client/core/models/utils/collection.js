@@ -26,9 +26,9 @@ steal(
 
                 me.isObserversMode(true);
 
-                binders[__EVENTS['ADD']] = DarkCollection.newInstance();
-                binders[__EVENTS['SET']] = DarkCollection.newInstance();
-                binders[__EVENTS['REMOVE']] = DarkCollection.newInstance();
+                binders[__EVENTS['ADD']] = Dark.Models.Utils.Collection.newInstance();
+                binders[__EVENTS['SET']] = Dark.Models.Utils.Collection.newInstance();
+                binders[__EVENTS['REMOVE']] = Dark.Models.Utils.Collection.newInstance();
 
                 me._bindersCallbacks = binders;
 
@@ -190,6 +190,12 @@ steal(
          */
         Dark.Model.extend("Dark.Models.Utils.Collection",
             {
+                /**
+                 * Псевдонимы текущей модели.
+                 * @protected
+                 */
+                _alias:[ 'Collection' ],
+
                 _property:{
                     /**
                      * Список числовых значении и их соответсвие со строковым значением ключей

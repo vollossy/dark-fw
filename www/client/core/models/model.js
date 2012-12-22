@@ -4,7 +4,6 @@ steal(
         var undefined = undefined,
             isFunction      = $.isFunction,
             isArray         = $.isArray,
-            Collection      = Dark.Models.Utils.Collection,
             darkStore = window.DarkStore = {};
 
         $.isRawComponent = function(raw){
@@ -47,7 +46,7 @@ steal(
                 var type = raw.cType,
                     name, instanceClass;
 
-                name = darkStore[type];
+                name = darkStore.M[type];
 
                 //!steal-remove-start
                 if ( name === undefined ) throw new Error(e2);
@@ -61,7 +60,7 @@ steal(
 
                 raw = instanceClass.newInstance(raw);
             }
-            // Todo вызываем фабрику создания множества объектов
+
             return raw;
         };
 
@@ -79,7 +78,7 @@ steal(
                  */
                 C : function(property, value ){
                     return isCollection(value) ? value
-                        : Collection.newInstance({ _elements: value });
+                        : Dark.Models.Utils.Collection.newInstance({ _elements: value });
                 },
                 /**
                  * Создает коллекцию Dark.Models.Utils.Collection и активирует режим "Подписчики"
@@ -97,15 +96,11 @@ steal(
                     });
                 },
                 componentsC : function(property, value){
-                    var me = this,
-                        i = 0, cnt;
-
+                    var me = this;
                     return __s_defConvert.C.call(me, property, $.toManyComponent(value));
                 },
                 componentsBindOc : function(property, value){
-                    var me = this,
-                        i = 0, cnt;
-
+                    var me = this;
                     return __s_defConvert.bindOC.call(me, property, $.toManyComponent(value));
                 }
             },
@@ -114,7 +109,7 @@ steal(
                 T       : true,
                 '[]'    : function(){ return []; },
                 '{}'    : function(){ return {}; },
-                C       : function(property){ return Collection.newInstance(); },
+                C       : function(property){ return Dark.Models.Utils.Collection.newInstance(); },
                 oC      : function(property){ return __s_defDefValues.C.call(this, property).activateObserversMode() },
                 bindOC  : function(property){
                     var me = this;
@@ -384,7 +379,6 @@ steal(
             {
                 /**
                  * Псевдонимы текущей модели.
-                 * Данное свойство не обязательное.
                  * @protected
                  */
                 _alias:[ 'Model' ],

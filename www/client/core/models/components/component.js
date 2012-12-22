@@ -8,6 +8,12 @@ steal(
         Dark.Model("Dark.Model.Components.Component",
             {
                 /**
+                 * Псевдонимы текущей модели.
+                 * @protected
+                 */
+                _alias:[ 'Component' ],
+
+                /**
                  * Данное свойство содержит значения свойств класса - переданные ему в setup.
                  * @protected
                  */
@@ -28,11 +34,12 @@ steal(
                     styles:{
                         convert: 'bindOC',
                         defValue: 'bindOC'
-                    },
-                    handlers: {
-                        convert : 'componentsC',
-                        defValue: 'C'
                     }
+//                    ,
+//                    handlers: {
+//                        convert : 'componentsC',
+//                        defValue: 'C'
+//                    }
                 }
             },
             {
