@@ -6,7 +6,9 @@
 steal(
     '../model.js',
     function () {
-        var __EVENTS = {
+        var isArray = $.isArray,
+            isPlainObject = $.isPlainObject,
+            __EVENTS = {
                 ADD     :  "addElementFromCollection",
                 SET     : "setElementFromCollection",
                 REMOVE  : "removeElementFromCollection"
@@ -39,12 +41,14 @@ steal(
              *
              * @param {String} eventNamePostfix Нaзвание события на которое подписываемся
              * @param {Function} callback Фенкция обратного вызова
+             * @return {Class} Возвращаем this
              */
-             __p_bindOuterEvents = function(eventNamePostfix, callback){
+            __p_bindOuterEvents = function(eventNamePostfix, callback){
                 var me = this;
                 if( me.isObserversMode() ){
                     me._bindersCallbacks[__EVENTS[eventNamePostfix]].add(callback)
                 }
+                return me;
             },
             /**
              * Метод удаления подписки внешних callback
@@ -53,12 +57,14 @@ steal(
              *
              * @param {String} eventNamePostfix Нaзвание события на которое подписываемся
              * @param {Function} callback Фенкция обратного вызова
+             * @return {Class} Возвращаем this
              */
             __p_unbindOuterEvents = function(eventNamePostfix, callback){
                 var me = this;
                 if( me.isObserversMode() ){
                     me._bindersCallbacks[__EVENTS[eventNamePostfix]].removeElement(callback)
                 }
+                return me;
             },
             /**
              * Тригает произощедшее события
@@ -152,21 +158,6 @@ steal(
                 return this.isStackMode() ? --i : ++i;
             },
             /**
-             * Нормализует массив коллекции - удаляет все undefined ключи
-             * @context prototype
-             * @private
-             */
-            __p_normalizeKeys = function(){
-                var a = this._elements(),
-                    b = [],
-                    i = 0,
-                    cnt = a.length;
-                for( ; i != cnt; i++) {
-                    if( a[i] !== undefined ) b.push(a[i]);
-                }
-                this._elements(b);
-            },
-            /**
              * Удаляет елемент из коллекции
              * @context prototype
              * @private
@@ -181,7 +172,7 @@ steal(
                 if( me.containsKey(key) ){
                     convertKey = __p_convertKey.call(me, key);
                     removedItem = elements[convertKey];
-                    delete elements[convertKey];
+                    elements.splice(convertKey, 1);
 
                     if( me.isString(key) ){
                         delete me.__objKey()[key];
@@ -230,11 +221,39 @@ steal(
                     /**
                      * Елементы коллекции
                      * По умолчанию пустой массив
+                     * В конструктор данного класса в свойство _elements можно передать массив или простой объект
                      *
                      * @protected Приходит с сервера
                      */
                     _elements: {
-                        defValue: '[]'
+                        convert: function(property, raw){
+                            var me = this,
+                                e = [],
+                                prop,  pushed;
+
+                            //!steal-remove-start
+                            if( !isArray(raw) && !isPlainObject(raw) ){
+                                throw Error('Dark.Models.Utils.Collection::_elements.convert - ' +
+                                    'В свойство _elements можно передовать только массив или простой объект.' +
+                                    'typeof = ' + typeof raw);
+                            }
+                            //!steal-remove-end
+
+                            if( isPlainObject(raw) ){
+                                for( prop in raw ){
+                                    if( raw.hasOwnProperty(prop) ){
+                                        pushed = e.push(raw[prop]);
+                                        me.__objKey()[prop] = --pushed;
+                                        me.__iObjKey()[pushed] = prop;
+                                    }
+                                }
+                                raw = e;
+                            }
+
+                            return raw;
+                        },
+                        defValue: '[]',
+                        dependence: ['__objKey', '__iObjKey']
                     },
                     /**
                      * Текущий режим коллекции, поддерживаются два режима - стек и очередь.
@@ -276,7 +295,6 @@ steal(
                  */
                 init: function(){
                     var me = this,
-                        meClass = me.Class,
                         binders = {},
                         cb = '_callbackTriggerEvent';
                     me._super();
@@ -284,9 +302,9 @@ steal(
                     if( me.isObserversMode() ){
                         __p_activateObserversMode.call(me)
                     }
-                    binders[meClass._EVENT_ADD] = me.callback(cb);
-                    binders[meClass._EVENT_SET] = me.callback(cb);
-                    binders[meClass._EVENT_REMOVE] = me.callback(cb);
+                    binders[__EVENTS.ADD] = me.callback(cb);
+                    binders[__EVENTS.SET] = me.callback(cb);
+                    binders[__EVENTS.REMOVE] = me.callback(cb);
 
                     $(this).bind(binders);
                 },
@@ -300,7 +318,7 @@ steal(
                  */
                 _callbackTriggerEvent: function(event, item){
                     var me = this;
-                    if( me.isObserversMode() && !me.isMuteMode() ){
+                    if( me.isObserversMode() && !me.isMuteMode() && !me._initializing ){
                         me._bindersCallbacks[event.type].map(function(key, callback){
                             callback(event, item);
                         });
@@ -454,7 +472,6 @@ steal(
                         removed = me.get(key);
 
                     __p_remove.call(me, key);
-                    __p_normalizeKeys.call(me);
 
                     return removed;
                 },
@@ -475,7 +492,6 @@ steal(
                             return false;
                         }
                     });
-                    __p_normalizeKeys.call(me);
                     return removed;
                 },
 
@@ -668,11 +684,22 @@ steal(
                  *  Events prototype methods
                  *****************************************************************************************************/
                 /**
+                 * Подписаться на все доступные события коллекции
+                 * @param {Function} callback Функция обратного вызова
+                 */
+                bindWithAllEvent: function(callback){
+                    var me = this;
+                    __p_bindOuterEvents.call(me, 'ADD', callback);
+                    __p_bindOuterEvents.call(me, 'SET', callback);
+                    return __p_bindOuterEvents.call(me, 'REMOVE', callback)
+                },
+
+                /**
                  * Подписаться на событие добавления нового елемента в коллекцию
                  * @param {Function} callback Функция обратного вызова
                  */
                 bindWithAddEvent: function(callback){
-                    __p_bindOuterEvents.call(this, 'ADD', callback)
+                    return __p_bindOuterEvents.call(this, 'ADD', callback)
                 },
 
                 /**
@@ -680,7 +707,7 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  */
                 bindWithSetEvent: function(callback){
-                    __p_bindOuterEvents.call(this, 'SET', callback)
+                    return __p_bindOuterEvents.call(this, 'SET', callback)
                 },
 
                 /**
@@ -688,7 +715,18 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  */
                 bindWithRemoveEvent: function(callback){
-                    __p_bindOuterEvents.call(this, 'REMOVE', callback)
+                    return __p_bindOuterEvents.call(this, 'REMOVE', callback)
+                },
+
+                /**
+                 * Отписаться от всех доступных событий коллекции
+                 * @param {Function} callback Функция обратного вызова
+                 */
+                unbindWithAllEvent: function(callback){
+                    var me = this;
+                    __p_unbindOuterEvents.call(me, 'ADD', callback);
+                    __p_unbindOuterEvents.call(me, 'SET', callback);
+                    return __p_unbindOuterEvents.call(me, 'REMOVE', callback);
                 },
 
                 /**
@@ -696,7 +734,7 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  */
                 unbindWithAddEvent: function(callback){
-                    __p_unbindOuterEvents.call(this, 'ADD', callback)
+                    return __p_unbindOuterEvents.call(this, 'ADD', callback)
                 },
 
                 /**
@@ -704,7 +742,7 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  */
                 unbindWithSetEvent: function(callback){
-                    __p_unbindOuterEvents.call(this, 'SET', callback)
+                    return __p_unbindOuterEvents.call(this, 'SET', callback)
                 },
 
                 /**
@@ -712,12 +750,10 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  */
                 unbindWithRemoveEvent: function(callback){
-                    __p_unbindOuterEvents.call(this, 'REMOVE', callback)
+                    return __p_unbindOuterEvents.call(this, 'REMOVE', callback)
                 }
             }
         );
-
-        window.DarkCollection = Dark.Models.Utils.Collection;
     }
 
 );

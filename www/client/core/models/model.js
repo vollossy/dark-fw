@@ -2,14 +2,126 @@ steal(
     '../javascriptMVC/jquery/class/class.js',
     function () {
         var undefined = undefined,
-            isFunction = $.isFunction,
-            darkStore = window.DarkStore = {},
+            isFunction      = $.isFunction,
+            isArray         = $.isArray,
+            Collection      = Dark.Models.Utils.Collection,
+            darkStore = window.DarkStore = {};
+
+        $.isRawComponent = function(raw){
+            return !!raw.cType;
+        };
+        $.isComponent = function(raw){
+            return raw instanceof Dark.Model;
+        };
+        $.isCollection = function(raw){
+            return raw instanceof Dark.Models.Utils.Collection;
+        };
+        $.toManyComponent = function(raw){
+            var i = 0, cnt, a = [];
+
+            raw = !isArray(raw) ? [raw] : raw;
+
+            for( cnt = raw.length; i != cnt; ){
+                a.push($.toComponent(raw[i]));
+            }
+
+            raw = a;
+            return raw;
+        };
+        $.toComponent = function(raw){
+            //!steal-remove-start
+            var e1 = 'model.js -> $.toManyComponent - ' +
+                    'В метод можно передавать только сырую модель компонента или экземпляр компонента.' +
+                    'Передали typeof = ' + typeof raw,
+                e2 = 'model.js -> $.toComponent - ' +
+                    'instanceClass === undefined. ' +
+                    'Возможные причины : ' +
+                    '1) Пытаемся создать класс который еще не загрузился. ' +
+                    '2) Передали неизвестный cType с сервера';
+            if( !$.isRawComponent(raw) && !$.isComponent(raw) ){
+                throw Error(e1);
+            }
+            //!steal-remove-end
+
+            if( $.isRawComponent(raw) ){
+                var type = raw.cType,
+                    name, instanceClass;
+
+                name = darkStore[type];
+
+                //!steal-remove-start
+                if ( name === undefined ) throw new Error(e2);
+                //!steal-remove-end
+
+                instanceClass = $.String.getObject(name);
+
+                //!steal-remove-start
+                if ( instanceClass === undefined ) throw new Error(e2);
+                //!steal-remove-end
+
+                raw = instanceClass.newInstance(raw);
+            }
+            // Todo вызываем фабрику создания множества объектов
+            return raw;
+        };
+
+        var isCollection    = $.isCollection,
+            toComponent     = $.toComponent,
+            toManyComponent = $.toManyComponent,
             __s_defGetters = {},
-            __s_defSetters = {
+            __s_defSetters = {},
+            __s_defConvert = {
+                /**
+                 * Создает простую коллекцию Dark.Models.Utils.Collection
+                 * @param {Object} property
+                 * @params {Array|Object|Dark.Models.Utils.Collection} value
+                 * @return {Dark.Models.Utils.Collection}
+                 */
+                C : function(property, value ){
+                    return isCollection(value) ? value
+                        : Collection.newInstance({ _elements: value });
+                },
+                /**
+                 * Создает коллекцию Dark.Models.Utils.Collection и активирует режим "Подписчики"
+                 * @param {Object} property
+                 * @params {Array|Object|Dark.Models.Utils.Collection} value
+                 * @return {Dark.Models.Utils.Collection}
+                 */
+                oC : function(property, value){
+                    return __s_defConvert.C.call(this, property, value).activateObserversMode();
+                },
+                bindOC : function(property, value){
+                    var me = this;
+                    return __s_defConvert.oC.call(me, property, value).bindWithAllEvent(function(ev, el){
+                        $(me).triggerHandler(property.eventName, el)
+                    });
+                },
+                componentsC : function(property, value){
+                    var me = this,
+                        i = 0, cnt;
+
+                    return __s_defConvert.C.call(me, property, $.toManyComponent(value));
+                },
+                componentsBindOc : function(property, value){
+                    var me = this,
+                        i = 0, cnt;
+
+                    return __s_defConvert.bindOC.call(me, property, $.toManyComponent(value));
+                }
             },
             __s_defDefValues = {
-                '[]' : function(){ return []; },
-                '{}' : function(){ return {}; }
+                F       : false,
+                T       : true,
+                '[]'    : function(){ return []; },
+                '{}'    : function(){ return {}; },
+                C       : function(property){ return Collection.newInstance(); },
+                oC      : function(property){ return __s_defDefValues.C.call(this, property).activateObserversMode() },
+                bindOC  : function(property){
+                    var me = this;
+                    return __s_defDefValues.oC.call(me, property).bindWithAllEvent(function(ev, el){
+                        $(me).triggerHandler(property.eventName, el)
+                    });
+                }
             },
             __s_dependenceProperty = undefined,
             /**
@@ -102,7 +214,6 @@ steal(
                  */
                 return function GetterOrSetter(value) {
                     var me = this,
-                        meClass = me.Class,
                         fnGet = function (desc) {
                             // Если геттер переопределен внутри __property как функция значит вызовем ее
                             // иначе проверим в массиве __s_defGetters
@@ -237,8 +348,34 @@ steal(
                 for (key in me._property) {
                     me._property[key].mark = 'none';
                 }
-            };
+            },
+            /**
+             * @context Static Class
+             */
+            __p_extendProp = function(key, attr){
+                var me = this,
+                    prop = me.Class._property,
+                    property = prop[key],
+                    convert = property.convert,
+                    defProp = property.defValue;
 
+                if ( !!attr && attr[key] !== undefined ) {
+                    me[key]( !!convert && !!__s_defConvert[convert] && isFunction(__s_defConvert[convert])
+                        ? __s_defConvert[convert].call(me, property, attr[key])
+                        : attr[key]
+                    );
+                } else if ( defProp !== undefined ) {
+
+                    me[key]( !isFunction(defProp)
+                        ? ( !!__s_defDefValues[defProp] && isFunction(__s_defDefValues[defProp])
+                            ? __s_defDefValues[defProp].call(me, property)
+                            : defProp
+                        )
+                        : defProp.call(me)
+                    );
+                }
+            }
+        ;
 
         /**
          * @class Dark.Model
@@ -289,44 +426,28 @@ steal(
 
             },
             {
-                __initializing:false,
+                _initializing: false,
+
+                toComponent: function(raw){
+                    return toComponent(raw);
+                },
+
+                toManyComponent: function(raw){
+                    return toManyComponent(raw);
+                },
 
                 setup:function (attributes) {
                     var me = this,
                         prop = __s_dependenceProperty[me.Class.shortName],
                         key;
 
-                    this.Class._initializing = true;
+                    this._initializing = true;
 
                     for (key in prop) {
-                        me.__p_extendProp(prop[key], attributes);
+                        __p_extendProp.call(me, prop[key], attributes);
                     }
 
-                    this.__initializing = false;
-                },
-
-                __p_extendProp: function(key, attr){
-                    var me = this,
-                        prop = me.Class._property;
-                    try {
-
-
-                        if ( !!attr && attr[key] !== undefined ) {
-                            me[key](attr[key]);
-                        } else if ( prop[key].defValue !== undefined ) {
-
-                            if ( isFunction(prop[key].defValue) ) {
-                                me[key](prop[key].defValue.call(this));
-                            }else if (!!__s_defDefValues[prop[key].defValue] && isFunction(__s_defDefValues[prop[key].defValue])) {
-                                me[key](__s_defDefValues[prop[key].defValue].call(me));
-                            }else{
-                                me[key](prop[key].defValue);
-                            }
-
-                        }
-                    }catch (exception_var) {
-
-                    }
+                    this._initializing = false;
                 },
 
                 init:function () {
