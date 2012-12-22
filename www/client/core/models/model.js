@@ -367,7 +367,10 @@ steal(
                     me[key]( !isFunction(defProp)
                         ? ( !!__s_defDefValues[defProp] && isFunction(__s_defDefValues[defProp])
                             ? __s_defDefValues[defProp].call(me, property)
-                            : defProp
+                            : (!!__s_defDefValues[defProp]
+                                ? __s_defDefValues[defProp]
+                                : defProp
+                            )
                         )
                         : defProp.call(me)
                     );

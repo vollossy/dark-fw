@@ -19,10 +19,9 @@ steal(
                  */
                 _property: {
                     id:{
-                        fnAfterSet: function(value){
+                        defValue: function(value){
                             return value ? value : this.Class.shortName+"_"+__uid;
-                        },
-                        defValue: 'F'
+                        }
                     },
                     visible:{
                         defValue: 'T'

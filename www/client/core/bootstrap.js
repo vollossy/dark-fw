@@ -2,9 +2,9 @@ steal.then(
     'steal/less'                   // less
 )
 .then(
-    '../core/models/actions/action.js',
-    '../core/models/utils/collection.js',
-    '../core/models/components/component.js'
+    '/client/core/models/actions/action.js',
+    '/client/core/models/utils/collection.js',
+    '/client/core/models/components/component.js'
 )
 .then(
     function(){
