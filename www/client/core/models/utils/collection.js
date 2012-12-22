@@ -23,13 +23,14 @@ steal(
              */
             __p_activateObserversMode = function(){
                 var me      = this,
-                    binders = {};
+                    binders = {},
+                    Collection = Dark.Models.Utils.Collection;
 
                 me.isObserversMode(true);
 
-                binders[__EVENTS['ADD']] = Dark.Models.Utils.Collection.newInstance();
-                binders[__EVENTS['SET']] = Dark.Models.Utils.Collection.newInstance();
-                binders[__EVENTS['REMOVE']] = Dark.Models.Utils.Collection.newInstance();
+                binders[__EVENTS['ADD']] = Collection.newInstance();
+                binders[__EVENTS['SET']] = Collection.newInstance();
+                binders[__EVENTS['REMOVE']] = Collection.newInstance();
 
                 me._bindersCallbacks = binders;
 

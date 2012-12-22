@@ -14,13 +14,13 @@ steal(
 
                 _property:{
                     params: {
-                        convert: 'bindOC',
+                        converter: 'bindOC',
                         defValue: 'bindOC'
                     }
                 }
             },
             {
-                execute: function(callback, arguments){}
+
             }
         );
     }

@@ -14,7 +14,18 @@ header('Content-Type: text/html; charset=utf-8');
             steal(
                 function(){
                     $(document).ready(function(){
+                        var loop = 0,
+                            cb = function(request){
+                                loop = request;
+                                return request;
+                            },
+                            action = $.toComponent({
+                                cType: 'Action',
+                                jsCallback: 'var loop = 1; console.log(this); return loop;'
+                            });
 
+                        action.execute(cb, loop);
+                        console.log(loop);
                     });
                 }
             );
