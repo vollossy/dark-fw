@@ -1,5 +1,16 @@
+/*
+ * @page index Dark-fw
+ * @tag home
+ *
+ * ###Little Dark-fw
+ *
+ * Our little Dark-fw only has two classes:
+ *
+ * * Customer
+ * * Order
+ */
 steal(
-    '../javascriptMVC/jquery/class/class.js',
+    '//jquery/class/class.js',
     function () {
         var undefined = undefined,
             isFunction      = $.isFunction,
@@ -389,7 +400,7 @@ steal(
                  */
                 _alias:[ 'Model' ],
                 /**
-                 * Данное свойство содержит значения свойств класса - переданные ему в setup.
+                 * Данное свойство содержит описания значении свойств класса - переданные ему в setup.
                  * @protected
                  */
                 _property:undefined,
