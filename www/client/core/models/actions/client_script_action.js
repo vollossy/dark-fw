@@ -1,5 +1,5 @@
 steal(
-    'action.js',
+    './action.js',
     '../utils/client_script.js',
     function () {
         var __ClientScript = Dark.Models.Utils.ClientScript;
@@ -53,7 +53,7 @@ steal(
                         request = jsCb.getFn().apply(me, [].slice.call(arguments, 1));
 
                         if( !!callback )
-                            request = cb.call(me, request);
+                            request = callback.call(me, request);
                     }
 
                     return request;

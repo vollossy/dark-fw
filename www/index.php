@@ -20,8 +20,12 @@ header('Content-Type: text/html; charset=utf-8');
                                 return request;
                             },
                             action = $.toComponent({
-                                cType: 'Action',
-                                jsCallback: 'var loop = 1; console.log(this); return loop;'
+                                cType: 'ClientScriptAction',
+                                script: {
+                                    cType: 'ClientScript',
+                                    _args: ['loop'],
+                                    _script: 'return ++loop;'
+                                }
                             });
 
                         action.execute(cb, loop);
