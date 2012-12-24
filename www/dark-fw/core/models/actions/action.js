@@ -2,9 +2,9 @@ steal(
     '../model.js',
     function () {
         /**
-         * @class Dark.Model.Actions.Action
+         * @class Dark.Models.Actions.Action
          */
-        Dark.Model("Dark.Model.Actions.Action",
+        Dark.Model("Dark.Models.Actions.Action",
             {
                 /**
                  * Псевдонимы текущей модели.

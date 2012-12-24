@@ -9,21 +9,18 @@ steal(
 ).then(function(){					// configure your application
     console.log('load all');
     $(document).ready(function(){
-        var loop = 0,
-            cb = function(request){
-            loop = request;
-                return request;
-            },
-            action = $.toComponent({
-                cType: 'ClientScriptAction',
-                script: {
-                    cType: 'ClientScript',
-                    _args: ['loop'],
-                    _script: 'return ++loop;'
+        var component = $.toComponent({
+            cType : 'Component',
+            visible: false,
+            handlers: [
+                {
+                    cType: 'Handler',
+                    _isModel: true,
+                    eventName: 'visible',
+                    script: "console.log('Work', this);"
                 }
-            });
-
-        action.execute(cb, loop);
-        console.log(loop);
+            ]
+        });
+        component.show();
     });
 });

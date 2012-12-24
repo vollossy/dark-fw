@@ -1,5 +1,6 @@
 steal(
     '../model.js',
+    '../utils/handler.js',
     function () {
         var __uid = 0;
         /**
@@ -18,11 +19,6 @@ steal(
                  * @protected
                  */
                 _property: {
-                    id:{
-                        defValue: function(value){
-                            return value ? value : this.Class.shortName+"_"+__uid;
-                        }
-                    },
                     visible:{
                         defValue: 'T'
                     },
@@ -33,19 +29,28 @@ steal(
                     styles:{
                         converter: 'bindOC',
                         defValue: 'bindOC'
+                    },
+                    handlers: {
+                        converter : 'componentsC',
+                        defValue: 'C'
                     }
-//                    ,
-//                    handlers: {
-//                        convert : 'componentsC',
-//                        defValue: 'C'
-//                    }
                 }
             },
             {
                 init:function () {
-                    var me = this;
+                    var me = this,
+                        handlers, eventName;
                     me._super();
+                    handlers = me.handlers();
 
+                    handlers.map(function(key, handler){
+                        if( handler.isModelHandler() ){
+                            eventName = handler.eventName();
+                            if( !!me[eventName] ){
+                                me[eventName](function(){return handler.run(this)});
+                            }
+                        }
+                    });
                 },
 
                 /**

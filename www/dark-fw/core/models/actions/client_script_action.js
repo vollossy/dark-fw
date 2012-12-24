@@ -2,11 +2,24 @@ steal(
     './action.js',
     '../utils/client_script.js',
     function () {
-        var __ClientScript = Dark.Models.Utils.ClientScript;
+        var __p_execute = function(callback){
+            var me = this,
+                script = me.script(),
+                request;
+
+            if( script ){
+                request = script.getFn().apply(me, [].slice.call(arguments, 1));
+
+                if( !!callback )
+                    request = callback.call(me, request);
+            }
+
+            return request;
+        };
         /**
-         * @class Dark.Model.Actions.ClientScriptAction
+         * @class Dark.Models.Actions.ClientScriptAction
          */
-        Dark.Model.Actions.Action("Dark.Model.Actions.ClientScriptAction",
+        Dark.Models.Actions.Action("Dark.Models.Actions.ClientScriptAction",
             {
                 /**
                  * Псевдонимы текущей модели.
@@ -26,13 +39,7 @@ steal(
                      *  @params {String|Object|Dark.Models.Utils.ClientScript}
                      */
                     script: {
-                        converter: function(property, value){
-                            return $.isString(value)
-                                ? __ClientScript.newInstance({ _script : value })
-                                : $.isRawComponent(value)
-                                    ? $.toComponent(value)
-                                    : value;
-                        },
+                        converter: 'toClientScript',
                         defValue: 'F'
                     }
                 }
@@ -45,18 +52,7 @@ steal(
                  * @return {*}
                  */
                 execute: function(callback){
-                    var me = this,
-                        jsCb = me.script(),
-                        request;
-
-                    if( jsCb ){
-                        request = jsCb.getFn().apply(me, [].slice.call(arguments, 1));
-
-                        if( !!callback )
-                            request = callback.call(me, request);
-                    }
-
-                    return request;
+                    return __p_execute.call(this, callback);
                 }
             }
         );

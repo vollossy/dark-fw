@@ -17,6 +17,9 @@ steal(
             isArray         = $.isArray,
             darkStore = window.DarkStore = {};
 
+        $.isUndefined = function(value){
+            return value === undefined;
+        };
         $.isString = function(object){
             return Object.prototype.toString.call(object) == "[object String]";
         };
@@ -35,7 +38,7 @@ steal(
             raw = !isArray(raw) ? [raw] : raw;
 
             for( cnt = raw.length; i != cnt; ){
-                a.push($.toComponent(raw[i]));
+                a.push($.toComponent(raw[i++]));
             }
 
             raw = a;
@@ -81,6 +84,10 @@ steal(
         var isCollection    = $.isCollection,
             toComponent     = $.toComponent,
             toManyComponent = $.toManyComponent,
+            isString        = $.isString,
+            isRawComponent  = $.isRawComponent,
+            isComponent     = $.isComponent,
+            isUndefined     = $.isUndefined,
             __s_defGetters = {},
             __s_defSetters = {},
             __s_defConvert = {
@@ -109,13 +116,26 @@ steal(
                         $(me).triggerHandler(property.eventName, el)
                     });
                 },
+                toClientScript : function(property, value){
+                    return isString(value)
+                        ? Dark.Models.Utils.ClientScript.newInstance({ _script : value })
+                        : isRawComponent(value)
+                            ? toComponent(value)
+                            : value;
+                },
+                toComponent : function(property, value){
+                    return toComponent(value);
+                },
+                toManyComponent : function(property, value){
+                    return toManyComponent(value);
+                },
                 componentsC : function(property, value){
                     var me = this;
-                    return __s_defConvert.C.call(me, property, $.toManyComponent(value));
+                    return __s_defConvert.C.call(me, property, toManyComponent(value));
                 },
                 componentsBindOc : function(property, value){
                     var me = this;
-                    return __s_defConvert.bindOC.call(me, property, $.toManyComponent(value));
+                    return __s_defConvert.bindOC.call(me, property, toManyComponent(value));
                 }
             },
             __s_defDefValues = {
@@ -166,45 +186,45 @@ steal(
                 descriptor.mark = 'none';
 
                 // Если геттер не определен значит поставим флаг что использовать стандартный
-                if (descriptor.get === undefined) descriptor.get = true;
+                if (isUndefined(descriptor.get)) descriptor.get = true;
 
                 // Если свойство определено как функция то вызываем ее иначе
                 // если не определено - значит используем стандартную
                 // Вызывается перед основным сеттером
                 // !Функция обязательно должна возвращать переданное в нее значение
-                if (descriptor.fnBeforeSet === undefined) descriptor.fnBeforeSet = undefined;
+                if (isUndefined(descriptor.fnBeforeSet)) descriptor.fnBeforeSet = undefined;
 
                 // Если свойство определено как функция то вызываем ее иначе
                 // если не определено - значит используем стандартную
                 // !Функция обязательно должна возвращать переданное в нее значение
-                if (descriptor.set === undefined) descriptor.set = undefined;
+                if (isUndefined(descriptor.set)) descriptor.set = undefined;
 
                 // Если свойство определено как функция то вызываем ее иначе
                 // если не определено - значит используем стандартную
                 // Вызывается после основного сеттера
                 // !Функция обязательно должна возвращать переданное в нее значение
-                if (descriptor.fnAfterSet === undefined) descriptor.fnAfterSet = undefined;
+                if (isUndefined(descriptor.fnAfterSet)) descriptor.fnAfterSet = undefined;
 
                 // Физически значение хранится в в свойстве '__' + property,
                 // само же свойство превращается в геттер / сеттер
-                if (descriptor.field === undefined) descriptor.field = '__i' + property;
+                if (isUndefined(descriptor.field)) descriptor.field = '__i' + property;
 
                 // Имя события которое срабатывает при $(this).triggerHandler(...)
-                if (descriptor.eventName === undefined) descriptor.eventName = property;
+                if (isUndefined(descriptor.eventName)) descriptor.eventName = property;
 
                 //Пароноидальная шизофрения сотой степени :), далее идут абсолютно бессмысленные записи
 
                 // Зависимости от других свойств
-                if (descriptor.dependence === undefined) descriptor.dependence = undefined;
+                if (isUndefined(descriptor.dependence)) descriptor.dependence = undefined;
                 // Значение по умолчанию
-                if (descriptor.defValue === undefined) descriptor.defValue = undefined;
+                if (isUndefined(descriptor.defValue)) descriptor.defValue = undefined;
 
-                if (descriptor.converter === undefined) descriptor.converter = undefined;
+                if (isUndefined(descriptor.converter)) descriptor.converter = undefined;
 
                 // Для данного свойства можно переопределить функцию сериализации
                 // Например это может потребоваться в том случае если с сервера значение приходит в одном формате
                 // а на клиенте он преобразуется в другой формат
-                if (descriptor.fnSerialize === undefined) descriptor.fnSerialize = undefined;
+                if (isUndefined(descriptor.fnSerialize)) descriptor.fnSerialize = undefined;
 
                 return __s_createBoth.call(this, property, descriptor);
             },
@@ -224,6 +244,7 @@ steal(
                 return function GetterOrSetter(value) {
                     var me = this,
                         fnGet = function (desc) {
+                            var me = this;
                             // Если геттер переопределен внутри __property как функция значит вызовем ее
                             // иначе проверим в массиве __s_defGetters
                             //      если там найдем функцию с именем определенным в get значит вызовем ее
@@ -234,8 +255,9 @@ steal(
                                 ? __s_defGetters[get].call(me, desc)
                                 : me[desc.field];
                         },
-                        oldValue = fnGet(descriptor),
+                        oldValue = fnGet.call(me, descriptor),
                         fnSet = function (desc, val) {
+                            var me = this;
                             // Если cеттер переопределен внутри __property как функция значит вызовем ее
                             // иначе проверим в массиве __s_defSetters
                             //      если там найдем функцию с именем определенным в set значит вызовем ее
@@ -249,16 +271,19 @@ steal(
                             return val;
                         },
                         fnBeforeSet = function (val) {
+                            var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
                             return isFunction(beforeSet) ? beforeSet.call(me, val) : val;
                         },
                         fnAfterSet = function (val) {
+                            var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
                             return isFunction(afterSet) ? afterSet.call(me, val) : val;
                         },
                         triggerPropertyEvent = function (val) {
+                            var me = this;
                             // Если класс не находится в режиме инициализации то тригнем событие изменения свойства
-                            if (!me.__initializing) {
+                            if (!me._initializing) {
                                 $(me).triggerHandler(eventName, val);
                             }
                             return this;
@@ -266,8 +291,8 @@ steal(
 
                     // Если value не переданно - значит хотят получить значение,
                     // используя getter возвращаем значение
-                    if (value === undefined)
-                        return fnGet(descriptor);
+                    if ( value=== undefined)
+                        return fnGet.call(me, descriptor);
 
                     // Если value переданно как функция - значит хотят подписаться на данное свойство
                     // Делаем подписку и возвращаем функцию отписки от события
@@ -282,7 +307,7 @@ steal(
                     // Вызовем цепочку функций fnBeforeSet, fnSet, fnAfterSet, triggerPropertyEvent
                     // И вернем this
                     if (value !== oldValue) {
-                        return triggerPropertyEvent(fnAfterSet(fnSet(descriptor, fnBeforeSet(value))));
+                        return triggerPropertyEvent.call(me, fnAfterSet.call(me, fnSet.call(me, descriptor, fnBeforeSet.call(me,value))));
                     }
                 }
             },
@@ -403,7 +428,13 @@ steal(
                  * Данное свойство содержит описания значении свойств класса - переданные ему в setup.
                  * @protected
                  */
-                _property:undefined,
+                _property:{
+                    id:{
+                        defValue: function(value){
+                            return value ? value : this.Class.shortName+"_"+__uid;
+                        }
+                    }
+                },
 
                 /**
                  * Метод вызывается в момент когда произошла загрузка данного скрипта.

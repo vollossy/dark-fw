@@ -14,8 +14,7 @@ steal(
                      * @var {Array} Массив имен аргументов для создаваемой функции
                      */
                     _args:{
-                        converter: 'C',
-                        defValue: 'C'
+                        defValue: '[]'
                     },
                     /**
                      * @protected
@@ -24,11 +23,11 @@ steal(
                     _script: {
                         converter: function(property, value){
                             return {
-                                func : new Function( this._args().toArray(), value),
+                                func : new Function( this._args(), value),
                                 str : value
                             };
                         },
-                        defValue: "",
+                        defValue: false,
                         dependence: '_args'
                     }
                 }

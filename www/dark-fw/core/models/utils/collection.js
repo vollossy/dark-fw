@@ -612,10 +612,11 @@ steal(
                  */
                 add: function(element){
                     var me = this,
-                        elements = me._elements();
+                        elements = me._elements(),
+                        pushed;
 
                     if( !me.contains(element) ){
-                        elements.push(element);
+                        pushed = elements.push(element);
                         me._elements(elements);
                         __p_triggerEvent.call(me, 'ADD', element);
                     }
