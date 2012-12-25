@@ -190,7 +190,7 @@ steal(
         /**
          * @class Dark.Models.Utils.Collection
          */
-        Dark.Model.extend("Dark.Models.Utils.Collection",
+        Dark.Models.Model.extend("Dark.Models.Utils.Collection",
             {
                 /**
                  * Псевдонимы текущей модели.

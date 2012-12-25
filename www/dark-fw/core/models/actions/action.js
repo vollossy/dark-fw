@@ -4,7 +4,7 @@ steal(
         /**
          * @class Dark.Models.Actions.Action
          */
-        Dark.Model("Dark.Models.Actions.Action",
+        Dark.Models.Model("Dark.Models.Actions.Action",
             {
                 /**
                  * Псевдонимы текущей модели.

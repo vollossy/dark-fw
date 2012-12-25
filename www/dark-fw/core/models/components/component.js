@@ -4,9 +4,9 @@ steal(
     function () {
         var __uid = 0;
         /**
-         * @class Dark.Model.Components.Component
+         * @class Dark.Models.Components.Component
          */
-        Dark.Model("Dark.Model.Components.Component",
+        Dark.Models.Model("Dark.Models.Components.Component",
             {
                 /**
                  * Псевдонимы текущей модели.
@@ -19,6 +19,11 @@ steal(
                  * @protected
                  */
                 _property: {
+                    id:{
+                        defValue: function(value){
+                            return value ? value : this.Class.shortName+"_"+__uid;
+                        }
+                    },
                     visible:{
                         defValue: 'T'
                     },

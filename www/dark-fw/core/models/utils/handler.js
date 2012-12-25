@@ -13,7 +13,7 @@ steal(
          * @author Константин Родионов ( Проколенко )
          * @author Konstantin.R.Dark
          */
-        Dark.Model("Dark.Models.Utils.Handler",
+        Dark.Models.Model("Dark.Models.Utils.Handler",
             /* @Static */
             {
                 /**

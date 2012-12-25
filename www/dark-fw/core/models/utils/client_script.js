@@ -4,7 +4,7 @@ steal(
         /**
          * @class Dark.Models.Utils.ClientScript
          */
-        Dark.Model("Dark.Models.Utils.ClientScript",
+        Dark.Models.Model("Dark.Models.Utils.ClientScript",
             {
                 _alias: [ "ClientScript" ],
 

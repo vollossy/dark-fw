@@ -17,6 +17,7 @@ steal(
             isArray         = $.isArray,
             darkStore = window.DarkStore = {};
 
+
         $.isUndefined = function(value){
             return value === undefined;
         };
@@ -24,10 +25,11 @@ steal(
             return Object.prototype.toString.call(object) == "[object String]";
         };
         $.isRawComponent = function(raw){
-            return !!raw.cType;
+            return !!raw.cType && !isFunction(raw.cType);
         };
         $.isComponent = function(raw){
             return raw instanceof Dark.Model;
+            // || !!raw.cType && isFunction(raw.cType)
         };
         $.isCollection = function(raw){
             return raw instanceof Dark.Models.Utils.Collection;
@@ -54,9 +56,9 @@ steal(
                     'Возможные причины : ' +
                     '1) Пытаемся создать класс который еще не загрузился. ' +
                     '2) Передали неизвестный cType с сервера';
-            if( !$.isRawComponent(raw) && !$.isComponent(raw) ){
-                throw Error(e1);
-            }
+            if( !$.isRawComponent(raw) && !$.isComponent(raw) )
+                throw new Error(e1);
+
             //!steal-remove-end
 
             if( $.isRawComponent(raw) ){
@@ -66,7 +68,8 @@ steal(
                 name = darkStore.M[type];
 
                 //!steal-remove-start
-                if ( name === undefined ) throw new Error(e2);
+                if ( name === undefined )
+                    throw new Error(e2);
                 //!steal-remove-end
 
                 instanceClass = $.String.getObject(name);
@@ -76,6 +79,7 @@ steal(
                 //!steal-remove-end
 
                 raw = instanceClass.newInstance(raw);
+
             }
 
             return raw;
@@ -417,7 +421,7 @@ steal(
         /**
          * @class Dark.Model
          */
-        $.Class("Dark.Model",
+        $.Class("Dark.Models.Model",
             {
                 /**
                  * Псевдонимы текущей модели.
@@ -429,11 +433,7 @@ steal(
                  * @protected
                  */
                 _property:{
-                    id:{
-                        defValue: function(value){
-                            return value ? value : this.Class.shortName+"_"+__uid;
-                        }
-                    }
+                    cType: {}
                 },
 
                 /**

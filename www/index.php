@@ -10,9 +10,9 @@ header('Content-Type: text/html; charset=utf-8');
         <script type='text/javascript' src='lib/javascriptMVC/steal/steal.js?../../dark-fw/dark-bootstrap.js,development'></script>
     </head>
     <body>
-        <script type="text/javascript">
-            //
-        </script>
+        <div>
+            <div id="playGround"></div>
+        </div>
     </body>
 </html>
 

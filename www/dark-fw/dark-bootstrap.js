@@ -1,26 +1,50 @@
 steal(
-	'steal/less', 			// application CSS file
-	'./dark-fw.css', 			// application CSS file
+    //!steal-remove-start
+    function(){ console.log('start load models'); }
+    //!steal-remove-end
+    ,'steal/less'
+    ,'./core/styles/bootstrap.min.css'
 
-    './core/models/actions/client_script_action.js',
-	'./core/models/components/component.js',
-	'./core/models/utils/collection.js'
+    ,'./core/models/actions/client_script_action.js'
+	,'./core/models/utils/collection.js'
 
-).then(function(){					// configure your application
-    console.log('load all');
-    $(document).ready(function(){
-        var component = $.toComponent({
-            cType : 'Component',
-            visible: false,
-            handlers: [
-                {
-                    cType: 'Handler',
-                    _isModel: true,
-                    eventName: 'visible',
-                    script: "console.log('Work', this);"
-                }
-            ]
+    //!steal-remove-start
+    ,function(){ console.log('all models is loaded'); }
+    //!steal-remove-end
+).then(
+    //!steal-remove-start
+    function(){ console.log('start load controllers'); }
+    //!steal-remove-end
+    ,'jquery/controller/view'
+    ,'./core/controllers/components/buttons/button_controller.js'
+
+    //!steal-remove-start
+    ,function(){ console.log('all controllers is loaded'); }
+    //!steal-remove-end
+    ,function(){					// configure your application
+        $(document).ready(function(){
+            var component = $.toComponent({
+                cType : 'Button',
+                text: "test"
+            });
+
+            $.createController(component, $('#playGround'));
         });
-        component.show();
-    });
-});
+    }
+
+).then(  //less
+
+    //!steal-remove-start
+    function(){
+        console.log('start load less');
+    }
+    //!steal-remove-end
+
+    ,'./core/styles/general.less'
+//    ,'./core/styles/bootstrap/bootstrap.less'
+
+    //!steal-remove-start
+    ,function(){ console.log('all less is loaded'); }
+    ,function(){ console.log('all dependency is loaded'); }
+    //!steal-remove-end
+);
