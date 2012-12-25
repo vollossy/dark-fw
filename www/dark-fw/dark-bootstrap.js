@@ -21,16 +21,6 @@ steal(
     //!steal-remove-start
     ,function(){ console.log('all controllers is loaded'); }
     //!steal-remove-end
-    ,function(){					// configure your application
-        $(document).ready(function(){
-            var component = $.toComponent({
-                cType : 'Button',
-                text: "test"
-            });
-
-            $.createController(component, $('#playGround'));
-        });
-    }
 
 ).then(  //less
 
@@ -47,4 +37,14 @@ steal(
     ,function(){ console.log('all less is loaded'); }
     ,function(){ console.log('all dependency is loaded'); }
     //!steal-remove-end
+    ,function(){					// configure your application
+        $(document).ready(function(){
+            var component = $.toComponent({
+                cType : 'Button',
+                text: "test"
+            });
+
+            $.createController(component, $('#playGround'));
+        });
+    }
 );
