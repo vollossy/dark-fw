@@ -11,8 +11,7 @@ steal(
             undefined = undefined,
             __isUndefined = $.isUndefined,
             __isPlainObject = $.isPlainObject,
-            __isFunction = $.isFunction,
-            __data = $.data;
+            __isFunction = $.isFunction;
 
         $.createController = function(model, element){
             model = $.isRawComponent(model) ? $.toComponent(model) : model;
@@ -49,11 +48,15 @@ steal(
             },
             __p_replaceRootElement = function(el, parent, options){
                 var next = el.next(),
-                    prev = el.prev();
+                    prev = el.prev(),
+                    old = el;
 
                 el.detach();
                 el = this._replaceRootElement(el, options).addClass(el.attr('class'));
 
+                if( old !== el ){
+                    old.remove();
+                }
                 if( prev.length ){
                     next.after(el);
                 }else if( next.length ){
@@ -72,12 +75,12 @@ steal(
              */
             __p_hookup = function(el, options){
                 this.component = options;
-                __data(el[0], 'component', options);
+                $.data(el[0], 'component', options);
             },
             __p_unHookup = function () {
                 var me = this;
                 me.component = undefined;
-                __data(me.element[0], 'component', undefined)
+                $.data(me.element[0], 'component', undefined)
             },
             __p_subscribeToProperty = function () {
                 var me = this,
@@ -192,8 +195,8 @@ steal(
                     me.__listUnbind = [];
 
                     el = __p_replaceRootElement.call(me, el, parent, options);
-                    __p_hookup.call(me, el, options);
                     me._super(el, options);
+                    __p_hookup.call(me, el, options);
                 },
 
                 /**
