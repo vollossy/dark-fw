@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Model.static", "type": "static", "parents": ["Dark.Models.Model"], "comment": "", "src": "dark-fw/models/model.js", "line": 457, "children": ["Dark.Models.Model.static._alias", "Dark.Models.Model.static._property", "Dark.Models.Model.static.setup"]})

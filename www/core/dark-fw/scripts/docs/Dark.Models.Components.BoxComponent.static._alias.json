@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.BoxComponent.static._alias", "type": "attribute", "parents": ["Dark.Models.Components.BoxComponent.static"], "comment": "<p>@protected\n@var {Array}</p>", "description": "Массив псевдонимов текущей модели.", "src": "dark-fw/models/components/box_component.js", "line": 12, "children": []})

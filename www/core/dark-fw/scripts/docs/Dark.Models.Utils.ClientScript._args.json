@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.ClientScript._args", "type": "attribute", "parents": ["Dark.Models.Utils.ClientScript"], "comment": "<p>@protected\n@var {Array} Массив имен аргументов для создаваемой функции</p>", "src": "dark-fw/models/utils/client_script.js", "line": 11, "children": []})

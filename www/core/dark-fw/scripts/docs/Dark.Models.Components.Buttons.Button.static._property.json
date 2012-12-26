@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Buttons.Button.static._property", "type": "attribute", "parents": ["Dark.Models.Components.Buttons.Button.static"], "comment": "<p>@protected\n@var {Object}</p>", "description": "Данное свойство содержит описания значении свойств класса - переданные ему в setup.", "src": "dark-fw/models/components/buttons/button.js", "line": 20, "children": []})

@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Buttons.Button.static._alias", "type": "attribute", "parents": ["Dark.Models.Components.Buttons.Button.static"], "comment": "<p>@protected\n@var {Array}</p>", "description": "Массив псевдонимов текущей модели.", "src": "dark-fw/models/components/buttons/button.js", "line": 12, "children": []})

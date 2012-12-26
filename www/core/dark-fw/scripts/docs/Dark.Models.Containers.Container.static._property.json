@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Containers.Container.static._property", "type": "attribute", "parents": ["Dark.Models.Containers.Container.static"], "comment": "<p>@protected\n@var {Object}</p>", "description": "Данное свойство содержит описания значении свойств класса - переданные ему в setup.", "src": "dark-fw/models/components/containers/container.js", "line": 20, "children": []})

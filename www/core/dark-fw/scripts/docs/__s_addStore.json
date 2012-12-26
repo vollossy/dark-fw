@@ -1,0 +1,1 @@
+c({"name": "__s_addStore", "type": "attribute", "comment": "<p>Добавление текущего класса в спец.хранилище которое содержит\nсоответствие короткого имени класса с длинным, а так же доступные alias.\n@context Static Class\n@see Dark.Model.setup()\n@private\n@var me</p>", "hide": true, "src": "dark-fw/models/model.js", "line": 154, "children": []})

@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.clear", "params": {}, "ret": {"description": "<p>Возвращает себя</p>", "type": "Class"}, "type": "function", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Очищает коллекцию</p>", "src": "dark-fw/models/utils/collection.js", "line": 590, "children": []})

@@ -1,11 +1,4 @@
 /*
- * @page controllers Controllers
- * @class Dark.Controllers.Controller
- * @parent index
- * @constructor
- * Creates a new customer.
- */
-/*
  * Author: Kostantin "Konstantin.R.Dark" Prokolenko
  * E-mail: Konstantin.R.Dark@gmail.com
  * Copyright (c) 2012.
@@ -43,6 +36,13 @@ steal(
 
             return instanceClass.newInstance(element, model);
         };
+        $.getComponent = function(selector){
+            return $(selector).data('component');
+        };
+
+        $.getComponentById = function(id){
+            return $('#' + id).data('component');
+        };
 
         var __s_addStore = function () {
                 var me = this,
@@ -58,10 +58,26 @@ steal(
             __p_replaceRootElement = function(el, parent, options){
                 var next = el.next(),
                     prev = el.prev(),
-                    old = el;
+                    old = el,
+                    attrs, nodeName, nodeValue;
 
                 el.detach();
-                el = this._replaceRootElement(el, options).addClass(el.attr('class'));
+                attrs = el[0].attributes;
+                el = this._replaceRootElement(el, options);
+                if( el !== old){
+                    for( var i = 0, cnt = attrs.length; i != cnt; i++ ){
+                        nodeName = attrs[i].nodeName;
+                        nodeValue = attrs[i].nodeValue;
+
+                        if( nodeName === 'class' ){
+                            el.addClass(nodeValue);
+                        }else if( nodeName === 'id' ){
+                            continue;
+                        }else{
+                            el.attr(nodeName, nodeValue);
+                        }
+                    }
+                }
 
                 if( old !== el ){
                     old.remove();
@@ -118,25 +134,38 @@ steal(
                 me.__listUnbind = undefined;
             }
         ;
+
         /**
          * @class Dark.Controllers.Controller
+         * @parent index
+         * @inherits jQuery.Controller
+         * @description
+         * Базовый класс для всех контроллеров
          */
         $.Controller.extend("Dark.Controllers.Controller",
-            {//Static
-
-                setup:function (superClass, fullName, staticProps, protoProps) {
+            /* @Static */
+            {
+                /**
+                 * @function setup Cтатическая инициализация данного класса
+                 * @param {Object} baseClass Базовый класс, от которого наследуются
+                 * @param {String} fullName Полное имя текущего класса
+                 * @param {Object} staticProps Статические свойства и методы текущего класса
+                 * @param {Object} protoProps Прототипные свойства и методы текущего класса
+                 * @description
+                 * Метод вызывается в момент когда произошла загрузка данного скрипта.
+                 */
+                setup:function (baseClass, fullName, staticProps, protoProps) {
                     var me = this;
-                    me._super(superClass, fullName, staticProps, protoProps);
+                    me._super(baseClass, fullName, staticProps, protoProps);
                     __s_addStore.call(me);
-                    me.css = !!me.css ? $.extend({}, superClass.css, me.css) : {};
-                },
-
-                css: {}
+                    me.css = !!me.css ? $.extend({}, baseClass.css, me.css) : {};
+                }
             },
-            {//Prototype
-                __listUnbind      :undefined,
-                component       :undefined,
-                parentElement   :undefined,
+            /* @Prototype */
+            {
+                __listUnbind    : undefined,
+                component       : undefined,
+                parentElement   : undefined,
 
                 /******************************************************************************************************
                  * Protected methods
@@ -169,17 +198,19 @@ steal(
                     var me = this,
                         property = me._getRenderParams(),
                         helpers = me._getRenderHelpers(),
-                        path = me.Class.tmpl.component;
+                        path = me.Class.tmpl.component,
+                        tmpl;
 
                     if( !!path ){
-                        //me.element[0].innerHtml = me.view(path, property)
-                        var tmpl = me.view('../../dark-fw/views/core/components/' + path, property, helpers);
-//                        var tmpl = $.View('../../../../../dark-fw/views/core/components/' + path, property);
+
+                        tmpl = me.view('../../dark-fw/views/core/components/' + path, property, helpers);
+
                         //!steal-remove-start
                         if (__isUndefined(tmpl))
                             throw new Error("Упал рендеринг шаблона!");
                         //!steal-remove-end
 
+                        //me.element[0].innerHtml = tmpl
                         me.element.append(tmpl);
                     }
                 },

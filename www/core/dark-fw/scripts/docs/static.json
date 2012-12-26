@@ -1,0 +1,1 @@
+c({"name": "static", "type": "static", "comment": "", "src": "dark-fw/models/utils/handler.js", "line": 16, "children": ["static._alias", "static._property", "static._isModel", "static.eventName", "static.script", "static.action"]})

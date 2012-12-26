@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Containers.Container.static._alias", "type": "attribute", "parents": ["Dark.Models.Containers.Container.static"], "comment": "<p>@protected\n@var {Array}</p>", "description": "Массив псевдонимов текущей модели.", "src": "dark-fw/models/components/containers/container.js", "line": 12, "children": []})

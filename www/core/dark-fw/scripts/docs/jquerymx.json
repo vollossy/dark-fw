@@ -1,0 +1,1 @@
+c({"name": "jquerymx", "children": ["jQuery.Class", "jquerymx.lang", "jQuery.Controller", "jQuery.View", "specialevents"]})

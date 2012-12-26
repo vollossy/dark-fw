@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Component._alias", "type": "attribute", "parents": ["Dark.Models.Components.Component"], "comment": "<p>Псевдонимы текущей модели.\n@protected</p>", "src": "dark-fw/models/components/component.js", "line": 10, "children": []})

@@ -1,0 +1,1 @@
+c({"name": "Dark.Controllers.Controller._subscribeToProperty", "type": "attribute", "parents": ["Dark.Controllers.Controller"], "comment": "<p>@protected</p>", "ret": {"description": "", "type": "Object"}, "src": "dark-fw/controllers/controller.js", "line": 186, "children": []})

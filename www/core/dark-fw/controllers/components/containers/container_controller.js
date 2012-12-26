@@ -35,26 +35,34 @@ steal(
                 }
             },
             {//Prototype
-                _getItemElement: function(){
-                    return $('<div class="' + this.getCss().item + '"></div>');
+                _getNewItemElement: function(key){
+                    return $('<div class="' + this.getCss().item + '" dark-attr-key="' + key + '"></div>');
                 },
 
                 _getItemWrapElement: function(){
                     return this.find('> .' + this.getCss('itemWrap'));
                 },
+
+                _getItemElements: function(){
+                    return $('> .' + this.getCss().item, this._getItemWrapElement());
+                },
+
+                _getItemElementByKey: function(key){
+                    return $('> .' + this.getCss().item + '[dark-attr-key="' + key + '"]' , this._getItemWrapElement());
+                },
+
                 /**
                  * Получает параметры для шаблона
                  * @return {Object}
                  */
                 _getRenderHelpers: function(){
                     var me = this,
-                        items = me.component.items(),
-                        css = me.getCss();
+                        items = me.component.items();
                     return {
                         toManyControllers: function(){
                             var result = [];
-                            items.map(function(){
-                                result.push(me._getItemElement());
+                            items.map(function(key, item){
+                                result.push(me._getNewItemElement(key));
                             });
                             return function(el) {
                                 var parent = $(el),
@@ -75,17 +83,30 @@ steal(
                 addItemCb: function(event, item){
                     var me = this,
                         items = me.component.items(),
-                        tag = me._getItemElement();
+                        tag = me._getNewItemElement();
 
-                    me._getItemWrapElement()[items.isStackMode() ? 'prepend' : 'append']($.createController(item, tag).element);
+                    me._getItemWrapElement(items.count() - 1)[items.isStackMode() ? 'prepend' : 'append']($.createController(item, tag).element);
                 },
 
-                setItemCb: function(event, element){
-                    debugger
+                setItemCb: function(event, item){
+                    var me = this,
+                        items = me.component.items(),
+                        key = items.getKey(item),
+                        element = me._getItemElementByKey(key);
+
+                    if( element ){
+                        element.replaceWith($.createController(item, me._getNewItemElement(key)).element)
+                    }else{
+                        me.addItemCb(false, element);
+                    }
                 },
 
-                removeItemCb: function(event, element){
-                    debugger
+                removeItemCb: function(event, item){
+                    var element = $('#' + item.id());
+
+                    if( element ){
+                        element.remove();
+                    }
                 },
 
                 /******************************************************************************************************

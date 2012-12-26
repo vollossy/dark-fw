@@ -1,0 +1,1 @@
+c({"name": "static._isModel", "type": "attribute", "parents": ["static"], "comment": "<p>То есть подписываться нужно на события модели.\n@protected\n@var {Boolean}</p>", "description": "Флаг указатель что событие обработки - серверное.", "params": {}, "ret": {"description": "", "type": "Boolean"}, "src": "dark-fw/models/utils/handler.js", "line": 33, "children": []})

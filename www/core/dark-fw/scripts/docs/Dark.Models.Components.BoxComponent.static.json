@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.BoxComponent.static", "type": "static", "parents": ["Dark.Models.Components.BoxComponent"], "comment": "", "src": "dark-fw/models/components/box_component.js", "line": 10, "children": ["Dark.Models.Components.BoxComponent.static._alias", "Dark.Models.Components.BoxComponent.static._property"]})

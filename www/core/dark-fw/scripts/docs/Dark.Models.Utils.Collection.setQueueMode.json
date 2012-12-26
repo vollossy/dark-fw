@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.setQueueMode", "params": {}, "ret": {"description": "", "type": "Class"}, "type": "function", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Устанавливает режим \"очереди\" для коллекции</p>", "src": "dark-fw/models/utils/collection.js", "line": 374, "children": []})

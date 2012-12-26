@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Actions.ClientScriptAction._alias", "type": "attribute", "parents": ["Dark.Models.Actions.ClientScriptAction"], "comment": "<p>Псевдонимы текущей модели.\n@protected</p>", "src": "dark-fw/models/actions/client_script_action.js", "line": 23, "children": []})

@@ -26,11 +26,15 @@ steal(
                         { cType: 'Button', text: 'button2' },
                         { cType: 'Button', text: 'button3' }
                     ]
-                });
+                }),
+                controller;
 
             component.items().setStackMode();
             $.createController(component, $('#playGround'));
-            component.items().add(button);
+            // Todo нужно так же завести событие по изменению режима со стека на очередь
+
+            component.items().set(1, button);
+            component.items().removeElement(button);
         });
     }
 );

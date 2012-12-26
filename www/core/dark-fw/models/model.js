@@ -1,10 +1,3 @@
-/*
- * @page models Models
- * @class Dark.Models.Model
- * @parent index
- * @constructor
- * Creates a new customer.
- */
 steal(
     'jquery/class/class.js'
     ,function () {
@@ -92,6 +85,7 @@ steal(
             __s_defSetters = {},
             __s_defConvert = {
                 /**
+                 * @hide
                  * Создает простую коллекцию Dark.Models.Utils.Collection
                  * @param {Object} property
                  * @params {Array|Object|Dark.Models.Utils.Collection} value
@@ -102,6 +96,7 @@ steal(
                         : Dark.Models.Utils.Collection.newInstance({ _elements: value });
                 },
                 /**
+                 * @hide
                  * Создает коллекцию Dark.Models.Utils.Collection и активирует режим "Подписчики"
                  * @param {Object} property
                  * @params {Array|Object|Dark.Models.Utils.Collection} value
@@ -158,6 +153,7 @@ steal(
             },
             __s_dependenceProperty = undefined,
             /**
+             * @hide
              * Добавление текущего класса в спец.хранилище которое содержит
              * соответствие короткого имени класса с длинным, а так же доступные alias.
              * @context Static Class
@@ -184,6 +180,7 @@ steal(
                 return me;
             },
             /**
+             * @hide
              * @context Static Class
              */
             __s_initProperty = function (property, descriptor) {
@@ -233,6 +230,7 @@ steal(
                 return __s_createBoth.call(this, property, descriptor);
             },
             /**
+             * @hide
              * @context Static Class
              */
             __s_createBoth = function (property, descriptor) {
@@ -316,6 +314,7 @@ steal(
                 }
             },
             /**
+             * @hide
              * @context Static Class
              */
             __s_initDependenceProperty = function () {
@@ -331,6 +330,7 @@ steal(
                 }
             },
             /**
+             * @hide
              * @context Static Class
              */
             __s_prepareProperty = function (key) {
@@ -379,6 +379,7 @@ steal(
                 me._property[key].mark = 'black';
             },
             /**
+             * @hide
              * @context Static Class
              */
             __s_clearMarkProperty = function () {
@@ -388,7 +389,12 @@ steal(
                 }
             },
             /**
-             * @context Static Class
+             * @add Dark.Models.Model.prototype
+             * @description
+             * Метод переклыдвает значение свойства
+             * @function __p_extendProp
+             * @param {String} key Ключ текущего обрабатываемого атрибута
+             * @param {Object} attr Пришедшие атрибуты
              */
             __p_extendProp = function(key, attr){
                 var me = this,
@@ -419,33 +425,188 @@ steal(
         ;
 
         /**
-         * @class Dark.Model
+         * @class Dark.Models.Model
+         * @alias Model
+         * @inherits jQuery.Class
+         * @parent index
+         * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
+         * @description
+         * Базовый класс для всех моделей
+         *
+         * Создать экземпляр класса модели можно двумя способами.
+         *
+         * При помощи newInstance:
+         * @codestart
+         * var data = {
+         *       // Тут передаются данные для свойств модели
+         *     },
+         *     classButton = Dark.Models.Components.Buttons.Button.newInstance(data);
+         * @codeend
+         *
+         * При помощи фабричного метода $.toComponent:
+         * @codestart
+         * var data = {
+         *     cType : 'Button', //Тут передается alias нужной модели
+         *     id: 5, // &#1048мя свойства класса и значение этого свойства класса
+         *     ... // Другие свойства
+         *   },
+         *   classButton = $.toComponent(data);
+         * @codeend
+         *
          */
         $.Class("Dark.Models.Model",
+            /* @Static */
             {
                 /**
-                 * Псевдонимы текущей модели.
-                 * @protected
+                 * @description
+                 * Массив строк - псевдонимов для текущей модели.
+                 *
+                 * По умолчанию содержит в себе только одно название - shortName текущего класса.
+                 *
+                 * Нужен в ситуации когда модель данных одна и та же - но cType на сервере разный.
+                 * @type {Array}
                  */
                 _alias:[ 'Model' ],
                 /**
+                 * @attribute _property
+                 * @description
                  * Данное свойство содержит описания значении свойств класса - переданные ему в setup.
-                 * @protected
+                 *
+                 * __Пример__:
+                 * @codestart
+                 * _property : {
+                 *      cType: {
+                 *          /**
+                 *           * @param {Object} description Описание для свойства cType
+                 *           * @return {*}
+                 *           *|
+                 *          get : function(description){
+                 *              return this[description.field];
+                 *          },
+                 *          /**
+                 *           * @param {Object} description Описание для свойства cType
+                 *           * @param {*} value Устанавливаемое значение
+                 *           * @return {Dark.Models.Model}
+                 *           *|
+                 *          set: function(description, value){
+                 *             this.[description.field] = value;
+                 *             return this;
+                 *          },
+                 *          /**
+                 *           * @param {Object} description Описание для свойства cType
+                 *           * @return {Array}
+                 *           *|
+                 *          defValue: function(description){
+                 *             return new Array();
+                 *          }
+                 *      }
+                 * }
+                 * @codeend
+                 *
+                 * __Cвойство может содержать в себе следующие настройки:__
+                 *
+                 * * __field__ - имя свойства в котором физически хранится значение.
+                 * * __get__ - функция вызывается при попытке получить значения свойства
+                 * * __fnBeforeSet__ - функция вызывается перед set
+                 * * __set__ - функция вызывается при попытке установить новое значение в свойство
+                 * * __fnAfterSet__ - функция вызывается после set
+                 * * __defValue__ -
+                 *
+                 * __get:__
+                 *
+                 * Если данное свойство определено как функция то используем ее,
+                 * если не определено значит используем стандартную функцию getter.
+                 *
+                 * __!!! Функция обязательно должна возвращать хранимое значение !!!__
+                 * @codestart
+                 * cType: {
+                 *   /**
+                 *    * @param {Object} description Описание для свойства cType
+                 *    * @return {*}
+                 *    *|
+                 *    get : function(description){
+                 *       // Тело функции по умолчанию, если своство cType.get == undefined
+                 *       return this[description.field];
+                 *    }
+                 * }
+                 * @codeend
+                 *
+                 * __set:__
+                 *
+                 * Если данное свойство определено как функция то используем ее,
+                 * если не определено значит используем стандартную функцию setter.
+                 *
+                 * __!!! Функция обязательно должна возвращать this !!!__
+                 * @codestart
+                 * cType: {
+                 *   /**
+                 *    * @param {Object} description Описание для свойства cType
+                 *    * @param {*} value Устанавливаемое значение
+                 *    * @return {Dark.Models.Model}
+                 *    *|
+                 *    set : function(description, value){
+                 *       // Тело функции по умолчанию, если своство cType.set == undefined
+                 *       this.[description.field] = value;
+                 *       return this;
+                 *    }
+                 * }
+                 * @codeend
+                 *
+                 * __fnBeforeSet:__
+                 *
+                 * Вызывается перед вызовом set.
+                 * Если свойство определено как функция то вызываем ее,
+                 * иначе если не определено - используем стандартную функцию fnBeforeSet.
+                 *
+                 * __!!! Функция обязательно должна возвращать переданное в нее значение !!!__
+                 * @codestart
+                 * cType: {
+                 *   /**
+                 *    * @param {Object} description Описание для свойства cType
+                 *    * @param {*} value Устанавливаемое значение
+                 *    * @return {*}
+                 *    *|
+                 *    fnBeforeSet : function(description, value){
+                 *       // Тело функции по умолчанию, если своство cType.fnBeforeSet == undefined
+                 *       return value;
+                 *    }
+                 * }
+                 * @codeend
+                 *
+                 * __fnAfterSet:__
+                 *
+                 * Вызывается после вызова set.
+                 * Если свойство определено как функция то вызываем ее,
+                 * иначе если не определено - используем стандартную функцию fnBeforeSet.
+                 *
+                 * __!!! Функция обязательно должна возвращать переданное в нее значение !!!__
+                 * @codestart
+                 * cType: {
+                 *   /**
+                 *    * @param {Object} description Описание для свойства cType
+                 *    * @param {*} value Устанавливаемое значение
+                 *    * @return {*}
+                 *    *|
+                 *    fnAfterSet : function(description, value){
+                 *       // Тело функции по умолчанию, если своство cType.fnAfterSet == undefined
+                 *       return value;
+                 *    }
+                 * }
+                 * @codeend
+                 *
                  */
                 _property:{
                     cType: {}
                 },
 
                 /**
-                 * Метод вызывается в момент когда произошла загрузка данного скрипта.
-                 * По сути - статическая инициализация данного класса
-                 * @link http://javascriptmvc.com/docs.html#!jQuery.Class.static.setup
-                 * @public
-                 *
+                 * @function setup Cтатическая инициализация данного класса
                  * @param {Object} baseClass Базовый класс, от которого наследуются
                  * @param {String} fullName Полное имя текущего класса
                  * @param {Object} staticProps Статические свойства и методы текущего класса
                  * @param {Object} protoProps Прототипные свойства и методы текущего класса
+                 * @description
+                 * Метод вызывается в момент когда произошла загрузка данного скрипта.
                  */
                 setup: function (baseClass, fullName, staticProps, protoProps) {
                     var me = this,
@@ -467,9 +628,31 @@ steal(
                 }
 
             },
+            /* @Prototype */
             {
+                /**
+                 * @attribute _initializing
+                 * @description
+                 * Указатель - находится ли модель в процессе инициализации. &#1048;спользуется в функции setup.
+                 * Модель не публикует событий если _initializing === true
+                 * @codestart
+                 * setup:function (attributes) {
+                 *      me._initializing = true;
+                 *      .....
+                 *      Тело метода setup
+                 *      .....
+                 *      me._initializing = false;
+                 * @codeend
+                 */
                 _initializing: false,
 
+                /**
+                 * @function setup
+                 * @param {Object} attributes Данные для создания экземпляра классы модели.
+                 * @description
+                 * Метод вызывается при создании экземпляра класса модели.
+                 * Переданные данные из attributes перекладывает в созданную модель.
+                 */
                 setup:function (attributes) {
                     var me = this,
                         prop = __s_dependenceProperty[me.Class.shortName],
@@ -484,18 +667,59 @@ steal(
                     me._initializing = false;
                 },
 
-                init:function () {
-
-                },
-
+                /**
+                 * @function toComponent
+                 * @param {Object} raw Json данные для модели
+                 * @return {Dark.Models.Model} Экземпляр класса модели
+                 * @description
+                 * Превращает "сырую" модель данных в экземпляр компонента
+                 *
+                 * Формат примаемых данных:
+                 * @codestart
+                 * {
+                 *   cType : 'Button', //Тут передается alias нужной модели
+                 *   id: 5, // &#1048мя свойства класса и значение этого свойства класса
+                 *   ... // Другие свойства
+                 * }
+                 * @codeend
+                 */
                 toComponent: function(raw){
                     return toComponent(raw);
                 },
 
+                /**
+                 * @function toManyComponent
+                 * @param {Array} raw Массив Json данных содержащий в себе объекты "сырых" моделей
+                 * @return {Array} Массив экземпляров класса модели
+                 * @description
+                 * Превращает массив "сырых" моделей данных в экземпляры компонентов
+                 *
+                 * Формат примаемых данных:
+                 * @codestart
+                 * [
+                 *   {
+                 *     cType : 'Button', //Тут передается alias нужной модели
+                 *     id: 5, // &#1048мя свойства класса и значение этого свойства класса
+                 *     ... // Другие свойства
+                 *   },
+                 *   {
+                 *     cType : 'Button', //Тут передается alias нужной модели
+                 *     id: 5, // &#1048мя свойства класса и значение этого свойства класса
+                 *     ... // Другие свойства
+                 *   }
+                 * ]
+                 * @codeend
+                 */
                 toManyComponent: function(raw){
                     return toManyComponent(raw);
                 }
-
+                /**
+                 * @function cType
+                 * @param {String|undefined}
+                 * @return {Dark.Models.Model|String}
+                 * @description
+                 * В данной функции содержится текущий Alias модели по которому был создан экземпляр класса.
+                 */
             }
         );
     }

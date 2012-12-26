@@ -1,0 +1,1 @@
+c({"name": "__p_remove", "params": {"key": {"description": "", "type": "", "optional": false, "order": 0, "name": "key"}}, "ret": {"description": "", "type": "Class"}, "type": "function", "comment": "<p>Удаляет елемент из коллекции\n@context prototype\n@private</p>", "src": "dark-fw/models/utils/collection.js", "line": 161, "children": []})

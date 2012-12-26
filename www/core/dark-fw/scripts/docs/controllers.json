@@ -1,0 +1,1 @@
+c({"name": "controllers", "type": "page", "comment": "", "title": "Controllers", "parents": ["index"], "construct": "<p>Creates a new customer.</p>", "ret": {"type": "controllers", "description": ""}, "src": "dark-fw/controllers/controller.js", "line": 0, "children": ["__p_hookup"]})

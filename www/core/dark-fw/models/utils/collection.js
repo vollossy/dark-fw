@@ -537,6 +537,22 @@ steal(
                 },
 
                 /**
+                 * Возвращает ключ по которому хранится елемент
+                 * @param {*} element елемент в коллекции
+                 * @return {Number|String}
+                 */
+                getKey: function(element){
+                    var me = this,
+                        resKey;
+                    me.map(function(key, item){
+                        if( element === item ){
+                            resKey = key;
+                        }
+                    });
+                    return resKey;
+                },
+
+                /**
                  * Возвращает массив всех ключей/индексов коллекции
                  * @return {Array}
                  */
@@ -592,11 +608,17 @@ steal(
                         pushed;
 
                     if( !me.contains(element) ){
-                        pushed = elements.push(element);
 
                         if( isString(key) ){
-                            this.__objKey()[key] = --pushed;
-                            this.__iObjKey()[pushed] = key;
+                            pushed = elements.push(element);
+
+                            if( isString(key) ){
+                                this.__objKey()[key] = --pushed;
+                                this.__iObjKey()[pushed] = key;
+                            }
+                        }
+                        if( !isString(key) ){
+                            elements[key] = element;
                         }
                         me._elements(elements);
                         __p_triggerEvent.call(me, 'SET', element);

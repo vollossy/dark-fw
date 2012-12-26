@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Actions.ClientScriptAction", "type": "class", "comment": "", "src": "dark-fw/models/actions/client_script_action.js", "line": 18, "children": ["Dark.Models.Actions.ClientScriptAction._alias", "Dark.Models.Actions.ClientScriptAction.script", "Dark.Models.Actions.ClientScriptAction.execute"]})

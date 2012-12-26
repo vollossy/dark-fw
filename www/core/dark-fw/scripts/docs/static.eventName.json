@@ -1,0 +1,1 @@
+c({"name": "static.eventName", "type": "attribute", "parents": ["static"], "comment": "<p>@public\n@var {Object}</p>", "description": "�?мя события по которому срабатывает данный обработчик", "params": {}, "ret": {"description": "", "type": "String"}, "src": "dark-fw/models/utils/handler.js", "line": 47, "children": []})
