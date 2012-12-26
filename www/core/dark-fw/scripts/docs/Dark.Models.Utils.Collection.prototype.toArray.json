@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.prototype.toArray", "params": {}, "ret": {"description": "", "type": "Array"}, "type": "function", "parents": ["Dark.Models.Utils.Collection.prototype"], "comment": "<p>Возвращает значения коллекции в виде массива</p>", "src": "dark-fw/models/utils/collection.js", "line": 414, "children": []})

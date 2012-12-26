@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Component.static._property", "type": "attribute", "parents": ["Dark.Models.Components.Component.static"], "comment": "<p>Данное свойство содержит значения свойств класса - переданные ему в setup.\n@protected</p>", "hide": true, "src": "dark-fw/models/components/component.js", "line": 21, "children": []})

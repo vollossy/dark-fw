@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.BoxComponent.getters.height", "params": {}, "ret": {"description": "", "type": "Number"}, "type": "function", "parents": ["Dark.Models.Components.BoxComponent.getters"], "comment": "<p>Возвращает значение высоты компонента.</p>", "src": "dark-fw/models/components/box_component.js", "line": 100, "children": []})

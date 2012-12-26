@@ -1,1 +1,0 @@
-c({"name": "Dark.Controllers.Controller._getRenderHelpers", "params": {}, "ret": {"description": "", "type": "Object"}, "type": "function", "parents": ["Dark.Controllers.Controller"], "comment": "<p>Получает параметры для шаблона</p>", "src": "dark-fw/controllers/controller.js", "line": 154, "children": []})

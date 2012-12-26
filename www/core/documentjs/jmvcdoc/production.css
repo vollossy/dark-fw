@@ -300,7 +300,7 @@ html*#searchRoundCorners {
     color: gray
 }
 
-#nav .prototype, #nav .static {
+#nav .prototype, #nav .static, #nav .getters, #nav .setters  {
     color: gray
 }
 

@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.static.isMuteMode", "type": "attribute", "parents": ["Dark.Models.Utils.Collection.static"], "comment": "<p>Режим \"Молчание\"\nПо умолчанию выключен</p>\n\n<p>@public Приходит с сервера</p>", "src": "dark-fw/models/utils/collection.js", "line": 290, "children": []})

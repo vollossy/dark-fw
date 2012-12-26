@@ -79,5 +79,7 @@ steal.then(function() {
 .then('documentjs/types/function.js')
 .then('documentjs/types/page.js')
 .then('documentjs/types/prototype.js')
+.then('documentjs/types/getters.js')
+.then('documentjs/types/setters.js')
 .then('documentjs/types/script.js')
 .then('documentjs/types/static.js');

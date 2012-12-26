@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.static.__objKey", "type": "attribute", "parents": ["Dark.Models.Utils.Collection.static"], "comment": "<p>Список строковых ключей и их соответсвие в числовом значении\nПо умолчанию пустой объект\nТолько клиентское свойство\n@private</p>", "src": "dark-fw/models/utils/collection.js", "line": 217, "children": []})

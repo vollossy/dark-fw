@@ -1,0 +1,1 @@
+c({"name": "property.getters.height", "params": {}, "ret": {"description": "", "type": "Number"}, "type": "function", "parents": ["property.getters"], "comment": "<p>Возвращает значение высоты компонента.</p>", "src": "dark-fw/models/components/box_component.js", "line": 92, "children": []})

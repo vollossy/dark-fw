@@ -1,0 +1,1 @@
+c({"name": "property.prototype", "type": "prototype", "parents": ["property"], "comment": "", "src": "dark-fw/models/components/box_component.js", "line": 46, "children": ["property.prototype.widthToString", "property.prototype.heightToString"]})

@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Model.static._property.cType", "type": "attribute", "parents": ["Dark.Models.Model.static"], "comment": "<p>В данном свойстве содержится Alias модели которую нужно создать.</p>", "description": "", "src": "dark-fw/models/model.js", "line": 593, "children": []})

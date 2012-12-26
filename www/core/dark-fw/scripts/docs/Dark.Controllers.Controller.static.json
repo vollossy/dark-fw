@@ -1,1 +1,1 @@
-c({"name": "Dark.Controllers.Controller.static", "type": "static", "parents": ["Dark.Controllers.Controller"], "comment": "", "src": "dark-fw/controllers/controller.js", "line": 145, "children": ["Dark.Controllers.Controller.static.setup"]})
+c({"name": "Dark.Controllers.Controller.static", "type": "static", "parents": ["Dark.Controllers.Controller"], "comment": "", "src": "dark-fw/controllers/controller.js", "line": 151, "children": ["Dark.Controllers.Controller.static.setup"]})

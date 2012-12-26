@@ -1,0 +1,1 @@
+c({"name": "property.getters.size", "params": {}, "ret": {"description": "", "type": "String"}, "type": "function", "parents": ["property.getters"], "comment": "<p>Возвращает единицу измерения размеров компонента.</p>", "src": "dark-fw/models/components/box_component.js", "line": 97, "children": []})

@@ -38,7 +38,7 @@
 				resName = res.name.replace("jQuery.","$.")
 				titleCleaned = title.replace("jQuery.","$."); 
 			%>
-		    <a href="<%=current.type == 'prototype' || current.type == 'static' ? 'javascript://': $.route.url({who: name}) %>" 
+		    <a href="<%=current.type == 'prototype' || current.type == 'getters || current.type == 'setters' || current.type == 'static' ? 'javascript://': $.route.url({who: name}) %>"
 			   class='result choice <%=current.type%>' 
 			   style="padding-left: <%= hasStaticOrPrototype ? res.length * 20 : 20%>px"
 			   data-name="<%= current.name %>">

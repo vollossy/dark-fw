@@ -32,14 +32,14 @@ steal(
 
                 widthChange:function (event, element) {
                     var me = this,
-                        width = me.component.getWidth();
+                        width = me.component.widthToString();
 
                     if( width != 'auto' ) me._getCurrentElement().width(width);
                 },
 
                 heightChange:function (event, element) {
                     var me = this,
-                        height = me.component.getHeight();
+                        height = me.component.heightToString();
 
                     if( height != 'auto' ) me._getCurrentElement().height(height);
                 },

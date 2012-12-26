@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection.isObserversMode", "type": "attribute", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Режим \"Подписчики\"\nПо умолчанию выключен</p>\n\n<p>@public Приходит с сервера</p>", "src": "dark-fw/models/utils/collection.js", "line": 274, "children": []})

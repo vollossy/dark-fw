@@ -2,26 +2,34 @@ steal(
     '../model.js',
     '../utils/handler.js',
     function () {
-        var __uid = 0;
         /**
          * @class Dark.Models.Components.Component
+         * @alias Component
+         * @inherits Dark.Models.Model
+         * @parent Dark.Models.Model
+         * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
         Dark.Models.Model("Dark.Models.Components.Component",
+            /* @Static */
             {
                 /**
                  * Псевдонимы текущей модели.
+                 * @hide
                  * @protected
                  */
                 _alias:[ 'Component' ],
 
                 /**
                  * Данное свойство содержит значения свойств класса - переданные ему в setup.
+                 * @hide
                  * @protected
                  */
                 _property: {
                     id:{
                         defValue: function(value){
-                            return value ? value : this.Class.shortName+"_"+__uid;
+                            var meClass = this.Class,
+                                id = meClass.__uid++;
+                            return value ? value : meClass.shortName + "_" + id;
                         }
                     },
                     visible:{
@@ -39,8 +47,11 @@ steal(
                         converter : 'componentsC',
                         defValue: 'C'
                     }
-                }
+                },
+
+                __uid : 0
             },
+            /* @Prototype */
             {
                 init:function () {
                     var me = this,
@@ -103,6 +114,22 @@ steal(
                     });
                     return a.join('; ');
                 }
+
+                /**
+                 * @function id
+                 * @param {Number|undefined}
+                 * @return {Dark.Models.Components.Component|Number}
+                 * @description
+                 * Идентификатор компонента. По умолчанию: генерируется автоматически
+                 */
+                /**
+                 * @function visible
+                 * @param {Boolean|undefined}
+                 * @return {Dark.Models.Model|Boolean}
+                 * @description
+                 * Значение высоты контейнера компонента. По умолчанию: "auto".
+                 */
+
             }
         );
     }

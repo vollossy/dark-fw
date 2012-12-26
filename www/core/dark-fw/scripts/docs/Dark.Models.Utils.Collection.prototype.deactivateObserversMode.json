@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.prototype.deactivateObserversMode", "params": {}, "ret": {"description": "", "type": "Class"}, "type": "function", "parents": ["Dark.Models.Utils.Collection.prototype"], "comment": "<p>Выключает режим \"Подписчики\"</p>", "src": "dark-fw/models/utils/collection.js", "line": 358, "children": []})

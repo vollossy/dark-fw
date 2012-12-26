@@ -1,0 +1,1 @@
+c({"name": "Dark.Controllers.Controller.prototype.render", "params": {}, "ret": {"type": "undefined", "description": ""}, "type": "function", "parents": ["Dark.Controllers.Controller.prototype"], "comment": "<p>Отрисовка контроллера.</p>", "description": "", "src": "dark-fw/controllers/controller.js", "line": 275, "children": []})

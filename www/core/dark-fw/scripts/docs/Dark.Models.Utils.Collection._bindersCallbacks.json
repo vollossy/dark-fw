@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection._bindersCallbacks", "type": "attribute", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Коллекции callback подписчиков</p>", "src": "dark-fw/models/utils/collection.js", "line": 295, "children": []})

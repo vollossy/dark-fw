@@ -31,7 +31,7 @@
 			   title = (current.title ? current.title: current.name);
 	           res = calculateDisplay(previous, title);
 			   name = normalizeName(current.name) %>
-		    <a href="<%=current.type == 'prototype' || current.type == 'static' ? 'javascript://': '#&who='+name%>" class='result choice <%=current.type%>' style="padding-left: <%= res.length * 20%>px">
+		    <a href="<%=current.type == 'prototype' || current.type == 'getters' || current.type == 'setters' || current.type == 'static' ? 'javascript://': '#&who='+name%>" class='result choice <%=current.type%>' style="padding-left: <%= res.length * 20%>px">
 		    	<%=res.name.replace("jQuery.","$.")%>
 			</a>
 			<% previous = title%>

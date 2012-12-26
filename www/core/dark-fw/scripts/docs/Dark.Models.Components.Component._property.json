@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Components.Component._property", "type": "attribute", "parents": ["Dark.Models.Components.Component"], "comment": "<p>Данное свойство содержит значения свойств класса - переданные ему в setup.\n@protected</p>", "src": "dark-fw/models/components/component.js", "line": 16, "children": []})

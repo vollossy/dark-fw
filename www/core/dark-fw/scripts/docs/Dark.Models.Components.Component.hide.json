@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Components.Component.hide", "params": {}, "ret": {"description": "<p>{*}</p>", "type": undefined}, "type": "function", "parents": ["Dark.Models.Components.Component"], "comment": "<p>Делает компонент невидимым</p>", "src": "dark-fw/models/components/component.js", "line": 68, "children": []})

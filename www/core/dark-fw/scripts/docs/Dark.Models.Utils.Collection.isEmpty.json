@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection.isEmpty", "params": {}, "ret": {"description": "<p>Если коллекция пустая вернет true иначе false</p>", "type": "Boolean"}, "type": "function", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Проверяет пустая ли коллекция</p>", "src": "dark-fw/models/utils/collection.js", "line": 582, "children": []})

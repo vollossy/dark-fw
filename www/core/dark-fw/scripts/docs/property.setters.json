@@ -1,0 +1,1 @@
+c({"name": "property.setters", "type": "setters", "parents": ["property"], "comment": "", "src": "dark-fw/models/components/box_component.js", "line": 64, "children": ["property.setters.width", "property.setters.height", "property.setters.size"]})

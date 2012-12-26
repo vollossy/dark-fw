@@ -1,0 +1,1 @@
+c({"name": "property.prototype.heightToString", "params": {}, "ret": {"description": "", "type": "String"}, "type": "function", "parents": ["property.prototype"], "comment": "<p>Возвращает значение высоты елемента в текущей еденице измерений</p>", "src": "dark-fw/models/components/box_component.js", "line": 55, "children": []})

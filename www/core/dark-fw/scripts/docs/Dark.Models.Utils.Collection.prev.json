@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection.prev", "params": {}, "ret": {"description": "<p>{*}</p>", "type": undefined}, "type": "function", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Устанавливает внутренний итератор на предидущий елемент в коллекции от текущего и возвращает его</p>", "src": "dark-fw/models/utils/collection.js", "line": 437, "children": []})

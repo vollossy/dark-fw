@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Component.prototype.toggleVisible", "params": {}, "ret": {"description": "<p>{*}</p>", "type": undefined}, "type": "function", "parents": ["Dark.Models.Components.Component.prototype"], "comment": "<p>Переключкает режим видимости компонента</p>", "src": "dark-fw/models/components/component.js", "line": 87, "children": []})

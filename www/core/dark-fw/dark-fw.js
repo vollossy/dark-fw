@@ -35,6 +35,11 @@ steal(
 
             component.items().set(1, button);
             component.items().removeElement(button);
+
+            setTimeout(function(){
+                console.log('refresh');
+                component.items().setQueueMode();
+            }, 3000)
         });
     }
 );

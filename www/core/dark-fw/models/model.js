@@ -640,8 +640,6 @@ steal(
                  *      me._initializing = true;
                  *      .....
                  *      Тело метода setup
-                 *      .....
-                 *      me._initializing = false;
                  * @codeend
                  */
                 _initializing: false,
@@ -663,8 +661,19 @@ steal(
                     for (key in prop) {
                         __p_extendProp.call(me, prop[key], attributes);
                     }
+                },
 
-                    me._initializing = false;
+                /**
+                 * @function init
+                 * @description
+                 * Инициализация экземпляра модели. Включает публикачцию событий.
+                 * @codestart
+                 * init:function () {
+                 *      this._initializing = false;
+                 * @codeend
+                 */
+                init: function(){
+                    this._initializing = false;
                 },
 
                 /**

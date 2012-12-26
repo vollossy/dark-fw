@@ -1,0 +1,1 @@
+c({"name": "property.getters", "type": "getters", "parents": ["property"], "comment": "", "src": "dark-fw/models/components/box_component.js", "line": 85, "children": ["property.getters.width", "property.getters.height", "property.getters.size"]})

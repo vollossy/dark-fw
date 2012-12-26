@@ -33,7 +33,7 @@ steal("jquery/controller", "jquery/lang/observe/delegate", "jquery/view/ejs", "d
 steal.loaded("documentjs/jmvcdoc/content/content.js");
 steal("jquery/controller", "jquery/lang/observe/delegate", "jquery/view/ejs", "documentjs/jmvcdoc/models/search.js", "documentjs/jmvcdoc/resources/helpers.js", "documentjs/jmvcdoc/tooltip.js", function (k) {
     k.Controller("Jmvcdoc.Nav", {defaults:{}}, {"{$.route} who set":function (c, r, l) {
-        for (r = Doc.findOne({name:l}); r.parents && (!r.childDocs || !r.childDocs.length || /static|prototype/i.test(r.type));)r = Doc.findOne({name:r.parents[0]});
+        for (r = Doc.findOne({name:l}); r.parents && (!r.childDocs || !r.childDocs.length || /static|prototype|getters|setters/i.test(r.type));)r = Doc.findOne({name:r.parents[0]});
         c = [r];
         for (l = r; l.parents && l.parents.length;) {
             l = Doc.findOne({name:l.parents[0]});
@@ -42,7 +42,7 @@ steal("jquery/controller", "jquery/lang/observe/delegate", "jquery/view/ejs", "d
         r = r.children().slice(0);
         l = 0;
         var o, y;
-        for (o = false; l < r.length;)if (/static|prototype/.test(r[l].type)) {
+        for (o = false; l < r.length;)if (/static|prototype|getters|setters/.test(r[l].type)) {
             o = [l + 1, 0];
             y = r[l].children();
             o.push.apply(o, y);
@@ -72,7 +72,7 @@ steal("jquery/controller", "jquery/lang/observe/delegate", "jquery/view/ejs", "d
         this._isInvalidMenuItem(c) ||
         c.addClass("highlight")
     }, _isInvalidMenuItem:function (c) {
-        return c.hasClass("prototype") || c.hasClass("static")
+        return c.hasClass("prototype") || c.hasClass("static") || c.hasClass("getters") || c.hasClass("setters")
     }})
 }, "./views/results.ejs");
 steal.loaded("documentjs/jmvcdoc/nav/nav.js");
@@ -6056,7 +6056,7 @@ steal("jquery/view/ejs").then(function (k) {
                         name = normalizeName(o.name);
                         c.push("\n");
                         c.push('\t\t    <a href="');
-                        c.push(jQuery.EJS.clean(o.type == "prototype" || o.type == "static" ? "javascript://" : "#&who=" + name));
+                        c.push(jQuery.EJS.clean(o.type == "prototype" || o.type == "static" || o.type == "getters" || o.type == "setters" ? "javascript://" : "#&who=" + name));
                         c.push("\" class='result choice ");
                         c.push(jQuery.EJS.clean(o.type));
                         c.push("' style=\"padding-left: ");
@@ -6509,7 +6509,7 @@ steal("jquery/view/ejs").then(function (k) {
                         I = y.replace("jQuery.", "$.");
                         c.push("\n");
                         c.push('\t\t    <a href="');
-                        c.push(jQuery.EJS.clean(o.type == "prototype" || o.type == "static" ? "javascript://" : k.route.url({who:name})));
+                        c.push(jQuery.EJS.clean(o.type == "prototype" || o.type == "static" || o.type == "getters" || o.type == "setters" ? "javascript://" : k.route.url({who:name})));
                         c.push('" \n');
                         c.push("\t\t\t   class='result choice ");
                         c.push(jQuery.EJS.clean(o.type));

@@ -10,8 +10,9 @@ steal(
             isPlainObject = $.isPlainObject,
             isString      = $.isString,
             __EVENTS = {
-                ADD     :  "addElementFromCollection",
+                ADD     : "addElementFromCollection",
                 SET     : "setElementFromCollection",
+                MODE    : "changeModeCollection",
                 REMOVE  : "removeElementFromCollection"
             },
             /**
@@ -31,6 +32,7 @@ steal(
                 binders[__EVENTS['ADD']] = Collection.newInstance();
                 binders[__EVENTS['SET']] = Collection.newInstance();
                 binders[__EVENTS['REMOVE']] = Collection.newInstance();
+                binders[__EVENTS['MODE']] = Collection.newInstance();
 
                 me._bindersCallbacks = binders;
 
@@ -189,8 +191,13 @@ steal(
 
         /**
          * @class Dark.Models.Utils.Collection
+         * @alias Collection
+         * @inherits Dark.Models.Model
+         * @parent Dark.Models.Model
+         * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
         Dark.Models.Model.extend("Dark.Models.Utils.Collection",
+            /* @Static */
             {
                 /**
                  * Псевдонимы текущей модели.
@@ -292,6 +299,7 @@ steal(
                     }
                 }
             },
+            /* @Prototype */
             {
                 /**
                  * Коллекции callback подписчиков
@@ -310,12 +318,14 @@ steal(
                     if( me.isObserversMode() ){
                         __p_activateObserversMode.call(me)
                     }
-                    binders[__EVENTS.ADD] = me.callback(cb);
-                    binders[__EVENTS.SET] = me.callback(cb);
-                    binders[__EVENTS.REMOVE] = me.callback(cb);
+                    binders[__EVENTS.ADD] = me.proxy(cb);
+                    binders[__EVENTS.SET] = me.proxy(cb);
+                    binders[__EVENTS.REMOVE] = me.proxy(cb);
+                    binders[__EVENTS.MODE] = me.proxy(cb);
 
                     $(this).bind(binders);
                 },
+
                 /**
                  * Вызывает callback для всех подписчиков если включен режим "подписчики" и не включен режим "молчания"
                  * @context prototype
@@ -369,7 +379,10 @@ steal(
                  * @return {Class}
                  */
                 setStackMode: function(){
-                    return this._mode('stack');
+                    var me = this,
+                        _mode = me._mode('stack');
+                    __p_triggerEvent.call(me, 'MODE', me._mode());
+                    return _mode;
                 },
 
                 /**
@@ -377,7 +390,10 @@ steal(
                  * @return {Class}
                  */
                 setQueueMode: function(){
-                    return this._mode('queue');
+                    var me = this,
+                        _mode = me._mode('queue');
+                    __p_triggerEvent.call(me, 'MODE', me._mode());
+                    return _mode;
                 },
 
                 /**
@@ -652,23 +668,6 @@ steal(
                  * @param {Function} callback Функция обратного вызова
                  * @return {Class} Возвращает себя
                  */
-                toView: function(html){
-                    var me = this,
-                        result = '';
-
-                    me.map(function(key, element){
-                        result += html;
-                    });
-
-                    return result;
-                },
-
-                /**
-                 * Возвращает текущую пару ключ/значение из массива с вызовом callback для каждого елемента.
-                 * В callback передаются два параметра - ключ/индекс и елемент
-                 * @param {Function} callback Функция обратного вызова
-                 * @return {Class} Возвращает себя
-                 */
                 map: function(callback){
                     var me = this,
                         i = __p_getIdx.call(me), cnt = __p_getCnt.call(me);
@@ -739,6 +738,7 @@ steal(
                     var me = this;
                     __p_bindOuterEvents.call(me, 'ADD', callback);
                     __p_bindOuterEvents.call(me, 'SET', callback);
+                    __p_bindOuterEvents.call(me, 'MODE', callback);
                     return __p_bindOuterEvents.call(me, 'REMOVE', callback)
                 },
 
@@ -759,6 +759,14 @@ steal(
                 },
 
                 /**
+                 * Подписаться на событие изменения режима коллекции
+                 * @param {Function} callback Функция обратного вызова
+                 */
+                bindWithChangeModeEvent: function(callback){
+                    return __p_bindOuterEvents.call(this, 'MODE', callback)
+                },
+
+                /**
                  * Подписаться на событие удаления елемента из коллекции
                  * @param {Function} callback Функция обратного вызова
                  */
@@ -774,6 +782,7 @@ steal(
                     var me = this;
                     __p_unbindOuterEvents.call(me, 'ADD', callback);
                     __p_unbindOuterEvents.call(me, 'SET', callback);
+                    __p_unbindOuterEvents.call(me, 'MODE', callback);
                     return __p_unbindOuterEvents.call(me, 'REMOVE', callback);
                 },
 
@@ -791,6 +800,14 @@ steal(
                  */
                 unbindWithSetEvent: function(callback){
                     return __p_unbindOuterEvents.call(this, 'SET', callback)
+                },
+
+                /**
+                 * Отписаться от события изменения режима коллекции
+                 * @param {Function} callback Функция обратного вызова
+                 */
+                unbindWithChangeModeEvent: function(callback){
+                    return __p_unbindOuterEvents.call(this, 'MODE', callback)
                 },
 
                 /**

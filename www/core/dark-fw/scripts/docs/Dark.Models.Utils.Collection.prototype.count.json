@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Utils.Collection.prototype.count", "params": {}, "ret": {"description": "", "type": "Number"}, "type": "function", "parents": ["Dark.Models.Utils.Collection.prototype"], "comment": "<p>Возвращает колличество елементов в коллекции</p>", "src": "dark-fw/models/utils/collection.js", "line": 590, "children": []})

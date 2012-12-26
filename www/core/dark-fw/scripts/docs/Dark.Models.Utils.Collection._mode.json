@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection._mode", "type": "attribute", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Текущий режим коллекции, поддерживаются два режима - стек и очередь.\nПо умолчанию активен режим \"очереди\"</p>\n\n<p>@protected Приходит с сервера</p>", "src": "dark-fw/models/utils/collection.js", "line": 265, "children": []})

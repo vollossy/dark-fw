@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.BoxComponent.getters.width", "params": {}, "ret": {"description": "", "type": "Number"}, "type": "function", "parents": ["Dark.Models.Components.BoxComponent.getters"], "comment": "<p>Возвращает значение ширины компонента.</p>", "src": "dark-fw/models/components/box_component.js", "line": 95, "children": []})

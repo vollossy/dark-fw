@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Utils.Collection.getValues", "params": {}, "ret": {"description": "", "type": "Array"}, "type": "function", "parents": ["Dark.Models.Utils.Collection"], "comment": "<p>Возвращает массив всех елементов коллекции</p>", "src": "dark-fw/models/utils/collection.js", "line": 567, "children": []})

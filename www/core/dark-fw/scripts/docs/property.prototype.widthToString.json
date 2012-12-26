@@ -1,0 +1,1 @@
+c({"name": "property.prototype.widthToString", "params": {}, "ret": {"description": "", "type": "String"}, "type": "function", "parents": ["property.prototype"], "comment": "<p>Возвращает значение ширину елемента в текущей еденице измерений</p>", "src": "dark-fw/models/components/box_component.js", "line": 48, "children": []})

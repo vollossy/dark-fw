@@ -30,7 +30,7 @@ $.Controller('Jmvcdoc.Nav',
 		// get parent ...
 		
 		while(focus.parents && 
-			( !focus.childDocs || !focus.childDocs.length || /static|prototype/i.test( focus.type ) ) ) {
+			( !focus.childDocs || !focus.childDocs.length || /static|prototype|getters/i.test( focus.type ) ) ) {
 			focus =  Doc.findOne({name: focus.parents[0]})
 		}
 		var path = [focus], curParent = focus;
@@ -49,7 +49,7 @@ $.Controller('Jmvcdoc.Nav',
 		while(i < list.length){
 			// if we have static or prototype, we need to insert those into the
 			// list after the prototype
-			if(/static|prototype/.test( list[i].type ) ) {
+			if(/static|prototype|getters/.test( list[i].type ) ) {
 				args = [i+1,0];
 				children = list[i].children()
 				args.push.apply(args, children);
@@ -128,7 +128,7 @@ $.Controller('Jmvcdoc.Nav',
 		}
 	},
 	_isInvalidMenuItem: function( el ) {
-		return (el.hasClass("prototype") || el.hasClass("static"))
+		return (el.hasClass("prototype") || el.hasClass("static") || el.hasClass("getters"))
 	}
 })
 

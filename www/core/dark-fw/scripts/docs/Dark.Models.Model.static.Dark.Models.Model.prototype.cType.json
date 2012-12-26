@@ -1,1 +1,0 @@
-c({"name": "Dark.Models.Model.static.Dark.Models.Model.prototype.cType", "type": "function", "parents": ["Dark.Models.Model.static"], "comment": "", "starts_scope": true, "params": {}, "ret": {"description": "", "type": "Dark.Models.Model|String"}, "src": "dark-fw/models/model.js", "line": 475, "children": []})

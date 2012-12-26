@@ -55,6 +55,12 @@ steal(
 
                 return me;
             },
+            /**
+             * @param {jQuery} el jQuery Dom елемент
+             * @param {jQuery} parent jQuery Dom parent елемент
+             * @param {Dark.Models.Model} options Экземпляр модели
+             * @return {jQuery}
+             */
             __p_replaceRootElement = function(el, parent, options){
                 var next = el.next(),
                     prev = el.prev(),
@@ -238,23 +244,28 @@ steal(
                  * Public methods
                  *****************************************************************************************************/
                 /*
-                 * @param el
-                 * @param options
+                 * @function setup
+                 * @param {jQuery} el jQuery Dom елемент
+                 * @param {Dark.Models.Model} model Экземпляр модели для которой вызывается контроллер
+                 * @description
+                 * Метод создания экземпляра контроллера
                  */
-                setup:function (el, options) {
+                setup:function (el, model) {
                     var me = this,
                         parent = el.parent();
 
                     me.parentElement = parent;
                     me.__listUnbind = [];
 
-                    el = __p_replaceRootElement.call(me, el, parent, options);
-                    me._super(el, options);
-                    __p_hookup.call(me, el, options);
+                    el = __p_replaceRootElement.call(me, el, parent, model);
+                    me._super(el, model);
+                    __p_hookup.call(me, el, model);
                 },
 
                 /**
-                 *
+                 * @function init
+                 * @description
+                 * Инициализация экземпляра контроллера. Вызываются методы render и _subscribeToProperty
                  */
                 init:function () {
                     var me = this;
@@ -262,10 +273,34 @@ steal(
                     __p_subscribeToProperty.call(me);
                 },
 
+                /**
+                 * @function render
+                 * @description
+                 * Отрисовка контроллера.
+                 */
                 render: function(){
                     this._renderTemplate();
                 },
 
+                /**
+                 * @function refresh
+                 * @description
+                 * Очищает this.element и вызывает повторно вызывает отрисовку контроллера. ( this.render() )
+                 */
+                refresh: function(){
+                    var me = this;
+                    me.element.empty();
+                    me.render();
+                },
+
+                /**
+                 * @function getCss
+                 * @param {String} className Имя свойства в котором содержится строка с имененм класса
+                 * @return {Object|String}
+                 * @description
+                 * Возвращает все css классы объявленные в контроллере в статическом свойстве css.
+                 * Если className === undefined вернется весь объект иниче только значение свйоства css[className]
+                 */
                 getCss: function(className){
                     return ( !!className ) ? this.Class.css[className] : this.Class.css;
                 },

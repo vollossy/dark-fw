@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Component.prototype.cssToSting", "params": {}, "ret": {"description": "", "type": "String"}, "type": "function", "parents": ["Dark.Models.Components.Component.prototype"], "comment": "<p>Конвертирует коллекцию содержащую css свойства в строку</p>", "src": "dark-fw/models/components/component.js", "line": 96, "children": []})

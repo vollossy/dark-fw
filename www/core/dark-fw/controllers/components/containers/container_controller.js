@@ -8,6 +8,7 @@ steal(
                 collection.bindWithAddEvent(me.proxy('addItemCb'));
                 collection.bindWithSetEvent(me.proxy('setItemCb'));
                 collection.bindWithRemoveEvent(me.proxy('removeItemCb'));
+                collection.bindWithChangeModeEvent(me.proxy('refresh'));
             },
             __p_unbindToEventCollection = function(){
                 var me = this,
@@ -15,6 +16,7 @@ steal(
                 collection.unbindWithAddEvent(me.proxy('addItemCb'));
                 collection.unbindWithSetEvent(me.proxy('setItemCb'));
                 collection.unbindWithRemoveEvent(me.proxy('removeItemCb'));
+                collection.unbindWithChangeModeEvent(me.proxy('refresh'));
             };
 
         /**
