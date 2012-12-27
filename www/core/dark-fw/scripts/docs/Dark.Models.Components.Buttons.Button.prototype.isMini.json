@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Buttons.Button.prototype.isMini", "params": {}, "ret": {"description": "", "type": "Button"}, "type": "function", "parents": ["Dark.Models.Components.Buttons.Button.prototype"], "comment": "<p>Проверяет устанавлен ли mini масштаб кнопки</p>", "src": "dark-fw/models/components/buttons/button.js", "line": 69, "children": []})

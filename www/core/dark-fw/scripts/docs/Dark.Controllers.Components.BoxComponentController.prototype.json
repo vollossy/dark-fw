@@ -1,0 +1,1 @@
+c({"name": "Dark.Controllers.Components.BoxComponentController.prototype", "type": "prototype", "parents": ["Dark.Controllers.Components.BoxComponentController"], "comment": "", "src": "dark-fw/controllers/components/box_component_controller.js", "line": 18, "children": ["Dark.Controllers.Components.BoxComponentController.prototype.render"]})

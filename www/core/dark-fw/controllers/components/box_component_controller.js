@@ -4,16 +4,19 @@ steal(
     function () {
         /**
          * @class Dark.Controllers.Components.BoxComponentController
+         * @alias BoxComponentController
          * @inherits Dark.Controllers.Components.ComponentController
-         * @author Константин Родионов ( Проколенко )
-         * @author Konstantin.R.Dark
+         * @parent Dark.Controllers.Components.ComponentController
+         * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
         Dark.Controllers.Components.ComponentController("Dark.Controllers.Components.BoxComponentController",
+            /* @Static */
             {//Static
                 tmpl:{},
 
                 css:{}
             },
+            /* @Prototype */
             {//Prototype
                 /******************************************************************************************************
                  * Protected methods

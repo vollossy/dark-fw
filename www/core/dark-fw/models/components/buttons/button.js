@@ -28,14 +28,108 @@ steal(
                  * @var {Object}
                  */
                 _property:{
-                    text: {
-                        defValue: ""
-                    }
+                    text: "",
+                    display: 'inline',
+                    scale: 'default'
                 }
             },
             /* @Prototype */
             {
+                /***************************************************
+                 *  Scale
+                 **************************************************/
 
+                /**
+                 * Устанавливает mini масштаб кнопки
+                 * @return {Button}
+                 */
+                setScaleMini: function(){
+                    return this.scale('mini');
+                },
+                /**
+                 * Устанавливает mini масштаб кнопки
+                 * @return {Button}
+                 */
+                setScaleSmall: function(){
+                    return this.scale('small');
+                },
+                /**
+                 * Устанавливает default масштаб кнопки
+                 * @return {Button}
+                 */
+                setScaleDefault: function(){
+                    return this.scale('default');
+                },
+                /**
+                 * Устанавливает large масштаб кнопки
+                 * @return {Button}
+                 */
+                setScaleLarge: function(){
+                    return this.scale('large');
+                },
+                /**
+                 * Проверяет устанавлен ли mini масштаб кнопки
+                 * @return {Button}
+                 */
+                isMini: function(){
+                    return this.scale() == 'mini';
+                },
+                /**
+                 * Проверяет устанавлен ли small масштаб кнопки
+                 * @return {Button}
+                 */
+                isSmall: function(){
+                    return this.scale() == 'small';
+                },
+                /**
+                 * Проверяет устанавлен ли default масштаб кнопки
+                 * @return {Button}
+                 */
+                isDefault: function(){
+                    return this.scale() == 'default';
+                },
+                /**
+                 * Проверяет устанавлен ли large масштаб кнопки
+                 * @return {Button}
+                 */
+                isLarge: function(){
+                    return this.scale() == 'large';
+                },
+
+                /***************************************************
+                 *  Display
+                 **************************************************/
+
+                /**
+                 * Устанавливает inline-режим отображения кнопки
+                 * @return {Button}
+                 */
+                setDisplayInline: function(){
+                    return this.display('inline');
+                },
+                /**
+                 * Устанавливает block-режим отображения кнопки
+                 * @return {Button}
+                 */
+                setDisplayBlock: function(){
+                    return this.display('block');
+                },
+
+                /**
+                 * Определяет находится ли кнопка в inline-режиме
+                 * @return {Boolean}
+                 */
+                isInline: function(){
+                    return this.display() == 'inline';
+                },
+
+                /**
+                 * Определяет находится ли кнопка в block-режиме
+                 * @return {Boolean}
+                 */
+                isBlock: function(){
+                    return this.display() == 'block';
+                }
             }
         );
     }

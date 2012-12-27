@@ -17,8 +17,8 @@ steal(
             return !!raw.cType && !isFunction(raw.cType);
         };
         $.isComponent = function(raw){
-            return raw instanceof Dark.Model;
-            // || !!raw.cType && isFunction(raw.cType)
+//            return raw instanceof Dark.Model;
+            return !!raw.cType && isFunction(raw.cType)
         };
         $.isCollection = function(raw){
             return raw instanceof Dark.Models.Utils.Collection;
@@ -213,6 +213,8 @@ steal(
                 // Имя события которое срабатывает при $(this).triggerHandler(...)
                 if (isUndefined(descriptor.eventName)) descriptor.eventName = property;
 
+                if (isUndefined(descriptor.triggerEvent)) descriptor.triggerEvent = property;
+
                 //Пароноидальная шизофрения сотой степени :), далее идут абсолютно бессмысленные записи
 
                 // Зависимости от других свойств
@@ -236,6 +238,7 @@ steal(
             __s_createBoth = function (property, descriptor) {
                 var isFunction = $.isFunction,
                     eventName = descriptor.eventName,
+                    triggerEvent = descriptor.triggerEvent,
                     get = descriptor.get,
                     set = descriptor.set,
                     beforeSet = descriptor.fnBeforeSet,
@@ -258,35 +261,39 @@ steal(
                                 : me[desc.field];
                         },
                         oldValue = fnGet.call(me, descriptor),
-                        fnSet = function (desc, val) {
+                        fnSet = function (desc, value, oldValue) {
                             var me = this;
                             // Если cеттер переопределен внутри __property как функция значит вызовем ее
                             // иначе проверим в массиве __s_defSetters
                             //      если там найдем функцию с именем определенным в set значит вызовем ее
                             // иначе просто запишем переданное значение
                             isFunction(set)
-                                ? val = set.call(me, desc)
+                                ? value = set.call(me, desc, value, oldValue)
                                 : !!__s_defSetters[set] && isFunction(__s_defSetters[set])
-                                ? val = __s_defSetters[set].call(me, desc)
-                                : me[desc.field] = val;
+                                ? value = __s_defSetters[set].call(me, desc, value, oldValue)
+                                : me[desc.field] = value;
 
-                            return val;
+                            return value;
                         },
-                        fnBeforeSet = function (val) {
+                        fnBeforeSet = function (descriptor, value, oldValue) {
                             var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
-                            return isFunction(beforeSet) ? beforeSet.call(me, val) : val;
+                            return isFunction(beforeSet) ? beforeSet.call(me, descriptor, value, oldValue) : value;
                         },
-                        fnAfterSet = function (val) {
+                        fnAfterSet = function (descriptor, value, oldValue) {
                             var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
-                            return isFunction(afterSet) ? afterSet.call(me, val) : val;
+                            return isFunction(afterSet) ? afterSet.call(me, descriptor, value, oldValue) : value;
                         },
-                        triggerPropertyEvent = function (val) {
+                        triggerPropertyEvent = function (descriptor, value, oldValue) {
                             var me = this;
                             // Если класс не находится в режиме инициализации то тригнем событие изменения свойства
-                            if (!me._initializing) {
-                                $(me).triggerHandler(eventName, val);
+                            if( isFunction(triggerEvent) ){
+                                triggerEvent.call(me, descriptor, value, oldValue);
+                            }else{
+                                if (!me._initializing) {
+                                    $(me).triggerHandler(eventName, value);
+                                }
                             }
                             return this;
                         };
@@ -309,7 +316,7 @@ steal(
                     // Вызовем цепочку функций fnBeforeSet, fnSet, fnAfterSet, triggerPropertyEvent
                     // И вернем this
                     if (value !== oldValue) {
-                        return triggerPropertyEvent.call(me, fnAfterSet.call(me, fnSet.call(me, descriptor, fnBeforeSet.call(me,value))));
+                        return triggerPropertyEvent.call(me, descriptor, fnAfterSet.call(me, descriptor, fnSet.call(me, descriptor, fnBeforeSet.call(me, descriptor, value, oldValue), oldValue), oldValue), oldValue);
                     }
                 }
             },
@@ -596,8 +603,15 @@ steal(
                  *
                  */
                 _property:{
-                    cType: {}
+                    cType: {},
+                    id: function(value){
+                        var meClass = this.Class,
+                            id = meClass.__uid++;
+                        return value ? value : meClass.shortName + "_" + id;
+                    }
                 },
+
+                __uid : 0,
 
                 /**
                  * @function setup Cтатическая инициализация данного класса
@@ -610,14 +624,22 @@ steal(
                  */
                 setup: function (baseClass, fullName, staticProps, protoProps) {
                     var me = this,
-                        prop;
+                        prop, description;
                     __s_addStore.call(me);
 
                     if (me._property === baseClass._property)
                         me._property = {};
 
                     for (prop in me._property) {
-                        me.prototype[prop] = __s_initProperty.call(me, prop, me._property[prop]);
+                        description = me._property[prop];
+
+                        if( !$.isPlainObject(description) ){
+                            description = me._property[prop] = {
+                                defValue: description
+                            };
+                        }
+
+                        me.prototype[prop] = __s_initProperty.call(me, prop, description);
                     }
 
                     if (baseClass._property)

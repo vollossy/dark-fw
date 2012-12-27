@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Layouts.FlowLayout.static", "type": "static", "parents": ["Dark.Models.Layouts.FlowLayout"], "comment": "", "src": "dark-fw/models/layouts/flow_layout.js", "line": 11, "children": ["Dark.Models.Layouts.FlowLayout.static._alias", "Dark.Models.Layouts.FlowLayout.static._property"]})

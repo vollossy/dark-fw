@@ -142,11 +142,12 @@ steal(
         ;
 
         /**
-         * @class Dark.Controllers.Controller
-         * @parent index
-         * @inherits jQuery.Controller
-         * @description
          * Базовый класс для всех контроллеров
+         * @class Dark.Controllers.Controller
+         * @alias Controller
+         * @inherits jQuery.Controller
+         * @parent index
+         * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
         $.Controller.extend("Dark.Controllers.Controller",
             /* @Static */
@@ -188,7 +189,7 @@ steal(
                     };
                 },
                 /**
-                 * Получает параметры для шаблона
+                 * Получает Helpers для шаблона
                  * @return {Object}
                  */
                 _getRenderHelpers: function(){
@@ -263,20 +264,27 @@ steal(
                 },
 
                 /**
-                 * @function init
-                 * @description
                  * Инициализация экземпляра контроллера. Вызываются методы render и _subscribeToProperty
                  */
                 init:function () {
-                    var me = this;
+                    var me = this,
+                        element = me.element,
+                        mCssClass = 'dark-' + me.component.cType().toLowerCase();
+
+                    $.data(element[0], 'sysCssClass', element.attr('class') + ' ' + mCssClass);
+
+                    element.addClass(mCssClass);
                     me.render();
+
                     __p_subscribeToProperty.call(me);
                 },
 
+                getSysCssClass: function(){
+                    return $.data(this.element[0], 'sysCssClass');
+                },
+
                 /**
-                 * @function render
-                 * @description
-                 * Отрисовка контроллера.
+                 * Отрисовка контроллера. Вызываем рендеринг шаблона ( _renderTemplate )
                  */
                 render: function(){
                     this._renderTemplate();

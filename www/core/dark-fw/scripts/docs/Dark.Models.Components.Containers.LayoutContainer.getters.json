@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Containers.LayoutContainer.getters", "type": "getters", "parents": ["Dark.Models.Components.Containers.LayoutContainer"], "comment": "", "src": "dark-fw/models/components/containers/layout_container.js", "line": 37, "children": ["Dark.Models.Components.Containers.LayoutContainer.getters.layouts"]})

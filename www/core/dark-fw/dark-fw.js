@@ -5,10 +5,10 @@
  * ###Little Dark-fw
  */
 steal(
-    './dark-fw.css'
-    ,'dark-fw/plugin'
+    'dark-fw/plugin'
 
     ,'dark-fw/styles/bootstrap.min.css'
+    ,'./dark-fw.css'
 
     ,'dark-fw/models/actions/client_script_action.js'
     ,'dark-fw/models/utils/collection.js'
@@ -18,28 +18,75 @@ steal(
 
     ,function(){
         $(document).ready(function(){
-            var button = $.toComponent({ cType: 'Button', text: 'button4' }),
+            var button = $.toComponent({ cType: 'Button', text: 'button2' }),
                 component = $.toComponent({
                     cType : 'Container',
+                    height: 500,
+                    layout: {
+                        cType: 'HLayout'
+                    },
                     items: [
-                        { cType: 'Button', text: 'button1' },
-                        { cType: 'Button', text: 'button2' },
-                        { cType: 'Button', text: 'button3' }
+                        {
+                            cType : 'Container',
+                            items: [
+                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button3' }
+                            ]
+                        },
+                        {
+                            cType : 'Container',
+                            items: [
+                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button3' }
+                            ]
+                        },
+                        {
+                            cType : 'Container',
+                            items: [
+                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button3' }
+                            ]
+                        }
                     ]
                 }),
                 controller;
 
             component.items().setStackMode();
             $.createController(component, $('#playGround'));
+
+//            console.log(component.layout().__container() === component );
+//            component.layout().align('left');
+
             // Todo нужно так же завести событие по изменению режима со стека на очередь
-
-            component.items().set(1, button);
-            component.items().removeElement(button);
-
-            setTimeout(function(){
-                console.log('refresh');
-                component.items().setQueueMode();
-            }, 3000)
+//            button.setDisplayInline();
+//            component.items().set(1, button);
+//            component.items().removeElement(button);
+//
+//            setTimeout(function(){
+//                console.log('refresh');
+//                component.items().setQueueMode();
+//            }, 3000)
+// Test на изменение масштаба
+//            setTimeout(function(){
+//                console.log('change scale mini');
+//                button.setScaleMini();
+//                setTimeout(function(){
+//                    console.log('change scale small');
+//                    button.setScaleSmall();
+//                    setTimeout(function(){
+//                        console.log('change scale default');
+//                        button.setScaleDefault();
+//                        setTimeout(function(){
+//                            console.log('change scale large');
+//                            button.setScaleLarge();
+//                            setTimeout(function(){
+//                                console.log('change scale default');
+//                                button.setScaleDefault();
+//                            }, 3000)
+//                        }, 3000)
+//                    }, 3000)
+//                }, 3000)
+//            }, 3000)
         });
     }
 );

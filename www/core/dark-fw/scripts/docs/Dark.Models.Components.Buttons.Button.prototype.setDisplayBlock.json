@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Buttons.Button.prototype.setDisplayBlock", "params": {}, "ret": {"description": "", "type": "Button"}, "type": "function", "parents": ["Dark.Models.Components.Buttons.Button.prototype"], "comment": "<p>Устанавливает block-режим отображения кнопки</p>", "src": "dark-fw/models/components/buttons/button.js", "line": 109, "children": []})

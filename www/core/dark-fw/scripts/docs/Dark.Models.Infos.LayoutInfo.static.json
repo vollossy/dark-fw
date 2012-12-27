@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Infos.LayoutInfo.static", "type": "static", "parents": ["Dark.Models.Infos.LayoutInfo"], "comment": "", "src": "dark-fw/models/infos/layout_info.js", "line": 11, "children": ["Dark.Models.Infos.LayoutInfo.static._alias", "Dark.Models.Infos.LayoutInfo.static._property"]})

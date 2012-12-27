@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Containers.Container.prototype", "type": "prototype", "parents": ["Dark.Models.Components.Containers.Container"], "comment": "", "src": "dark-fw/models/components/containers/container.js", "line": 72, "children": ["Dark.Models.Components.Containers.Container.prototype.getDomElement"]})

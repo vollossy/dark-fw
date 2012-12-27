@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Layouts.VLayout.static._alias", "type": "attribute", "parents": ["Dark.Models.Layouts.VLayout.static"], "comment": "<p>@protected</p>", "description": "Массив псевдонимов текущей модели.", "hide": true, "src": "dark-fw/models/layouts/v_layout.js", "line": 13, "children": []})

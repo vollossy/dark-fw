@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Layouts.HLayout.static._property", "type": "attribute", "parents": ["Dark.Models.Layouts.HLayout.static"], "comment": "<p>@protected</p>", "description": "Данное свойство содержит описания значении свойств класса - переданные ему в setup.", "hide": true, "src": "dark-fw/models/layouts/h_layout.js", "line": 20, "children": []})

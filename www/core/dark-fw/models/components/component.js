@@ -25,16 +25,7 @@ steal(
                  * @protected
                  */
                 _property: {
-                    id:{
-                        defValue: function(value){
-                            var meClass = this.Class,
-                                id = meClass.__uid++;
-                            return value ? value : meClass.shortName + "_" + id;
-                        }
-                    },
-                    visible:{
-                        defValue: 'T'
-                    },
+                     visible: 'T',
                     css:{
                         converter: 'bindOC',
                         defValue: 'bindOC'
@@ -47,9 +38,7 @@ steal(
                         converter : 'componentsC',
                         defValue: 'C'
                     }
-                },
-
-                __uid : 0
+                }
             },
             /* @Prototype */
             {

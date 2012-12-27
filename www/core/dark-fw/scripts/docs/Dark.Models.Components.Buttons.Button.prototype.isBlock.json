@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Buttons.Button.prototype.isBlock", "params": {}, "ret": {"description": "", "type": "Boolean"}, "type": "function", "parents": ["Dark.Models.Components.Buttons.Button.prototype"], "comment": "<p>Определяет находится ли кнопка в block-режиме</p>", "src": "dark-fw/models/components/buttons/button.js", "line": 125, "children": []})

@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Components.Containers.Container.setters", "type": "setters", "parents": ["Dark.Models.Components.Containers.Container"], "comment": "", "src": "dark-fw/models/components/containers/container.js", "line": 105, "children": ["Dark.Models.Components.Containers.Container.setters.layout"]})

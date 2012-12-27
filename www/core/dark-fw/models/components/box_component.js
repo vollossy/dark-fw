@@ -27,29 +27,9 @@ steal(
                  * @hide
                  */
                 _property:{
-                    /**
-                     * @attribute size
-                     * @type String
-                     */
-                    size: {
-                        defValue: 'px'
-                    },
-                    /**
-                     * @attribute width
-                     * @type Number
-                     * @param {Number} [width="auto"]
-                     */
-                    width:{
-                        defValue: 'auto'
-                    },
-                    /**
-                     * @attribute height
-                     * @type Number
-                     * @param {Number} [width="auto"]
-                     */
-                    height:{
-                        defValue: 'auto'
-                    }
+                    size: 'px',
+                    width: 'auto',
+                    height: 'auto'
                 }
             },
             /* @Prototype */

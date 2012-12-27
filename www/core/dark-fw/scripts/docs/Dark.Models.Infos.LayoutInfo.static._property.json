@@ -1,0 +1,1 @@
+c({"name": "Dark.Models.Infos.LayoutInfo.static._property", "type": "attribute", "parents": ["Dark.Models.Infos.LayoutInfo.static"], "comment": "<p>@protected</p>", "description": "Данное свойство содержит описания значении свойств класса - переданные ему в setup.", "hide": true, "src": "dark-fw/models/infos/layout_info.js", "line": 20, "children": []})

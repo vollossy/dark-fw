@@ -981,8 +981,18 @@ DocumentationHelpers = {previousIndent:0, calculateDisplay:function (k, c) {
 }, signiture:function () {
     var k = [], c = this._data.name;
     c = c.replace("jQuery.", "$.");
-    var r = c.lastIndexOf(".static."), l = c.lastIndexOf(".prototype.");
-    if (r != -1)c = c.substring(0, r) + "." + c.substring(r + 8); else if (l != -1)c = jQuery.String.underscore(c.substring(0, l).replace("$.", "")) + "." + c.substring(l + 11);
+    var r = c.lastIndexOf(".static."),
+        l = c.lastIndexOf(".prototype."),
+        g = c.lastIndexOf(".getters."),
+        s = c.lastIndexOf(".setters.");
+    if (r != -1)
+        c = c.substring(0, r) + "." + c.substring(r + 8);
+    else if (l != -1)
+        c = c.substring(0, l).replace("$.", "") + "." + c.substring(l + 11);
+    else if (g != -1)
+        c = c.substring(0, g).replace("$.", "") + "." + c.substring(g + 9);
+    else if (s != -1)
+        c = c.substring(0, s).replace("$.", "") + "." + c.substring(s + 9);
     if (this._data.construct)c = "new " + c;
     r = orderedParams(this._data.params);
     for (l = 0; l < r.length; l++)k.push(r[l].name);
@@ -6095,7 +6105,7 @@ steal("jquery/view/ejs").then(function (k) {
                 c.push("<div class='top'>\n");
                 c.push('\t<div class="content">\n');
                 c.push("\t    <h1>");
-                c.push(jQuery.EJS.clean(this.title || name.replace(/~/g, ".")));
+                c.push(jQuery.EJS.clean(this.title || this.alias || this.name.match(/((\w+)\.(\w+)\.(\w+)$)/i)[1] || name.replace(/~/g, ".")));
                 c.push("&nbsp;\n");
                 c.push("\t    \t<span class='");
                 c.push(jQuery.EJS.clean(type));
