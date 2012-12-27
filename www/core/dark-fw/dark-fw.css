@@ -30,3 +30,32 @@ hr{border:none;border-top:1px dotted #000;}
 .dark-container.layout-align-right > .dark-container-wrap{
     float: right;
 }
+
+
+
+.dark-container.dark-vlayout.layout-align-stretch{
+    position: relative;
+}
+.dark-container.dark-vlayout.layout-align-stretch > .dark-container-wrap{
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.dark-container.dark-vlayout.layout-align-stretch > .dark-container-wrap > .dark-container-item{
+    position: relative;
+    left: 0;
+    right: 0;
+    float: none;
+    clear: none;
+}
+
+.dark-container.dark-hlayout.layout-align-stretch > .dark-container-wrap{
+    /* Not work from <= IE 7 */
+    display: table;
+    height: 100%;
+}
+.dark-container.dark-hlayout.layout-align-stretch > .dark-container-wrap > .dark-container-item{
+    /* Not work from <= IE 7 */
+    display: table-cell;
+    float: none;
+}

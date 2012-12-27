@@ -49,12 +49,16 @@ steal(
                             return value;
                         },
                         defValue: cla + 'auto',
-                        dependency: '__container'
+                        dependence: '__container'
                     }
                 }
             },
             /* @Prototype */
             {
+
+                setAlignStretch: function(){
+                    return this.align(cla + 'stretch');
+                },
 
                 setAlignLeft: function(){
                     return this.align(cla + 'left');

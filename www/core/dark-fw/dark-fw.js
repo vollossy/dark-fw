@@ -19,6 +19,7 @@ steal(
     ,function(){
         $(document).ready(function(){
             var button = $.toComponent({ cType: 'Button', text: 'button2' }),
+                VLayout = $.toComponent({ cType: 'VLayout' }),
                 component = $.toComponent({
                     cType : 'Container',
                     height: 500,
@@ -28,6 +29,9 @@ steal(
                     items: [
                         {
                             cType : 'Container',
+                            styles: {
+                                'background-color' : '#D1D1D1'
+                            },
                             items: [
                                 [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
                                 { cType: 'Button', text: 'button3' }
@@ -35,6 +39,9 @@ steal(
                         },
                         {
                             cType : 'Container',
+                            styles: {
+                                'background-color' : '#D2D2D2'
+                            },
                             items: [
                                 [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
                                 { cType: 'Button', text: 'button3' }
@@ -42,6 +49,9 @@ steal(
                         },
                         {
                             cType : 'Container',
+                            styles: {
+                                'background-color' : '#D3D3D3'
+                            },
                             items: [
                                 [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
                                 { cType: 'Button', text: 'button3' }
@@ -51,7 +61,6 @@ steal(
                 }),
                 controller;
 
-            component.items().setStackMode();
             $.createController(component, $('#playGround'));
 
 //            console.log(component.layout().__container() === component );

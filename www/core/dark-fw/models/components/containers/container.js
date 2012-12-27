@@ -61,29 +61,39 @@ steal(
                         defValue: 'bindOC'
                     },
                     layout:{
+                        fnAfterSet: function(descriptions, value, oldValue){
+                            var me = this,
+                                css = me.css();
+
+                            if( !!oldValue ){
+                                css.removeElement(oldValue.layoutClass());
+                                css.removeElement(oldValue.align());
+                            }
+
+                            if(!!value){
+                                css.add(value.layoutClass());
+                                css.add(value.align());
+                            }
+                            return value;
+                        },
                         converter: function(property, value){
                             return $.toComponent(value).__container(this);
                         },
                         defValue: function(){
                             return Dark.Models.Layouts.FlowLayout.newInstance({ __container: this });
                         }
-                    }
+                    },
+                    dependence: 'css'
                 }
             },
             /* @Prototype */
             {
                 init: function(){
-                    var me = this,
-                        layout = me.layout();
+                    var me = this;
                     me._super();
 
-                    if(!!layout){
-                        me.css().add(layout.layoutClass());
-                    }
-                    if($.isFunction(layout.align) ){
-                        me.css().add(layout.align());
-                    }
                 },
+
                 /**
                  * Создает dom елемент для одного компонента из коллекции items
                  * @return {jQueryHtmlElement}
