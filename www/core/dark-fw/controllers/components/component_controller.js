@@ -66,28 +66,11 @@ steal(
 
                 visibleChange:  function (event, element) {
                     this.element[ this.component.visible() ? 'show' : 'hide']();
-                },
+                }
 
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
-                /**
-                 * Отрисовка контроллера.
-                 * Вызываем обработку свойств id, class, styles, visible
-                 */
-                render: function () {
-                    var me = this;
-                    me._super();
-                    me.idChange();
-                    me.cssChange();
-                    me.stylesChange();
-                    me.visibleChange();
-                },
-
-                destroy:function () {
-                    var me = this;
-                    me._super();
-                }
 
             }
         );

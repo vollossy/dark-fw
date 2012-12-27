@@ -241,6 +241,20 @@ steal(
                     return el;
                 },
 
+                _changeEvents: function(){
+                    var me = this,
+                        subObj = me._subscribeToProperty(),
+                        prop;
+
+                    if (__isPlainObject(subObj)) {
+                        for (prop in subObj) {
+                            if ( subObj.hasOwnProperty(prop) && __isFunction(me[subObj[prop]])) {
+                                me[subObj[prop]](false, me.component[prop]);
+                            }
+                        }
+                    }
+                },
+
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
@@ -275,8 +289,8 @@ steal(
 
                     element.addClass(mCssClass);
                     me.render();
-
                     __p_subscribeToProperty.call(me);
+                    me._changeEvents();
                 },
 
                 getSysCssClass: function(){
@@ -299,6 +313,7 @@ steal(
                     var me = this;
                     me.element.empty();
                     me.render();
+                    me._changeEvents();
                 },
 
                 /**

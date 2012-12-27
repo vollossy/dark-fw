@@ -23,15 +23,35 @@ steal(
                  * Protected methods
                  *****************************************************************************************************/
                 /**
-                 *
-                 * @param el
-                 * @param options
+                 * @param {jQueryHTMLElement} el Елемент на который был навешан данный контроллер
+                 * @param {Dark.Models.Components.Buttons.Button} options Модель кнопки
                  * @return {jQuery|HTMLElement}
+                 * @description
+                 * Изменяем елемент контроллера на DOM елемент button
+                 *
+                 * Данный компонент использует вариант:
+                 *
+                 * @codestart
+                 *  <button class="dark-btn btn">Text</button>
+                 * @codeend
+                 *
+                 * Выдержка из Twitter Bootstrap по этому поводу:
+                 *
+                 * @link http://twitter.github.com/bootstrap/base-css.html#buttons
+                 *
+                 * Use the .btn class on an <a>, <button>, or <input> element.
+                 * @codestart
+                 * <a class="btn" href="">Link</a>
+                 * <button class="btn" type="submit">Button</button>
+                 * <input class="btn" type="button" value="Input">
+                 * <input class="btn" type="submit" value="Submit">
+                 * @codeend
+                 *
+                 * As a best practice, try to match the element for your context to ensure matching cross-browser rendering.
+                 * If you have an input, use an <input type="submit"> for your button.
                  */
                 _replaceRootElement: function(el, options){
-                    var btn = 'btn',
-                        css = this.getCss(btn) + ' ' + btn;
-                    return $('<button class="'+css+'"></button>');
+                    return $('<button class="' + this.getCss('btn') + ' btn"></button>');
                 },
 
                 /**
@@ -41,9 +61,10 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-                        text : "textChange",
-                        display: "displayChange",
-                        scale: "scaleChange"
+                        text    : "textChange",
+                        display : "displayChange",
+                        scale   : "scaleChange",
+                        disabled: "disabledChange"
                     });
                 },
 
@@ -89,21 +110,21 @@ steal(
                     return me;
                 },
 
+                /**
+                 * Callback реагирующий на изменение свойства компонента disabled
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} scale Значение свойства компонента disabled
+                 * @return {Button}
+                 */
+                disabledChange:function (event, disabled) {
+                    return this.element[(disabled ? 'add' : 'remove') + 'Class']('disabled ');
+                },
+
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
-                render:function () {
-                    var me = this,
-                        component = me.component;
-                    me._super();
-                    me.textChange({}, component.text());
-                    me.displayChange({}, component.display());
-                    me.scaleChange({}, component.scale());
-                },
-
-                destroy:function () {
-                    var me = this;
-                    me._super();
+                "click": function(){
+                    this.component.run();
                 }
 
             }

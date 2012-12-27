@@ -49,21 +49,10 @@ steal(
 
                 _getCurrentElement: function(){
                     return this.element;
-                },
+                }
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
-                render:function () {
-                    var me = this;
-                    me._super();
-                    me.widthChange();
-                    me.heightChange();
-                },
-
-                destroy:function () {
-                    var me = this;
-                    me._super();
-                }
 
             }
         );

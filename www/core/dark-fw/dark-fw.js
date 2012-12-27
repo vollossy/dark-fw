@@ -18,94 +18,15 @@ steal(
 
     ,function(){
         $(document).ready(function(){
-            var button = $.toComponent({ cType: 'Button', text: 'button2' }),
-                VLayout = $.toComponent({ cType: 'VLayout' }),
-                HLayout = $.toComponent({ cType: 'HLayout' }),
-                component = $.toComponent({
-                    cType : 'Container',
-                    height: 500,
-                    layout: HLayout,
-                    items: [
-                        [{
-                            cType : 'Container',
-                            styles: {
-                                'background-color' : '#D1D1D1'
-                            },
-                            items: [
-                                { cType: 'Button', text: 'button1' },
-                                { cType: 'Button', text: 'button2' },
-                                { cType: 'Button', text: 'button4' },
-                                { cType: 'Button', text: 'button3' }
-                            ]
-                        }, { cType: 'LayoutInfo' }],
-                        {
-                            cType : 'Container',
-                            styles: {
-                                'background-color' : '#D2D2D2'
-                            },
-                            items: [
-                                { cType: 'Button', text: 'button1' },
-                                { cType: 'Button', text: 'button2' },
-                                { cType: 'Button', text: 'button4' },
-                                { cType: 'Button', text: 'button4' },
-                                { cType: 'Button', text: 'button3' }
-                            ]
-                        },
-                        [{
-                            cType : 'Container',
-                            styles: {
-                                'background-color' : '#D3D3D3'
-                            },
-                            items: [
-                                { cType: 'Button', text: 'button1' },
-                                { cType: 'Button', text: 'button2' },
-                                { cType: 'Button', text: 'button4' },
-                                { cType: 'Button', text: 'button4' },
-                                { cType: 'Button', text: 'button3' }
-                            ]
-                        }, { cType: 'LayoutInfo' }]
-                    ]
+            var component = $.toComponent({
+                    cType: 'Button',
+                    text: 'button1'
                 }),
                 controller;
 
             $.createController(component, $('#playGround'));
-            component.layout(VLayout);
-            VLayout.setAlignStretch();
 
 
-//            console.log(component.layout().__container() === component );
-//            component.layout().align('left');
-
-            // Todo нужно так же завести событие по изменению режима со стека на очередь
-//            button.setDisplayInline();
-//            component.items().set(1, button);
-//            component.items().removeElement(button);
-//
-//            setTimeout(function(){
-//                console.log('refresh');
-//                component.items().setQueueMode();
-//            }, 3000)
-// Test на изменение масштаба
-//            setTimeout(function(){
-//                console.log('change scale mini');
-//                button.setScaleMini();
-//                setTimeout(function(){
-//                    console.log('change scale small');
-//                    button.setScaleSmall();
-//                    setTimeout(function(){
-//                        console.log('change scale default');
-//                        button.setScaleDefault();
-//                        setTimeout(function(){
-//                            console.log('change scale large');
-//                            button.setScaleLarge();
-//                            setTimeout(function(){
-//                                console.log('change scale default');
-//                                button.setScaleDefault();
-//                            }, 3000)
-//                        }, 3000)
-//                    }, 3000)
-//                }, 3000)
-//            }, 3000)
         });
     }
 );

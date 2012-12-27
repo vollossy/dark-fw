@@ -30,11 +30,27 @@ steal(
                 _property:{
                     text: "",
                     display: 'inline',
-                    scale: 'default'
+                    scale: 'default',
+                    disabled: false,
+                    actions: {
+                        converter: 'toManyComponent',
+                        defValue: '[]'
+                    }
                 }
             },
             /* @Prototype */
             {
+                run: function(){
+                    var me = this,
+                        actions = me.actions(),
+                        i = 0,
+                        cnt = actions.length;
+                    if( !me.disabled() ){
+                        for( ; i != cnt; ){
+                            actions[i++].execute();
+                        }
+                    }
+                },
                 /***************************************************
                  *  Scale
                  **************************************************/
