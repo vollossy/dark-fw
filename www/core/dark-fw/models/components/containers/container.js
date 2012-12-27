@@ -66,21 +66,21 @@ steal(
                                 css = me.css();
 
                             if( !!oldValue ){
+                                oldValue.__container(undefined);
                                 css.removeElement(oldValue.layoutClass());
                                 css.removeElement(oldValue.align());
                             }
 
                             if(!!value){
+                                value.__container(this);
                                 css.add(value.layoutClass());
                                 css.add(value.align());
                             }
                             return value;
                         },
-                        converter: function(property, value){
-                            return $.toComponent(value).__container(this);
-                        },
+                        converter: 'toComponent',
                         defValue: function(){
-                            return Dark.Models.Layouts.FlowLayout.newInstance({ __container: this });
+                            return Dark.Models.Layouts.FlowLayout.newInstance();
                         }
                     },
                     dependence: 'css'
@@ -88,19 +88,16 @@ steal(
             },
             /* @Prototype */
             {
-                init: function(){
-                    var me = this;
-                    me._super();
-
-                },
-
                 /**
                  * Создает dom елемент для одного компонента из коллекции items
                  * @return {jQueryHtmlElement}
                  * @public
                  */
                 getDomElement: function(key, item){
-                    return this.layout().getDomElement(key, item);
+                    var isArr = $.isArray(item),
+                        layout = this.layout();
+
+                    return layout.getDomElement(key, isArr ? item[0] : item, isArr ? item[1] : false);
                 }
 
             }

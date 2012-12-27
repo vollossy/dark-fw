@@ -37,16 +37,12 @@ hr{border:none;border-top:1px dotted #000;}
     position: relative;
 }
 .dark-container.dark-vlayout.layout-align-stretch > .dark-container-wrap{
-    position: absolute;
-    left: 0;
-    right: 0;
+    display: table;
+    width: 100%;
 }
 .dark-container.dark-vlayout.layout-align-stretch > .dark-container-wrap > .dark-container-item{
-    position: relative;
-    left: 0;
-    right: 0;
+    display: table-row;
     float: none;
-    clear: none;
 }
 
 .dark-container.dark-hlayout.layout-align-stretch > .dark-container-wrap{

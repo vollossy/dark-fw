@@ -72,7 +72,7 @@ steal(
                     return this.align(cla + 'right');
                 },
 
-                 setAlignCenter: function(){
+                setAlignCenter: function(){
                     return this.align(cla + 'center');
                 },
 
@@ -83,8 +83,8 @@ steal(
                     return html;
                 },
 
-                getDomElement: function(container, key, item, info){
-                    return $(this._createHtmlElement(container, key, item, info));
+                getDomElement: function(key, item, info){
+                    return $(this._createHtmlElement(key, item, info));
                 }
             }
             //!steal-remove-start

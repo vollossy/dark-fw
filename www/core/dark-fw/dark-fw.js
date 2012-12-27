@@ -20,48 +20,58 @@ steal(
         $(document).ready(function(){
             var button = $.toComponent({ cType: 'Button', text: 'button2' }),
                 VLayout = $.toComponent({ cType: 'VLayout' }),
+                HLayout = $.toComponent({ cType: 'HLayout' }),
                 component = $.toComponent({
                     cType : 'Container',
                     height: 500,
-                    layout: {
-                        cType: 'HLayout'
-                    },
+                    layout: HLayout,
                     items: [
-                        {
+                        [{
                             cType : 'Container',
                             styles: {
                                 'background-color' : '#D1D1D1'
                             },
                             items: [
-                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button1' },
+                                { cType: 'Button', text: 'button2' },
+                                { cType: 'Button', text: 'button4' },
                                 { cType: 'Button', text: 'button3' }
                             ]
-                        },
+                        }, { cType: 'LayoutInfo' }],
                         {
                             cType : 'Container',
                             styles: {
                                 'background-color' : '#D2D2D2'
                             },
                             items: [
-                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button1' },
+                                { cType: 'Button', text: 'button2' },
+                                { cType: 'Button', text: 'button4' },
+                                { cType: 'Button', text: 'button4' },
                                 { cType: 'Button', text: 'button3' }
                             ]
                         },
-                        {
+                        [{
                             cType : 'Container',
                             styles: {
                                 'background-color' : '#D3D3D3'
                             },
                             items: [
-                                [{ cType: 'Button', text: 'button1' }, { cType: 'LayoutInfo' }],
+                                { cType: 'Button', text: 'button1' },
+                                { cType: 'Button', text: 'button2' },
+                                { cType: 'Button', text: 'button4' },
+                                { cType: 'Button', text: 'button4' },
                                 { cType: 'Button', text: 'button3' }
                             ]
-                        }
+                        }, { cType: 'LayoutInfo' }]
                     ]
                 }),
                 controller;
 
             $.createController(component, $('#playGround'));
+            component.layout(VLayout);
+            VLayout.setAlignStretch();
+
 
 //            console.log(component.layout().__container() === component );
 //            component.layout().align('left');
