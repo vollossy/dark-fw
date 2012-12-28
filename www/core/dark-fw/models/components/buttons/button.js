@@ -18,7 +18,7 @@ steal(
                  * @add Dark.Model.Static
                  * @var {Array}
                  */
-                _alias:[ "Button" ],
+                _alias:[ "Button", "DropDownButton" ],
 
                 /**
                  * @description Данное свойство содержит описания значении свойств класса - переданные ему в setup.
@@ -32,9 +32,13 @@ steal(
                     display: 'inline',
                     scale: 'default',
                     disabled: false,
-                    actions: {
-                        converter: 'toManyComponent',
-                        defValue: '[]'
+                    action: {
+                        converter: 'toComponent',
+                        defValue: 'F'
+                    },
+                    dropDown:{
+                        converter: 'toComponent',
+                        defValue: 'F'
                     }
                 }
             },
@@ -42,13 +46,9 @@ steal(
             {
                 run: function(){
                     var me = this,
-                        actions = me.actions(),
-                        i = 0,
-                        cnt = actions.length;
-                    if( !me.disabled() ){
-                        for( ; i != cnt; ){
-                            actions[i++].execute();
-                        }
+                        action = me.action();
+                    if( !me.disabled() && action ){
+                        action.execute();
                     }
                 },
                 /***************************************************

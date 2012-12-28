@@ -1,61 +1,30 @@
 steal(
-    './button_abstract_controller.js',
+    '../../../models/components/buttons/button.js',
+    '../box_component_controller.js',
     function () {
         /**
-         * @class Dark.Controllers.Components.Buttons.ButtonController
-         * @alias ButtonController
-         * @inherits Dark.Controllers.Components.Buttons.ButtonAbstractController
-         * @parent Dark.Controllers.Components.Buttons.ButtonAbstractController
+         * @class Dark.Controllers.Components.Buttons.ButtonAbstractController
+         * @alias ButtonAbstractController
+         * @inherits Dark.Controllers.Components.BoxComponentController
+         * @parent Dark.Controllers.Components.BoxComponentController
          * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
-        Dark.Controllers.Components.Buttons.ButtonAbstractController("Dark.Controllers.Components.Buttons.ButtonController",
+        Dark.Controllers.Components.BoxComponentController("Dark.Controllers.Components.Buttons.ButtonAbstractController",
+            /* @Static */
             {//Static
-                tmpl:{
-                    component: 'buttons/button.ejs'
-                },
+                tmpl:{},
 
-                css:{
-                    btn: 'dark-btn'
-                }
+                css:{}
             },
+            /* @Prototype */
             {//Prototype
                 /******************************************************************************************************
                  * Protected methods
                  *****************************************************************************************************/
-                /**
-                 * @param {jQueryHTMLElement} el Елемент на который был навешан данный контроллер
-                 * @param {Dark.Models.Components.Buttons.Button} options Модель кнопки
-                 * @return {jQuery|HTMLElement}
-                 * @description
-                 * Изменяем елемент контроллера на DOM елемент button
-                 *
-                 * Данный компонент использует вариант:
-                 *
-                 * @codestart
-                 *  <button class="dark-btn btn">Text</button>
-                 * @codeend
-                 *
-                 * Выдержка из Twitter Bootstrap по этому поводу:
-                 *
-                 * @link http://twitter.github.com/bootstrap/base-css.html#buttons
-                 *
-                 * Use the .btn class on an <a>, <button>, or <input> element.
-                 * @codestart
-                 * <a class="btn" href="">Link</a>
-                 * <button class="btn" type="submit">Button</button>
-                 * <input class="btn" type="button" value="Input">
-                 * <input class="btn" type="submit" value="Submit">
-                 * @codeend
-                 *
-                 * As a best practice, try to match the element for your context to ensure matching cross-browser rendering.
-                 * If you have an input, use an <input type="submit"> for your button.
-                 */
-                _replaceRootElement: function(el, options){
-                    return $('<button class="' + this.getCss('btn') + ' btn"></button>');
+                rootElement: function(){
+                    return this.element;
                 },
-
                 /**
-                 *
                  * @protected
                  * @return {Object}
                  */
@@ -75,7 +44,7 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
-                    return this.element.text(text);
+                    return this.rootElement().text(text);
                 },
 
                 /**
@@ -86,7 +55,7 @@ steal(
                  */
                 displayChange:function (event, display) {
                     var me = this;
-                    me.element[(me.component.isBlock() ? "add" : "remove") + 'Class']('btn-block');
+                    me.rootElement()[(me.component.isBlock() ? "add" : "remove") + 'Class']('btn-block');
                     return me;
                 },
 
@@ -104,7 +73,7 @@ steal(
 
                     for( ; i != cnt; ){
                         oneScale = scales[i++];
-                        me.element[(me.component['is'+oneScale]() ? "add" : "remove") + 'Class']('btn-' + oneScale.toLowerCase());
+                        me.rootElement()[(me.component['is'+oneScale]() ? "add" : "remove") + 'Class']('btn-' + oneScale.toLowerCase());
                     }
 
                     return me;
@@ -117,17 +86,16 @@ steal(
                  * @return {Button}
                  */
                 disabledChange:function (event, disabled) {
-                    return this.element[(disabled ? 'add' : 'remove') + 'Class']('disabled ');
-                },
-
-                /******************************************************************************************************
-                 * Public methods
-                 *****************************************************************************************************/
-                "click": function(){
-                    this.component.run();
+                    return this.rootElement()[(disabled ? 'add' : 'remove') + 'Class']('disabled');
                 }
 
             }
+            //!steal-remove-start
+            /* @Getters */
+            , {}
+            /* @Setters */
+            , {}
+            //!steal-remove-end
         );
     }
 );

@@ -90,11 +90,8 @@ steal(
                     }
                 }
 
-                if( old !== el ){
-                    old.remove();
-                }
                 if( prev.length ){
-                    next.after(el);
+                    prev.after(el);
                 }else if( next.length ){
                     next.before(el);
                 }else{
@@ -263,7 +260,7 @@ steal(
 
                     for (prop in subObj) {
                         if ( subObj.hasOwnProperty(prop) && subObj[prop].auto ) {
-                            me[subObj[prop].name](false, me.component[prop]);
+                            me[subObj[prop].name](false, me.component[prop]());
                         }
                     }
                 },

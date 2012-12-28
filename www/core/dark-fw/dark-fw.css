@@ -26,8 +26,6 @@ body{font-family:Lucida Sans,Lucida Grande,Arial,sans-serif;margin:0;}
     float: right;
 }
 
-
-
 .dark-container.dark-vlayout.layout-align-stretch{
     position: relative;
 }
@@ -49,4 +47,12 @@ body{font-family:Lucida Sans,Lucida Grande,Arial,sans-serif;margin:0;}
     /* Not work from <= IE 7 */
     display: table-cell;
     float: none;
+}
+
+.dark-dropdowncontainer{
+    position: relative;
+}
+
+.btn-group > div > .dropdown-menu{
+    font-size: 14px;
 }
