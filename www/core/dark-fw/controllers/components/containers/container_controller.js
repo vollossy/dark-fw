@@ -200,13 +200,12 @@ steal(
 
                     if( el.hasClass(me.getCss('item')) ){
                         attr = el.attr('dark-container-parent-id');
-                        if( attr && attr !== component.id() )
-                            return;
+                        if( attr === component.id() ){
+                            item = component.items().get(parseInt(el.attr('dark-item-key'), 10));
 
-                        item = component.items().get(parseInt(el.attr('dark-item-key'), 10));
-
-                        if( item && item.isItem() && item.onlyModel() ){
-                            event = item.runNoController(event);
+                            if( item && item.isItem() && item.onlyModel() ){
+                                event = item.runNoController(event);
+                            }
                         }
                     }
                 },

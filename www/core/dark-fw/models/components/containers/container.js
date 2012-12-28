@@ -27,7 +27,7 @@ steal(
                  * @add Dark.Model.Static
                  * @var {Array}
                  */
-                _alias:[ "Container" ],
+                _alias:[ "Container", "DropDownContainer" ],
 
                 /**
                  * @description Данное свойство содержит описания значении свойств класса - переданные ему в setup.
