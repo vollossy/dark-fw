@@ -13,6 +13,7 @@ steal(
             undefined = undefined,
             __isUndefined = $.isUndefined,
             __isPlainObject = $.isPlainObject,
+            __isString = $.isString,
             __isFunction = $.isFunction;
 
         $.createController = function(model, element){
@@ -42,6 +43,10 @@ steal(
 
         $.getComponentById = function(id){
             return $('#' + id).data('component');
+        };
+
+        $.getComponentByElement = function(element){
+            return $(element).data('component');
         };
 
         var __s_addStore = function () {
@@ -115,15 +120,22 @@ steal(
             __p_subscribeToProperty = function () {
                 var me = this,
                     subObj = me._subscribeToProperty(),
-                    prop;
+                    prop, nameFn;
+                subObj = __isPlainObject(subObj) ? subObj : {};
 
-                if (__isPlainObject(subObj)) {
-                    for (prop in subObj) {
-                        if ( subObj.hasOwnProperty(prop) && __isFunction(me[subObj[prop]])) {
-                            __p_bind.call(me, me.component[prop], me.proxy(subObj[prop]))
+                for (prop in subObj) {
+                    if ( subObj.hasOwnProperty(prop) ) {
+                        nameFn = subObj[prop];
+                        subObj[prop] = nameFn = __isString(nameFn) ? { name : nameFn, auto: true } : nameFn;
+
+                        if ( __isFunction(me[nameFn.name])) {
+                            __p_bind.call(me, me.component[prop], me.proxy(nameFn.name))
+                        }else{
+                            delete subObj[prop];
                         }
                     }
                 }
+                me.__listEvents = subObj;
             },
             __p_bind = function (property, fn) {
                 this.__listUnbind.push(property.call(this.component, fn));
@@ -170,6 +182,7 @@ steal(
             },
             /* @Prototype */
             {
+                __listEvents    : undefined,
                 __listUnbind    : undefined,
                 component       : undefined,
                 parentElement   : undefined,
@@ -228,7 +241,9 @@ steal(
                  * @return {Object}
                  */
                 _subscribeToProperty:function () {
-                    return {};
+                    return {
+                        id      : "idChange"
+                    };
                 },
 
                 /**
@@ -243,14 +258,12 @@ steal(
 
                 _changeEvents: function(){
                     var me = this,
-                        subObj = me._subscribeToProperty(),
+                        subObj = me.__listEvents,
                         prop;
 
-                    if (__isPlainObject(subObj)) {
-                        for (prop in subObj) {
-                            if ( subObj.hasOwnProperty(prop) && __isFunction(me[subObj[prop]])) {
-                                me[subObj[prop]](false, me.component[prop]);
-                            }
+                    for (prop in subObj) {
+                        if ( subObj.hasOwnProperty(prop) && subObj[prop].auto ) {
+                            me[subObj[prop].name](false, me.component[prop]);
                         }
                     }
                 },
@@ -291,6 +304,11 @@ steal(
                     me.render();
                     __p_subscribeToProperty.call(me);
                     me._changeEvents();
+                },
+
+                idChange: function (event, element) {
+                    var me = this;
+                    me.element.attr('id', me.component.id());
                 },
 
                 getSysCssClass: function(){

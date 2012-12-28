@@ -58,6 +58,14 @@ steal(
                     });
                 },
 
+                isItem: function(){
+                    return false;
+                },
+
+                isComponent: function(){
+                    return true;
+                },
+
                 /**
                  * Делает компонент видимым
                  * @return {*}

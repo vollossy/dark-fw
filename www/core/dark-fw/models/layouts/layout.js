@@ -78,13 +78,12 @@ steal(
 
                 _createHtmlElement: function(key, item, info){
                     var me = this,
-                        tag = me.tag(),
-                        html = '<' + tag + ' dark-item-key="' + key + '">' + '</' + tag + '>';
-                    return html;
+                        tag = me.tag();
+                    return '<' + tag + '>' + '</' + tag + '>';
                 },
 
-                getDomElement: function(key, item, info){
-                    return $(this._createHtmlElement(key, item, info));
+                getHtmlElement: function(key, item, info){
+                    return this._createHtmlElement(key, item, info);
                 }
             }
             //!steal-remove-start

@@ -3,7 +3,12 @@ steal(
     '../../layouts/flow_layout.js',
     '../../layouts/h_layout.js',
     '../../layouts/v_layout.js',
-    '../../infos/layout_info.js',
+
+    '../../items/text_item.js',
+    '../../items/action_item.js',
+    '../../items/link_item.js',
+    '../../items/checked_item.js',
+
     function () {
         var isArray = $.isArray;
         /**
@@ -93,11 +98,8 @@ steal(
                  * @return {jQueryHtmlElement}
                  * @public
                  */
-                getDomElement: function(key, item){
-                    var isArr = $.isArray(item),
-                        layout = this.layout();
-
-                    return layout.getDomElement(key, isArr ? item[0] : item, isArr ? item[1] : false);
+                getHtmlElement: function(key, item, info){
+                    return ( item.isItem() && item.onlyModel() ? item : this.layout()).getHtmlElement(key, item, info);
                 }
 
             }

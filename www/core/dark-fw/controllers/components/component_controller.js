@@ -27,17 +27,10 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-                        id      : "idChange",
                         css     : "cssChange",
                         styles  : "stylesChange",
                         visible : "visibleChange"
                     });
-                },
-
-
-                idChange: function (event, element) {
-                    var me = this;
-                    me.element.attr('id', me.component.id());
                 },
 
                 cssChange: function (event, cssCollection) {

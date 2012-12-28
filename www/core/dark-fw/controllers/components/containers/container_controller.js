@@ -49,7 +49,7 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-                        layout  : "refresh"
+                        layout  : { name : "refresh", auto: false }
                     });
                 },
 
@@ -60,13 +60,11 @@ steal(
                  * @protected
                  */
                 _getNewItemElement: function(key, item){
-                    var el = this.component.getDomElement(key, item);
-                    console.log(el);
-                    if( el ){
-                        el.addClass(this.getCss().item);
-                    }
-                    //return $('<div class="' + this.getCss().item + '" dark-attr-key="' + key + '"></div>');
-                    return el;
+                    var isArr = $.isArray(item),
+                        component = isArr ? item[0] : item,
+                        componentInfo = isArr ? item[1] : false;
+
+                    return $(this.component.getHtmlElement(key, component, componentInfo)).attr('dark-item-key', key).addClass(this.getCss().item);
                 },
                 /**
                  * Возвращает DOM-елемент контейнер в котором содержатся DOM-елементы компонентов из коллекции items
@@ -108,12 +106,27 @@ steal(
                             items.map(function(key, item){
                                 result.push(me._getNewItemElement(key, item));
                             });
-                            return function(el) {
-                                var parent = $(el),
-                                    itemElement;
+                            return function(element) {
+                                var parent = $(element),
+                                    itemElement,
+                                    isArr, component, compIsItem, compIsComponent;
+
                                 items.map(function(key, item){
                                     itemElement = result[key];
-                                    parent.append($.createController($.isArray(item) ? item[0] : item, itemElement).element);
+
+                                    isArr = $.isArray(item);
+                                    component = isArr ? item[0] : item;
+
+                                    compIsItem = component.isItem();
+                                    compIsComponent = component.isComponent();
+
+                                    if( compIsComponent || (compIsItem && !component.onlyModel())){
+                                        itemElement = $.createController(component, itemElement).element;
+                                    }else{
+                                        itemElement.attr('dark-container-parent-id', me.component.id())
+                                    }
+
+                                    parent.append(itemElement);
                                 });
                             };
                         }
@@ -177,6 +190,25 @@ steal(
                     var me = this;
                     me._super();
                     __p_bindToEventCollection.call(me);
+                },
+
+                "click": function(element, event){
+                    var me = this,
+                        el = $(event.target),
+                        component = me.component,
+                        item, attr;
+
+                    if( el.hasClass(me.getCss('item')) ){
+                        attr = el.attr('dark-container-parent-id');
+                        if( attr && attr !== component.id() )
+                            return;
+
+                        item = component.items().get(parseInt(el.attr('dark-item-key'), 10));
+
+                        if( item && item.isItem() && item.onlyModel() ){
+                            event = item.runNoController(event);
+                        }
+                    }
                 },
 
                 destroy:function () {
