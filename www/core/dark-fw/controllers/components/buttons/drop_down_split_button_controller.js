@@ -22,6 +22,8 @@ steal(
             },
             /* @Prototype */
             {//Prototype
+                __innerClick: false,
+
                 /******************************************************************************************************
                  * Protected methods
                  *****************************************************************************************************/
@@ -40,7 +42,8 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
-                    return this.find('> .btn:first-child').text(text);
+                    var prefix = this.component.textPrefix();
+                    return this.find('> .btn:first-child').text(prefix + text);
                 },
 
                 /******************************************************************************************************
@@ -51,8 +54,6 @@ steal(
                     me._super();
                     $.createController(this.component.dropDown(), me.find('.' + this.getCss().dropDown));
                 },
-
-                __innerClick: false,
 
                 "{window} click": function(element, event){
                     var me = this;
@@ -66,11 +67,13 @@ steal(
                 "click": function(element, event){
                     var me = this,
                         el = $(event.target),
+                        component = me.component,
                         css = me.getCss(),
                         isBtn = el.is('.' + css.item),
                         isCaret = !isBtn && el.is('.btn'),
                         clOpen = 'open',
-                        drop;
+                        item = $.data(el[0], 'component'),
+                        drop = me.find('.' + css.dropDown);
 
                     me.__innerClick = true;
 
@@ -78,11 +81,12 @@ steal(
                         me.component.run();
                     }
 
-                    drop = me.find('.' + css.dropDown);
-
                     if( isCaret ){
                         drop[(drop.is('.' + clOpen) ? 'remove' : 'add') + 'Class'](clOpen);
                     }else{
+                        if( item.isItem() && component.textIsCycle() ){
+                            component.text(item.text());
+                        }
                         drop.removeClass(clOpen);
                     }
                 }

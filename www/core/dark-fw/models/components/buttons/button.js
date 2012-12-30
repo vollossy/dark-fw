@@ -26,17 +26,19 @@ steal(
                  * @protected
                  */
                 _property:{
-                    text: "",
-                    display: 'inline',
-                    scale: 'default',
-                    disabled: false,
-                    action: {
-                        converter: 'toComponent',
-                        defValue: 'F'
+                    text        : "",
+                    display     : 'inline',
+                    scale       : 'default',
+                    disabled    : false,
+                    textPrefix  : "",
+                    textIsCycle : false,
+                    action      : {
+                        converter   : 'toComponent',
+                        defValue    : 'F'
                     },
-                    dropDown:{
-                        converter: 'toComponent',
-                        defValue: 'F'
+                    dropDown    : {
+                        converter   : 'toComponent',
+                        defValue    : 'F'
                     }
                 }
             },
@@ -145,6 +147,26 @@ steal(
                     return this.display() == 'block';
                 }
             }
+            //!steal-remove-start
+            /* @Getters */
+            , {
+                /**
+                 * Возвращает Dark.Models.Layouts.Layout
+                 * @return {Boolean}
+                 */
+                textCycle: function(){ return true; }
+            }
+            /* @Setters */
+            , {
+                /**
+                 * Устанавливает цикличность текста
+                 * @param {Boolean} [textCycle=true}
+                 * @return {Button}
+                 */
+                textCycle: function(textCycle){ return true; }
+            }
+            //!steal-remove-end
+
         );
     }
 );

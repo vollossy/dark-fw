@@ -33,8 +33,106 @@ steal(
                         }
                     },
                     {
-                        cType: 'DropDownButton',
-                        text: "Кнопка 2",
+                        cType       : 'DropDownButton',
+                        text        : "Кнопка 2",
+                        textPrefix  : "in : ",
+                        textIsCycle : true,
+                        action: {
+                            cType: 'ClientScriptAction',
+                            script: 'alert("work");'
+                        },
+                        dropDown: {
+                            cType: 'DropDownContainer',
+                            items: [
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefChangeLinkItem'
+                                },
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefNoChangeLinkItem',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action not controller");'
+                                    }
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component href change',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefChangeLinkComponent'
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefNoChangeLinkComponent',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action");'
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        cType       : 'DropDownButton',
+                        text        : "Кнопка 2",
+                        action: {
+                            cType: 'ClientScriptAction',
+                            script: 'alert("work");'
+                        },
+                        dropDown: {
+                            cType: 'DropDownContainer',
+                            items: [
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefChangeLinkItem'
+                                },
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefNoChangeLinkItem',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action not controller");'
+                                    }
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component href change',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefChangeLinkComponent'
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefNoChangeLinkComponent',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action");'
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        cType: 'DropDownSplitButton',
+                        text: "Кнопка 3",
+                        textPrefix  : "in : ",
+                        textIsCycle : true,
                         action: {
                             cType: 'ClientScriptAction',
                             script: 'alert("work");'

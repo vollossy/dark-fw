@@ -74,7 +74,8 @@ steal(
                                     if( compIsComponent || (compIsItem && !component.onlyModel())){
                                         itemElement = $.createController(component, itemElement).element;
                                     }else{
-                                        itemElement.attr('dark-container-parent-id', me.component.id())
+                                        itemElement.attr('dark-container-parent-id', me.component.id());
+                                        $.data(itemElement[0], 'component', component);
                                     }
 
                                     parent.append($('<li></li>').append(itemElement));
@@ -82,28 +83,13 @@ steal(
                             };
                         }
                     };
-                },
+                }
 
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
-                render:function () {
-                    var me = this;
-                    me._super();
-                },
-
-                destroy:function () {
-                    var me = this;
-                    me._super();
-                }
 
             }
-            //!steal-remove-start
-            /* @Getters */
-            , {}
-            /* @Setters */
-            , {}
-            //!steal-remove-end
         );
     }
 );

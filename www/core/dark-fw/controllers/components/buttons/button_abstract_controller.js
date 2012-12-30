@@ -33,7 +33,8 @@ steal(
                         text    : "textChange",
                         display : "displayChange",
                         scale   : "scaleChange",
-                        disabled: "disabledChange"
+                        disabled: "disabledChange",
+                        dropDown: { name: 'refresh', auto: false }
                     });
                 },
 
@@ -72,7 +73,7 @@ steal(
                 /**
                  * Callback реагирующий на изменение свойства компонента disabled
                  * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} scale Значение свойства компонента disabled
+                 * @param {String} scale Значение свойства disabled
                  * @return {Button}
                  */
                 disabledChange:function (event, disabled) {
