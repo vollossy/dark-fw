@@ -43,6 +43,7 @@ steal(
                         },
                         dropDown: {
                             cType: 'DropDownContainer',
+                            useActive: true,
                             items: [
                                 {
                                     cType: 'LinkItem',

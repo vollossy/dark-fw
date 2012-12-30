@@ -92,6 +92,10 @@ steal(
                     return $('> .' + this.getCss().item + '[dark-attr-key="' + key + '"]' , this._getItemWrapElement());
                 },
 
+                _appendItem: function(parent, element){
+                    parent.append(element);
+                },
+
                 /**
                  * Получает Helper::toManyControllers для шаблона
                  * @return {Object}
@@ -120,14 +124,15 @@ steal(
                                     compIsItem = component.isItem();
                                     compIsComponent = component.isComponent();
 
+                                    itemElement.attr('dark-container-parent-id', me.component.id());
+
                                     if( compIsComponent || (compIsItem && !component.onlyModel())){
                                         itemElement = $.createController(component, itemElement).element;
                                     }else{
-                                        itemElement.attr('dark-container-parent-id', me.component.id());
                                         $.data(itemElement[0], 'component', component);
                                     }
 
-                                    parent.append(itemElement);
+                                    me._appendItem(parent, itemElement);
                                 });
                             };
                         }
@@ -193,6 +198,12 @@ steal(
                     __p_bindToEventCollection.call(me);
                 },
 
+                itemClick: function(element, item, event){
+                    if( item && item.isItem() && item.onlyModel() ){
+                        item.runNoController(event);
+                    }
+                },
+
                 "click": function(element, event){
                     var me = this,
                         el = $(event.target),
@@ -202,11 +213,7 @@ steal(
                     if( el.hasClass(me.getCss('item')) ){
                         attr = el.attr('dark-container-parent-id');
                         if( attr === component.id() ){
-                            item = component.items().get(parseInt(el.attr('dark-item-key'), 10));
-
-                            if( item && item.isItem() && item.onlyModel() ){
-                                event = item.runNoController(event);
-                            }
+                            me.itemClick(el, component.items().get(parseInt(el.attr('dark-item-key'), 10)), event);
                         }
                     }
                 },

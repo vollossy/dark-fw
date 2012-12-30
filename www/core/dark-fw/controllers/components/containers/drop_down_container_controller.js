@@ -43,51 +43,21 @@ steal(
                     return $('> li > .' + this.getCss().item + '[dark-attr-key="' + key + '"]' , this._getItemWrapElement());
                 },
 
-                /**
-                 * Получает Helper::toManyControllers для шаблона
-                 * @return {Object}
-                 * @protected
-                 */
-                _getRenderHelpers: function(){
-                    var me = this,
-                        items = me.component.items();
-                    return {
-                        toManyControllers: function(){
-                            var result = [];
-                            items.map(function(key, item){
-                                result.push(me._getNewItemElement(key, item));
-                            });
-                            return function(element) {
-                                var parent = $(element),
-                                    itemElement,
-                                    isArr, component, compIsItem, compIsComponent;
-
-                                items.map(function(key, item){
-                                    itemElement = result[key];
-
-                                    isArr = $.isArray(item);
-                                    component = isArr ? item[0] : item;
-
-                                    compIsItem = component.isItem();
-                                    compIsComponent = component.isComponent();
-
-                                    if( compIsComponent || (compIsItem && !component.onlyModel())){
-                                        itemElement = $.createController(component, itemElement).element;
-                                    }else{
-                                        itemElement.attr('dark-container-parent-id', me.component.id());
-                                        $.data(itemElement[0], 'component', component);
-                                    }
-
-                                    parent.append($('<li></li>').append(itemElement));
-                                });
-                            };
-                        }
-                    };
-                }
+                _appendItem: function(parent, element){
+                    parent.append($('<li></li>').append(element));
+                },
 
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
+                itemClick: function(element, item, event){
+                    var me = this;
+                    me._super(element, item, event);
+                    if( me.component.useActive() ){
+                        $('li', me.element).removeClass('active');
+                        element.parent().addClass('active');
+                    }
+                }
 
             }
         );

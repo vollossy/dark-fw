@@ -34,6 +34,7 @@ steal(
                  * @protected
                  */
                 _property:{
+                    useActive: false,
                     items: {
                         converter: function(description, value){
                             var me = this,
