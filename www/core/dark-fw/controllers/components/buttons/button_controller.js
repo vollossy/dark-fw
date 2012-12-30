@@ -54,16 +54,6 @@ steal(
                     return $('<button class="' + this.getCss('btn') + ' btn"></button>');
                 },
 
-                /**
-                 * Callback реагирующий на изменение свойства компонента display
-                 * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} text Значение свойства компонента text
-                 * @return {Button}
-                 */
-                textChange:function (event, text) {
-                    return this.element.text(text);
-                },
-
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/

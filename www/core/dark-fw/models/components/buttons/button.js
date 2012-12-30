@@ -32,6 +32,8 @@ steal(
                     disabled    : false,
                     textPrefix  : "",
                     textIsCycle : false,
+                    icon        : "",
+                    iconPosition: "left", // left || right
                     action      : {
                         converter   : 'toComponent',
                         defValue    : 'F'
@@ -52,37 +54,27 @@ steal(
                     }
                 },
                 /***************************************************
-                 *  Scale
+                 *  Icon Position
                  **************************************************/
+                /**
+                 * Проверяет что устанавлена позиция иконки слева
+                 * @return {Button}
+                 */
+                isIconPositionLeft: function(){
+                    return this.iconPosition() === 'left';
+                },
 
                 /**
-                 * Устанавливает mini масштаб кнопки
+                 * Проверяет что устанавлена позиция иконки справа
                  * @return {Button}
                  */
-                setScaleMini: function(){
-                    return this.scale('mini');
+                isIconPositionRight: function(){
+                    return this.iconPosition() === 'right';
                 },
-                /**
-                 * Устанавливает mini масштаб кнопки
-                 * @return {Button}
-                 */
-                setScaleSmall: function(){
-                    return this.scale('small');
-                },
-                /**
-                 * Устанавливает default масштаб кнопки
-                 * @return {Button}
-                 */
-                setScaleDefault: function(){
-                    return this.scale('default');
-                },
-                /**
-                 * Устанавливает large масштаб кнопки
-                 * @return {Button}
-                 */
-                setScaleLarge: function(){
-                    return this.scale('large');
-                },
+
+                /***************************************************
+                 *  Scale
+                 **************************************************/
                 /**
                  * Проверяет устанавлен ли mini масштаб кнопки
                  * @return {Button}
@@ -115,22 +107,6 @@ steal(
                 /***************************************************
                  *  Display
                  **************************************************/
-
-                /**
-                 * Устанавливает inline-режим отображения кнопки
-                 * @return {Button}
-                 */
-                setDisplayInline: function(){
-                    return this.display('inline');
-                },
-                /**
-                 * Устанавливает block-режим отображения кнопки
-                 * @return {Button}
-                 */
-                setDisplayBlock: function(){
-                    return this.display('block');
-                },
-
                 /**
                  * Определяет находится ли кнопка в inline-режиме
                  * @return {Boolean}
@@ -154,7 +130,12 @@ steal(
                  * Возвращает Dark.Models.Layouts.Layout
                  * @return {Boolean}
                  */
-                textCycle: function(){ return true; }
+                textCycle: function(){ return true; },
+                /**
+                 * Возвращает позицию иконки
+                 * @return {String}
+                 */
+                iconPosition: function(){}
             }
             /* @Setters */
             , {
@@ -163,7 +144,13 @@ steal(
                  * @param {Boolean} [textCycle=true}
                  * @return {Button}
                  */
-                textCycle: function(textCycle){ return true; }
+                textCycle: function(textCycle){ return true; },
+                /**
+                 * Устанавливает позицию иконки
+                 * @param {String} [iconPosition='left'|'right'}
+                 * @return {Button}
+                 */
+                iconPosition: function(iconPosition){}
             }
             //!steal-remove-end
 

@@ -24,6 +24,11 @@ steal(
                 rootElement: function(){
                     return this.element;
                 },
+
+                _getButtonElement: function(){
+                    return this.element;
+                },
+
                 /**
                  * @protected
                  * @return {Object}
@@ -31,6 +36,8 @@ steal(
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
                         text    : "textChange",
+                        icon    : "iconChange",
+                        iconPosition : "iconPositionChange",
                         display : "displayChange",
                         scale   : "scaleChange",
                         disabled: "disabledChange",
@@ -78,8 +85,65 @@ steal(
                  */
                 disabledChange:function (event, disabled) {
                     return this.rootElement()[(disabled ? 'add' : 'remove') + 'Class']('disabled');
-                }
+                },
 
+                /**
+                 * Callback реагирующий на изменение свойства компонента display
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} text Значение свойства компонента text
+                 * @return {Button}
+                 */
+                textChange:function (event, text) {
+                    return this._getButtonElement().html(this._getInnerButtonHtml());
+                },
+
+                /**
+                 * Callback реагирующий на изменение свойства компонента icon
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} icon Значение свойства icon
+                 * @return {Button}
+                 */
+                iconChange: function(event, icon){
+                    return this._getButtonElement().html(this._getInnerButtonHtml());
+                },
+
+                /**
+                 * Callback реагирующий на изменение свойства компонента iconPosition
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} iconPosition Значение свойства iconPosition
+                 * @return {Button}
+                 */
+                iconPositionChange: function(event, iconPosition){
+                    return this._getButtonElement().html(this._getInnerButtonHtml());
+                },
+
+                /**
+                 * Возвращает html для отображения иконки
+                 * @return {String}
+                 * @private
+                 */
+                _getIconHtml: function(){
+                    var component = this.component,
+                        icon = component.icon(),
+                        positionLeft = component.isIconPositionLeft(),
+                        html = '<i class="icon-' + icon + '"></i>';
+                    return icon ? positionLeft ? html + ' ' : ' ' + html : "";
+                },
+
+                /**
+                 * Возвращает html для отображения внутри кнопки. Иконка, префикс, текст
+                 * @return {String}
+                 * @private
+                 */
+                _getInnerButtonHtml: function(){
+                    var me = this,
+                        component = me.component,
+                        prefix = component.textPrefix(),
+                        text = component.text(),
+                        icon = me._getIconHtml(),
+                        iconPositionIsLeft = component.isIconPositionLeft();
+                    return (iconPositionIsLeft ? icon : "") + prefix + text + (iconPositionIsLeft ? "" : icon);
+                }
             }
             //!steal-remove-start
             /* @Getters */

@@ -35,15 +35,13 @@ steal(
                     return this.find('> .btn');
                 },
 
-                /**
-                 * Callback реагирующий на изменение свойства компонента display
-                 * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} text Значение свойства компонента text
-                 * @return {Button}
-                 */
-                textChange:function (event, text) {
-                    var prefix = this.component.textPrefix();
-                    return this.find('> .btn:first-child').html(prefix + text + ' <span class="caret"></span>');
+                _getButtonElement: function(){
+                    return this.find('> .btn:first-child');
+                },
+
+                _getInnerButtonHtml: function(){
+                    var me = this;
+                    return me._super() + ' <span class="caret"></span>';
                 },
 
                 /******************************************************************************************************
