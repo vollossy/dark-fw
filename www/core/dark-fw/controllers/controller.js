@@ -293,9 +293,12 @@ steal(
                 init:function () {
                     var me = this,
                         element = me.element,
+                        css = me.getCss(),
+                        wrap = css && css.wrap ? " " + css.wrap : "",
                         mCssClass = 'dark-' + me.component.cType().toLowerCase();
 
-                    $.data(element[0], 'sysCssClass', element.attr('class') + ' ' + mCssClass);
+
+                    $.data(element[0], 'sysCssClass', element.attr('class') + ' ' + mCssClass + wrap);
 
                     element.addClass(mCssClass);
                     me.render();
