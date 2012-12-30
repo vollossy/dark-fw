@@ -36,8 +36,9 @@ steal(
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
                         text    : "textChange",
-                        icon    : "iconChange",
-                        iconPosition : "iconPositionChange",
+                        textPrefix      : "textPrefixChange",
+                        icon            : "iconChange",
+                        iconPosition    : "iconPositionChange",
                         display : "displayChange",
                         scale   : "scaleChange",
                         disabled: "disabledChange",
@@ -94,6 +95,16 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
+                    return this._getButtonElement().html(this._getInnerButtonHtml());
+                },
+
+                /**
+                 * Callback реагирующий на изменение свойства компонента textPrefix
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} textPrefix Значение свойства компонента textPrefix
+                 * @return {Button}
+                 */
+                textPrefixChange:function (event, textPrefix) {
                     return this._getButtonElement().html(this._getInnerButtonHtml());
                 },
 
