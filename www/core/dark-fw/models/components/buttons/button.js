@@ -18,14 +18,12 @@ steal(
                  * @add Dark.Model.Static
                  * @var {Array}
                  */
-                _alias:[ "Button", "DropDownButton" ],
+                _alias:[ "Button", "DropDownButton", "DropDownSplitButton" ],
 
                 /**
                  * @description Данное свойство содержит описания значении свойств класса - переданные ему в setup.
                  * @hide
                  * @protected
-                 * @add Dark.Model.Static
-                 * @var {Object}
                  */
                 _property:{
                     text: "",

@@ -2,17 +2,17 @@ steal(
     './button_abstract_controller.js',
     function () {
         /**
-         * @class Dark.Controllers.Components.Buttons.DropDownButtonController
-         * @alias DropDownButtonController
+         * @class Dark.Controllers.Components.Buttons.DropDownSplitButtonController
+         * @alias DropDownSplitButtonController
          * @inherits Dark.Controllers.Components.Buttons.ButtonAbstractController
          * @parent Dark.Controllers.Components.Buttons.ButtonAbstractController
          * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
-        Dark.Controllers.Components.Buttons.ButtonAbstractController("Dark.Controllers.Components.Buttons.DropDownButtonController",
+        Dark.Controllers.Components.Buttons.ButtonAbstractController("Dark.Controllers.Components.Buttons.DropDownSplitButtonController",
             /* @Static */
             {//Static
                 tmpl:{
-                    component: 'buttons/drop_down_button.ejs'
+                    component: 'buttons/drop_down_split_button.ejs'
                 },
 
                 css:{
@@ -40,7 +40,7 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
-                    return this.find('> .btn:first-child').html(text + ' <span class="caret"></span>');
+                    return this.find('> .btn:first-child').text(text);
                 },
 
                 /******************************************************************************************************
@@ -68,12 +68,19 @@ steal(
                         el = $(event.target),
                         css = me.getCss(),
                         isBtn = el.is('.' + css.item),
+                        isCaret = !isBtn && el.is('.btn'),
                         clOpen = 'open',
-                        drop = me.find('.' + css.dropDown);
+                        drop;
 
                     me.__innerClick = true;
 
-                    if( isBtn ){
+                    if( el.is('.' + css.item) ){
+                        me.component.run();
+                    }
+
+                    drop = me.find('.' + css.dropDown);
+
+                    if( isCaret ){
                         drop[(drop.is('.' + clOpen) ? 'remove' : 'add') + 'Class'](clOpen);
                     }else{
                         drop.removeClass(clOpen);

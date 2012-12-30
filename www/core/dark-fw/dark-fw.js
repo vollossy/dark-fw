@@ -13,6 +13,8 @@ steal(
 
     ,'dark-fw/controllers/components/buttons/button_controller.js'
     ,'dark-fw/controllers/components/buttons/drop_down_button_controller.js'
+    ,'dark-fw/controllers/components/buttons/drop_down_split_button_controller.js'
+
     ,'dark-fw/controllers/components/containers/container_controller.js'
     ,'dark-fw/controllers/components/containers/drop_down_container_controller.js'
     ,'dark-fw/controllers/components/links/link_component_controller.js'
@@ -39,9 +41,6 @@ steal(
                         },
                         dropDown: {
                             cType: 'DropDownContainer',
-                            layout: {
-                                cType: 'VLayout'
-                            },
                             items: [
                                 {
                                     cType: 'LinkItem',
@@ -81,7 +80,7 @@ steal(
                         }
                     },
                     {
-                        cType: 'DropDownButton',
+                        cType: 'DropDownSplitButton',
                         text: "Кнопка 3",
                         action: {
                             cType: 'ClientScriptAction',
@@ -89,9 +88,6 @@ steal(
                         },
                         dropDown: {
                             cType: 'DropDownContainer',
-                            layout: {
-                                cType: 'VLayout'
-                            },
                             items: [
                                 {
                                     cType: 'LinkItem',
