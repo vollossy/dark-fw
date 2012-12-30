@@ -55,20 +55,6 @@ steal(
                 },
 
                 /**
-                 *
-                 * @protected
-                 * @return {Object}
-                 */
-                _subscribeToProperty:function () {
-                    return $.extend(this._super(), {
-                        text    : "textChange",
-                        display : "displayChange",
-                        scale   : "scaleChange",
-                        disabled: "disabledChange"
-                    });
-                },
-
-                /**
                  * Callback реагирующий на изменение свойства компонента display
                  * @param {jQueryEvent} event jQuery Событие
                  * @param {String} text Значение свойства компонента text
@@ -76,48 +62,6 @@ steal(
                  */
                 textChange:function (event, text) {
                     return this.element.text(text);
-                },
-
-                /**
-                 * Callback реагирующий на изменение свойства компонента display
-                 * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} display Значение свойства компонента display
-                 * @return {Button}
-                 */
-                displayChange:function (event, display) {
-                    var me = this;
-                    me.element[(me.component.isBlock() ? "add" : "remove") + 'Class']('btn-block');
-                    return me;
-                },
-
-                /**
-                 * Callback реагирующий на изменение свойства компонента scale
-                 * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} scale Значение свойства компонента scale
-                 * @return {Button}
-                 */
-                scaleChange:function (event, scale) {
-                    var me = this,
-                        scales = ['Mini', 'Small', 'Default', 'Large'],
-                        oneScale,
-                        i = 0, cnt = scales.length;
-
-                    for( ; i != cnt; ){
-                        oneScale = scales[i++];
-                        me.element[(me.component['is'+oneScale]() ? "add" : "remove") + 'Class']('btn-' + oneScale.toLowerCase());
-                    }
-
-                    return me;
-                },
-
-                /**
-                 * Callback реагирующий на изменение свойства компонента disabled
-                 * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} scale Значение свойства компонента disabled
-                 * @return {Button}
-                 */
-                disabledChange:function (event, disabled) {
-                    return this.element[(disabled ? 'add' : 'remove') + 'Class']('disabled ');
                 },
 
                 /******************************************************************************************************

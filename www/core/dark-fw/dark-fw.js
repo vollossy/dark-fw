@@ -19,57 +19,119 @@ steal(
 
     ,function(){
         $(document).ready(function(){
-            var component = $.toComponent(
-                {
-                    cType: 'DropDownButton',
-                    text: "Кнопка",
-                    action: {
-                        cType: 'ClientScriptAction',
-                        script: 'alert("work");'
+            var component = $.toComponent({
+                cType: 'Container',
+                items: [
+                    {
+                        cType: 'Button',
+                        text: 'Кнопка 1',
+                        action: {
+                            cType: 'ClientScriptAction',
+                            script: 'alert("work");'
+                        }
                     },
-                    dropDown: {
-                        cType: 'DropDownContainer',
-                        layout: {
-                            cType: 'VLayout'
+                    {
+                        cType: 'DropDownButton',
+                        text: "Кнопка 2",
+                        action: {
+                            cType: 'ClientScriptAction',
+                            script: 'alert("work");'
                         },
-                        items: [
-                            {
-                                cType: 'LinkItem',
-                                text: 'link item',
-                                status: 'success',
-                                href: '#hrefChangeLinkItem'
+                        dropDown: {
+                            cType: 'DropDownContainer',
+                            layout: {
+                                cType: 'VLayout'
                             },
-                            {
-                                cType: 'LinkItem',
-                                text: 'link item',
-                                status: 'success',
-                                href: '#hrefNoChangeLinkItem',
-                                action: {
-                                    cType: 'ClientScriptAction',
-                                    script: 'alert("Href no changed use only action not controller");'
+                            items: [
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefChangeLinkItem'
+                                },
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefNoChangeLinkItem',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action not controller");'
+                                    }
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component href change',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefChangeLinkComponent'
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefNoChangeLinkComponent',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action");'
+                                    }
                                 }
+                            ]
+                        }
+                    },
+                    {
+                        cType: 'DropDownButton',
+                        text: "Кнопка 3",
+                        action: {
+                            cType: 'ClientScriptAction',
+                            script: 'alert("work");'
+                        },
+                        dropDown: {
+                            cType: 'DropDownContainer',
+                            layout: {
+                                cType: 'VLayout'
                             },
-                            {
-                                cType: 'LinkComponent',
-                                text: 'link component href change',
-                                status: 'important',
-                                onlyModel: false,
-                                href: '#hrefChangeLinkComponent'
-                            },
-                            {
-                                cType: 'LinkComponent',
-                                text: 'link component',
-                                status: 'important',
-                                onlyModel: false,
-                                href: '#hrefNoChangeLinkComponent',
-                                action: {
-                                    cType: 'ClientScriptAction',
-                                    script: 'alert("Href no changed use only action");'
+                            items: [
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefChangeLinkItem'
+                                },
+                                {
+                                    cType: 'LinkItem',
+                                    text: 'link item',
+                                    status: 'success',
+                                    href: '#hrefNoChangeLinkItem',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action not controller");'
+                                    }
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component href change',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefChangeLinkComponent'
+                                },
+                                {
+                                    cType: 'LinkComponent',
+                                    text: 'link component',
+                                    status: 'important',
+                                    onlyModel: false,
+                                    href: '#hrefNoChangeLinkComponent',
+                                    action: {
+                                        cType: 'ClientScriptAction',
+                                        script: 'alert("Href no changed use only action");'
+                                    }
                                 }
-                            }
-                        ]
+                            ]
+                        }
                     }
-                }),
+
+                ]}),
                 controller;
 
             $.createController(component, $('#playGround'));

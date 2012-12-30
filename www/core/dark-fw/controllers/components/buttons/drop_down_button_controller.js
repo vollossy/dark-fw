@@ -1,5 +1,4 @@
 steal(
-    // Todo link model
     './button_abstract_controller.js',
     function () {
         /**
@@ -26,8 +25,12 @@ steal(
                 /******************************************************************************************************
                  * Protected methods
                  *****************************************************************************************************/
+                _replaceRootElement: function(el, options){
+                    return el.addClass('btn-group');
+                },
+
                 rootElement: function(){
-                    return this.find('> .btn-group > .btn');
+                    return this.find('> .btn');
                 },
 
                 /**
@@ -37,7 +40,7 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
-                    return this.find('> .btn-group > .btn:first-child').text(text);
+                    return this.find('> .btn:first-child').text(text);
                 },
 
                 /******************************************************************************************************
@@ -71,12 +74,6 @@ steal(
                     }
                 }
             }
-            //!steal-remove-start
-            /* @Getters */
-            , {}
-            /* @Setters */
-            , {}
-            //!steal-remove-end
         );
     }
 );

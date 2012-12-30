@@ -40,16 +40,6 @@ steal(
                 /**
                  * Callback реагирующий на изменение свойства компонента display
                  * @param {jQueryEvent} event jQuery Событие
-                 * @param {String} text Значение свойства компонента text
-                 * @return {Button}
-                 */
-                textChange:function (event, text) {
-                    return this.rootElement().text(text);
-                },
-
-                /**
-                 * Callback реагирующий на изменение свойства компонента display
-                 * @param {jQueryEvent} event jQuery Событие
                  * @param {String} display Значение свойства компонента display
                  * @return {Button}
                  */

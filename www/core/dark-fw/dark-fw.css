@@ -49,10 +49,18 @@ body{font-family:Lucida Sans,Lucida Grande,Arial,sans-serif;margin:0;}
     float: none;
 }
 
+.btn-group + .btn,
+.btn + .btn-group {
+    margin-left: 5px;
+}
+
 .dark-dropdowncontainer{
     position: relative;
 }
 
 .btn-group > div > .dropdown-menu{
     font-size: 14px;
+}
+.dropdown-menu span.divider {
+    display: list-item;
 }
