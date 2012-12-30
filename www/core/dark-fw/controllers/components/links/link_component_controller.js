@@ -28,7 +28,7 @@ steal(
                  * @return {jQuery|HTMLElement}
                  */
                 _replaceRootElement: function(el, options){
-                    return $('<a href="' + options.href() + '">' + options.text() + '</a>');
+                    return $(options.getHtmlElement());
                 },
 
                 /**
@@ -38,7 +38,10 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-                        href    : "hrefChange"
+                        href    : "hrefChange",
+                        text    : "textChange",
+                        icon    : "iconChange",
+                        iconPosition: "iconPositionChange"
                     });
                 },
 
@@ -48,9 +51,38 @@ steal(
                  * @param {String} href Значение свойства компонента href
                  * @return {Button}
                  */
-                textChange:function (event, href) {
+                hrefChange:function (event, href) {
                     return this.element.attr('href', href);
                 },
+
+                /**
+                 * Callback реагирующий на изменение свойства компонента text
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} text Значение свойства компонента text
+                 * @return {Button}
+                 */
+                textChange:function (event, text) {
+                    return this.element.html(this.component._getInnerHtml());
+                },
+                /**
+                 * Callback реагирующий на изменение свойства компонента icon
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} icon Значение свойства компонента icon
+                 * @return {Button}
+                 */
+                iconChange:function (event, icon) {
+                    return this.element.html(this.component._getInnerHtml());
+                },
+                /**
+                 * Callback реагирующий на изменение свойства компонента iconPosition
+                 * @param {jQueryEvent} event jQuery Событие
+                 * @param {String} iconPosition Значение свойства компонента iconPosition
+                 * @return {Button}
+                 */
+                iconPositionChange:function (event, iconPosition) {
+                    return this.element.html(this.component._getInnerHtml());
+                },
+
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/

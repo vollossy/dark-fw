@@ -25,23 +25,28 @@ steal(
                  */
                 _property:{
                     text: "",
+                    icon: '',
+                    iconPosition: 'left',
                     status: "default",
                     onlyModel: true
                 },
 
                 setup: function(baseClass, fullName, staticProps, protoProps){
-                    var me = this, aliases = me._alias, i = 0, cnt = aliases.length, alias;
+                    var me = this,
+                        aliases = me._alias,
+                        i = 0, cnt = aliases.length,
+                        alias,
+                        scope = function(aliasOuter){
+                            var alias = aliasOuter;
+                            return function(){ return this.cType() === alias};
+                        };
+
                     this._super(baseClass, fullName, staticProps, protoProps);
 
                     for( ; i!=cnt; ){
                         alias = aliases[i++];
-                        me.prototype['is' + alias] = this.isScope(alias)
+                        me.prototype['is' + alias] = scope.call(this, alias)
                     }
-                },
-
-                isScope: function(aliasOuter){
-                    var alias = aliasOuter;
-                    return function(){ return this.cType() === alias};
                 }
             },
             /* @Prototype */
@@ -54,11 +59,45 @@ steal(
                     return false;
                 },
 
+                /**
+                 * Возвращает html для отображения иконки
+                 * @return {String}
+                 * @private
+                 */
+                _getIconHtml: function(){
+                    var me = this,
+                        icon = me.icon(),
+                        positionLeft = me.isIconPositionLeft(),
+                        html = '<i class="icon-' + icon + '"></i>';
+                    return icon ? positionLeft ? html + ' ' : ' ' + html : "";
+                },
+
+                isIconPositionLeft: function(){
+                    return this.iconPosition() === 'left';
+                },
+
+                isIconPositionRight: function(){
+                    return this.iconPosition() === 'right';
+                },
+
+                /**
+                 * Возвращает html для отображения внутри кнопки. Иконка, префикс, текст
+                 * @return {String}
+                 * @private
+                 */
+                _getInnerHtml: function(){
+                    var me = this,
+                        text = me.text(),
+                        icon = me._getIconHtml(),
+                        iconPositionIsLeft = me.isIconPositionLeft();
+                    return (iconPositionIsLeft ? icon : "") + text + (iconPositionIsLeft ? "" : icon);
+                },
+
                 getHtmlElement: function(){
                     var me = this,
                         css = me.isLabelItem() ? 'label' : me.isBadgeItem() ? 'badge' : "item";
 
-                    return '<span class="' + css + ' ' + css+'-'+me.status() + '">' + me.text() + '</span>'
+                    return '<span class="' + css + ' ' + css+'-'+me.status() + '">' + me._getInnerHtml() + '</span>'
                 }
             }
             //!steal-remove-start

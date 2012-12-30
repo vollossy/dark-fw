@@ -70,14 +70,17 @@ steal(
                         isBtn = el.is('.' + css.item),
                         clOpen = 'open',
                         drop = me.find('.' + css.dropDown),
-                        item = $.data(el[0], 'component');
+                        item;
 
                     me.__innerClick = true;
 
                     if( isBtn ){
                         drop[(drop.is('.' + clOpen) ? 'remove' : 'add') + 'Class'](clOpen);
                     }else{
-                        if( item.isItem() && component.textIsCycle() ){
+                        el = !el.is('i') ? el : el.parent();
+                        item = $.data(el[0], 'component');
+
+                        if( !!item && item.isItem() && component.textIsCycle() ){
                             component.text(item.text());
                         }
                         drop.removeClass(clOpen);

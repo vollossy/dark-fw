@@ -210,7 +210,10 @@ steal(
                         component = me.component,
                         item, attr;
 
-                    if( el.hasClass(me.getCss('item')) ){
+                    if( el.is('i') ){
+                        el = el.parent();
+                    }
+                    if( el.is('.' + me.getCss('item')) ){
                         attr = el.attr('dark-container-parent-id');
                         if( attr === component.id() ){
                             me.itemClick(el, component.items().get(parseInt(el.attr('dark-item-key'), 10)), event);

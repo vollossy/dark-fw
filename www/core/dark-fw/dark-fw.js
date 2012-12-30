@@ -53,11 +53,14 @@ steal(
                                         cType: 'LinkItem',
                                         text: 'link item',
                                         status: 'success',
+                                        icon: 'ok',
                                         href: '#hrefChangeLinkItem'
                                     },
                                     {
                                         cType: 'LinkItem',
                                         text: 'link item',
+                                        icon: 'ok',
+                                        iconPosition: 'right',
                                         status: 'success',
                                         href: '#hrefNoChangeLinkItem',
                                         action: {

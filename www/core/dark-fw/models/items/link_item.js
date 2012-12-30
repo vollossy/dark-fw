@@ -34,13 +34,9 @@ steal(
             },
             /* @Prototype */
             {
-                _replaceRootElement: function(el, options){
-                    return $('<a class="' + this.getCss('btn') + ' btn"></button>');
-                },
-
                 getHtmlElement: function(){
                     var me = this;
-                    return '<a href="' + me.href() + '" target="_self">' + me.text() + '</a>'
+                    return '<a href="' + me.href() + '" target="_self">' + me._getInnerHtml() + '</a>'
                 },
 
                 runNoController: function(event){
