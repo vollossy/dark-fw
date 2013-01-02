@@ -51,7 +51,8 @@ steal(
                  * If you have an input, use an <input type="submit"> for your button.
                  */
                 _replaceRootElement: function(el, options){
-                    return $('<button class="' + this.getCss('btn') + ' btn"></button>');
+                    var tag = options.tag();
+                    return $('<' + tag + ' class="' + this.getCss('btn') + ' btn" ' + (tag === 'a' ? 'href=""' : "") + '/>');
                 },
 
                 /******************************************************************************************************

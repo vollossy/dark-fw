@@ -25,7 +25,7 @@ steal(
                  * @protected
                  */
                 _property: {
-                     visible: 'T',
+                    visible: 'T',
                     css:{
                         converter: 'bindOC',
                         defValue: 'bindOC'
@@ -37,15 +37,17 @@ steal(
                     handlers: {
                         converter : 'componentsC',
                         defValue: 'C'
-                    }
+                    },
+                    useDragHandler: 'F'
                 }
             },
             /* @Prototype */
             {
-                init:function () {
+                setup:function (attributes) {
                     var me = this,
                         handlers, eventName;
-                    me._super();
+                    me._super(attributes);
+
                     handlers = me.handlers();
 
                     handlers.map(function(key, handler){

@@ -24,11 +24,13 @@ steal(
                  * @protected
                  */
                 _property:{
+                    tag: 'span',
                     text: "",
                     icon: '',
                     iconPosition: 'left',
                     status: "default",
-                    onlyModel: true
+                    onlyModel: true,
+                    useDragHandler: 'F'
                 },
 
                 setup: function(baseClass, fullName, staticProps, protoProps){
@@ -95,9 +97,10 @@ steal(
 
                 getHtmlElement: function(){
                     var me = this,
-                        css = me.isLabelItem() ? 'label' : me.isBadgeItem() ? 'badge' : "item";
+                        tag = me.isLabelItem() || me.isBadgeItem() ? 'span' : me.tag(),
+                        css = me.isLabelItem() ? 'label' : me.isBadgeItem() ? 'badge' : "text";
 
-                    return '<span class="' + css + ' ' + css+'-'+me.status() + '">' + me._getInnerHtml() + '</span>'
+                    return '<'+tag+' class="' + css + ' ' + css+'-'+me.status() + '">' + me._getInnerHtml() + '</'+tag+'>'
                 }
             }
             //!steal-remove-start

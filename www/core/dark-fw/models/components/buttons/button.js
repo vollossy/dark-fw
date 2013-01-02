@@ -26,6 +26,7 @@ steal(
                  * @protected
                  */
                 _property:{
+                    tag         : 'button',
                     text        : "",
                     display     : 'inline',
                     scale       : 'default',

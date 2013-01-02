@@ -77,9 +77,7 @@ steal(
                 },
 
                 _createHtmlElement: function(key, item, info){
-                    var me = this,
-                        tag = me.tag();
-                    return '<' + tag + '>' + '</' + tag + '>';
+                    return '<' + this.tag() + '/>';
                 },
 
                 getHtmlElement: function(key, item, info){

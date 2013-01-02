@@ -1,15 +1,15 @@
 steal(
-    '../../../models/items/link_item.js',
-    '../../controller.js',
+    '../../../models/components/links/link_component.js',
+    '../component_controller.js',
     function () {
         /**
          * @class Dark.Controllers.Components.Links.LinkComponentController
          * @alias LinkComponentController
-         * @inherits Dark.Controllers.Controller
-         * @parent Dark.Controllers.Controller
+         * @inherits Dark.Controllers.Components.ComponentController
+         * @parent Dark.Controllers.Components.ComponentController
          * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
-        Dark.Controllers.Controller("Dark.Controllers.Components.Links.LinkComponentController",
+        Dark.Controllers.Components.ComponentController("Dark.Controllers.Components.Links.LinkComponentController",
             /* @Static */
             {//Static
                 tmpl:{},
@@ -22,13 +22,40 @@ steal(
                  * Protected methods
                  *****************************************************************************************************/
                 /**
+                 * Возвращает html для отображения иконки
+                 * @return {String}
+                 * @private
+                 */
+                _getIconHtml: function(){
+                    var component = this.component,
+                        icon = component.icon(),
+                        positionLeft = component.isIconPositionLeft(),
+                        html = '<i class="icon-' + icon + '"></i>';
+                    return icon ? positionLeft ? html + ' ' : ' ' + html : "";
+                },
+
+                /**
+                 * Возвращает html для отображения внутри кнопки. Иконка, префикс, текст
+                 * @return {String}
+                 * @private
+                 */
+                _getInnerHtml: function(){
+                    var me = this,
+                        component = me.component,
+                        text = component.text(),
+                        icon = me._getIconHtml(),
+                        iconPositionIsLeft = component.isIconPositionLeft();
+                    return (iconPositionIsLeft ? icon : "") + text + (iconPositionIsLeft ? "" : icon);
+                },
+
+                /**
                  * Изменяем елемент контроллера на DOM елемент a
                  * @param {jQueryHTMLElement} el Елемент на который был навешан данный контроллер
                  * @param {Dark.Models.Components.Buttons.Button} options Модель ссылки
                  * @return {jQuery|HTMLElement}
                  */
                 _replaceRootElement: function(el, options){
-                    return $(options.getHtmlElement());
+                    return $('<a href="' + options.href() + '" target="_self"/>');
                 },
 
                 /**
@@ -62,7 +89,7 @@ steal(
                  * @return {Button}
                  */
                 textChange:function (event, text) {
-                    return this.element.html(this.component._getInnerHtml());
+                    return this.element.html(this._getInnerHtml());
                 },
                 /**
                  * Callback реагирующий на изменение свойства компонента icon
@@ -71,7 +98,7 @@ steal(
                  * @return {Button}
                  */
                 iconChange:function (event, icon) {
-                    return this.element.html(this.component._getInnerHtml());
+                    return this.element.html(this._getInnerHtml());
                 },
                 /**
                  * Callback реагирующий на изменение свойства компонента iconPosition
@@ -80,7 +107,7 @@ steal(
                  * @return {Button}
                  */
                 iconPositionChange:function (event, iconPosition) {
-                    return this.element.html(this.component._getInnerHtml());
+                    return this.element.html(this._getInnerHtml());
                 },
 
                 /******************************************************************************************************

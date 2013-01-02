@@ -1,7 +1,8 @@
 steal(
-    '../../../models/components/containers/container.js',
-    '../box_component_controller',
-    function () {
+    '../../../models/components/containers/container.js'
+    ,'../box_component_controller.js'
+    ,'jquery/ui/jquery.ui.droppable.js'
+    ,function () {
         var __p_bindToEventCollection = function(){
                 var me = this,
                     collection = this.component.items();
@@ -89,7 +90,7 @@ steal(
                  * @protected
                  */
                 _getItemElementByKey: function(key){
-                    return $('> .' + this.getCss().item + '[dark-attr-key="' + key + '"]' , this._getItemWrapElement());
+                    return $('> .' + this.getCss().item + '[dark-item-key="' + key + '"]' , this._getItemWrapElement());
                 },
 
                 _appendItem: function(parent, element){
@@ -147,9 +148,14 @@ steal(
                 _addItemCb: function(event, item){
                     var me = this,
                         items = me.component.items(),
-                        tag = me._getNewItemElement(items.count() - 1, item);
-
-                    me._getItemWrapElement(items.count() - 1)[items.isStackMode() ? 'prepend' : 'append']($.createController(item, tag).element);
+                        tag = me._getNewItemElement(items.count() - 1, item),
+                        el;
+                    if( item.isItem() && item.onlyModel() ){
+                        el = tag;
+                    }else{
+                        el = $.createController(item, tag).element;
+                    }
+                    me._getItemWrapElement(items.count() - 1)[items.isStackMode() ? 'prepend' : 'append'](el);
                 },
                 /**
                  * Callback на событие изменения елемента коллекции на другой, если такой был
@@ -165,7 +171,7 @@ steal(
                         key = items.getKey(item),
                         element = me._getItemElementByKey(key);
 
-                    if( element ){
+                    if( element.length ){
                         element.replaceWith($.createController(item, me._getNewItemElement(key, item)).element)
                     }else{
                         me._addItemCb(false, element);

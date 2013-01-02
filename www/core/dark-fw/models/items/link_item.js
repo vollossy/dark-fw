@@ -16,7 +16,7 @@ steal(
                  * @hide
                  * @protected
                  */
-                _alias:[ "LinkItem", 'LinkComponent' ],
+                _alias:[ "LinkItem" ],
 
                 /**
                  * @description Данное свойство содержит описания значении свойств класса - переданные ему в setup.
@@ -24,12 +24,7 @@ steal(
                  * @protected
                  */
                 _property:{
-                    href: '#',
-                    onlyModel: {
-                        get: function(){
-                            return this.isLinkItem();
-                        }
-                    }
+                    href: '#'
                 }
             },
             /* @Prototype */

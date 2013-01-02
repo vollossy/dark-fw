@@ -257,8 +257,8 @@ steal(
                             return isFunction(get)
                                 ? get.call(me, desc)
                                 : !!__s_defGetters[get] && isFunction(__s_defGetters[get])
-                                ? __s_defGetters[get].call(me, desc)
-                                : me[desc.field];
+                                    ? __s_defGetters[get].call(me, desc)
+                                    : me[desc.field];
                         },
                         oldValue = fnGet.call(me, descriptor),
                         fnSet = function (desc, value, oldValue) {
@@ -270,8 +270,8 @@ steal(
                             isFunction(set)
                                 ? value = set.call(me, desc, value, oldValue)
                                 : !!__s_defSetters[set] && isFunction(__s_defSetters[set])
-                                ? value = __s_defSetters[set].call(me, desc, value, oldValue)
-                                : me[desc.field] = value;
+                                    ? value = __s_defSetters[set].call(me, desc, value, oldValue)
+                                    : me[desc.field] = value;
 
                             return value;
                         },
@@ -288,12 +288,10 @@ steal(
                         triggerPropertyEvent = function (descriptor, value, oldValue) {
                             var me = this;
                             // Если класс не находится в режиме инициализации то тригнем событие изменения свойства
-                            if( isFunction(triggerEvent) ){
-                                triggerEvent.call(me, descriptor, value, oldValue);
-                            }else{
-                                if (!me._initializing) {
-                                    $(me).triggerHandler(eventName, value);
-                                }
+                            if (!me._initializing) {
+                                isFunction(triggerEvent)
+                                    ? triggerEvent.call(me, descriptor, value, oldValue)
+                                    : $(me).triggerHandler(eventName, value);
                             }
                             return this;
                         };
@@ -696,6 +694,7 @@ steal(
                  */
                 init: function(){
                     this._initializing = false;
+                    $(this).triggerHandler('modelLoad');
                 },
 
                 /**

@@ -50,7 +50,7 @@ steal(
             __p_bindOuterEvents = function(eventNamePostfix, callback){
                 var me = this;
                 if( me.isObserversMode() ){
-                    me._bindersCallbacks[__EVENTS[eventNamePostfix]].add(callback)
+                    me._bindersCallbacks[__EVENTS[eventNamePostfix]].add({ isFunc: true, st: '' + callback, cb: callback})
                 }
                 return me;
             },
@@ -64,9 +64,18 @@ steal(
              * @return {Class} Возвращаем this
              */
             __p_unbindOuterEvents = function(eventNamePostfix, callback){
-                var me = this;
+                var me = this,
+                    collection = me._bindersCallbacks[__EVENTS[eventNamePostfix]],
+                    removeKey;
                 if( me.isObserversMode() ){
-                    me._bindersCallbacks[__EVENTS[eventNamePostfix]].removeElement(callback)
+                    collection.map(function(key, val){
+                        if( '' + callback == val.st ){
+                            removeKey = key;
+                        }
+                    });
+                    if( !!removeKey ){
+                        collection.remove(removeKey)
+                    }
                 }
                 return me;
             },
@@ -338,7 +347,7 @@ steal(
                     var me = this;
                     if( me.isObserversMode() && !me.isMuteMode() && !me._initializing ){
                         me._bindersCallbacks[event.type].map(function(key, callback){
-                            callback(event, item);
+                            callback.cb(event, item);
                         });
                     }
                 },

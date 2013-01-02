@@ -8,8 +8,11 @@ steal(
     ,'jquery/controller/view/view.js'
     ,'jquery/controller/controller.js'
     ,'../models/model.js'
+    ,'../models/managers/drag_and_drop_manager.js'
+    ,'jquery/ui/jquery.ui.draggable.js'
     ,function () {
         var darkStore = window.DarkStore,
+            ddManager = Dark.Models.Managers.DragAndDropManager.getInstance(),
             undefined = undefined,
             __isUndefined = $.isUndefined,
             __isPlainObject = $.isPlainObject,
@@ -175,6 +178,7 @@ steal(
                     me._super(baseClass, fullName, staticProps, protoProps);
                     __s_addStore.call(me);
                     me.css = !!me.css ? $.extend({}, baseClass.css, me.css) : {};
+                    me.tmpl = !!me.tmpl ? $.extend({}, baseClass.tmpl, me.tmpl) : {};
                 }
             },
             /* @Prototype */
@@ -293,10 +297,10 @@ steal(
                 init:function () {
                     var me = this,
                         element = me.element,
+                        component = me.component,
                         css = me.getCss(),
                         wrap = css && css.wrap ? " " + css.wrap : "",
-                        mCssClass = 'dark-' + me.component.cType().toLowerCase();
-
+                        mCssClass = 'dark-' + component.cType().toLowerCase();
 
                     $.data(element[0], 'sysCssClass', element.attr('class') + ' ' + mCssClass + wrap);
 
@@ -304,6 +308,25 @@ steal(
                     me.render();
                     __p_subscribeToProperty.call(me);
                     me._changeEvents();
+
+                    if( component.useDragHandler() ){
+                        element.draggable({
+                            zIndex: 1000,
+                            start: me.proxy('_dragStart'),
+                            stop: me.proxy('_dragStop'),
+                            helper: "clone"
+                        });
+                    }
+                },
+
+                _dragStart: function(event, ui){
+                    ddManager.current(this);
+                    ddManager.parentElement(this.element.parent().parent());
+                },
+
+                _dragStop: function(){
+                    ddManager.current(false);
+                    ddManager.parentElement(false);
                 },
 
                 idChange: function (event, element) {
