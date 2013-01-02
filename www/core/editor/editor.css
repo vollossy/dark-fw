@@ -1,0 +1,110 @@
+body{
+    height: 100%;
+    width: 100%;
+}
+#viewport-editor{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+}
+#viewport-toolbar{
+
+}
+#work-area{
+    position: absolute;
+    top: 42px;
+    bottom: 0;
+    left: 0;
+    right: 260px;
+}
+#component-list{
+    position: absolute;
+    top: 42px;
+    bottom: 0;
+    right: 0;
+    width: 220px;
+    margin: 0;
+}
+
+
+
+
+.view-item.ui-draggable{
+}
+
+#work-area.editorMode > .dark-container{
+    height: 100%;
+}
+
+#work-area.editorMode .dark-buttontoolbarcontainer,
+#work-area.editorMode .dark-container{
+    width: 100%;
+}
+
+#work-area.editorMode .dark-buttongroupcontainer{
+    min-width: 30px;
+}
+
+#work-area.editorMode .dark-buttongroupcontainer,
+#work-area.editorMode .dark-buttontoolbarcontainer,
+#work-area.editorMode .dark-container{
+    padding: 3px 0;
+    background-color: #f5f5f5;
+    min-height: 20px;
+}
+
+#work-area.editorMode .dark-buttontoolbarcontainer{
+    font-size: 1em !important;
+}
+#work-area.editorMode .dark-buttontoolbarcontainer > .dark-container-wrap > .dark-buttongroupcontainer{
+    background-color: #dbdbdb;
+}
+#work-area.editorMode .dark-buttontoolbarcontainer > .dark-container-wrap > .dark-buttongroupcontainer.drop-hover{
+    padding: 3px 10px;
+}
+
+#work-area.editorMode > .dark-container{
+    background-color: transparent;
+}
+
+.nav-list > li > a input[type="checkbox"]{
+    margin: 0;
+    margin-bottom: 2px;
+    margin-right: 10px;
+}
+
+.btn,
+.btn-group {
+    display: inline-block !important;
+}
+
+
+#work-area .drop-hover{
+    background-color: #f5f5f5;
+}
+
+.dark-container > .dark-container-wrap > .sort-placeholder{
+    background-color: #fcf8e3;
+    border: 1px solid #fbeed5;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    margin: 2px 0;
+}
+
+.dark-container.dark-flowlayout > .dark-container-wrap > span.sort-placeholder,
+.dark-container.dark-flowlayout > .dark-container-wrap > a.sort-placeholder{
+    display: inline !important;
+}
+
+.dark-container.dark-vlayout > .dark-container-wrap > .sort-placeholder{
+    float: left;
+    clear: left;
+}
+
+
