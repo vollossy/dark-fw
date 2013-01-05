@@ -144,6 +144,9 @@ steal(
                 '{}'    : function(){ return {}; },
                 C       : function(property){ return Dark.Models.Utils.Collection.newInstance(); },
                 oC      : function(property){ return __s_defDefValues.C.call(this, property).activateObserversMode() },
+                fProvider : function(property){
+                    return Dark.Models.DataProviders.FieldDataProvider.newInstance();
+                },
                 bindOC  : function(property){
                     var me = this;
                     return __s_defDefValues.oC.call(me, property).bindWithAllEvent(function(ev, el){

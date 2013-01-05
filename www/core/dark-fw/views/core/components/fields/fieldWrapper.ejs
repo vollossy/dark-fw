@@ -1,0 +1,11 @@
+<label class="<%=cssClasses.label%>"><%=component.label().text()%></label>
+<div class="<%=cssClasses.container%>">
+    <% if( component.description() ){ %>
+    <% if( component.descriptionPosition() == 'block' ){ %>
+    <p class="<%=cssClasses.help%>-block"><%= component.description() %></p>
+    <% }else{ %>
+    <span class="<%=cssClasses.help%>-inline"><%= component.description() %></span>
+    <% } %>
+    <% } %>
+    <div class="<%=cssClasses.errorContainer%> <%=cssClasses.alert%>"></div>
+</div>

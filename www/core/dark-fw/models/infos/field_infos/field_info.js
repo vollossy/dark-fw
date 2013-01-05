@@ -1,23 +1,22 @@
 steal(
-    './manager_abstract.js',
+    '../../model.js',
     function () {
         /**
-         * @class Dark.Models.Managers.DragAndDropManager
-         * @alias DragAndDropManager
-         * @inherits Dark.Models.Managers.ManagerAbstract
-         * @parent Dark.Models.Managers.ManagerAbstract
+         * @class Dark.Models.Infos.FieldInfos.FieldInfo
+         * @alias FieldInfo
+         * @inherits Dark.Models.Model
+         * @parent Dark.Models.Model
          * @author Константин "Konstantin.R.Dark" Родионов ( Проколенко ) Konstantin.R.Dark@gmail.com
          */
-        Dark.Models.Managers.ManagerAbstract("Dark.Models.Managers.DragAndDropManager",
+        Dark.Models.Model("Dark.Models.Infos.FieldInfos.FieldInfo",
             /* @Static */
             {
-                _instance: undefined,
                 /**
                  * @description Массив псевдонимов текущей модели.
                  * @hide
                  * @protected
                  */
-                _alias:[ "DragAndDropManager" ],
+                _alias:[ "FieldInfo" ],
 
                 /**
                  * @description Данное свойство содержит описания значении свойств класса - переданные ему в setup.
@@ -25,27 +24,26 @@ steal(
                  * @protected
                  */
                 _property:{
-                    current: 'F',
-                    parentElement: 'F'
+                    fieldName: '',
+                    formName: '',
+                    value: {},
+                    field: {}
                 }
             },
             /* @Prototype */
             {
-                getCurrentElement: function(){
-                    var current = this.current();
-                    return !!current ? current.element : false;
+
+                getValue: function(){
+                    return this.value();
                 },
 
-                getParentComponent: function(){
-                    var parent = this.parentElement();
-                    return !!parent ? $.getComponentByElement(parent) : false;
+                setValue: function(value){
+                    return this.value(value);
                 },
 
-                getCurrentComponent: function(){
-                    var current = this.current();
-                    return !!current ? current.component : false;
+                setValueForServer: function(){
+                    return this.value();
                 }
-
             }
             //!steal-remove-start
             /* @Getters */

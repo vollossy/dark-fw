@@ -9,6 +9,7 @@ steal(
         var isArray = $.isArray,
             isPlainObject = $.isPlainObject,
             isString      = $.isString,
+            isUndefined = $.isUndefined,
             __EVENTS = {
                 ADD     : "addElementFromCollection",
                 SET     : "setElementFromCollection",
@@ -100,7 +101,7 @@ steal(
              */
             __p_containObjKey = function(key){
                 var objKeys = this.__objKey();
-                return isString(key) && !!objKeys[key] ? objKeys[key] : false;
+                return isString(key) && !isUndefined(objKeys[key]) ? objKeys[key] : false;
             },
             /**
              * Проверяет есть ли переданный ключ в инвертированном массиве
@@ -112,7 +113,7 @@ steal(
              */
             __p_containInvertKey = function(key){
                 var invertedKeys = this.__iObjKey();
-                return !!invertedKeys[key] ? invertedKeys[key] : false;
+                return !isUndefined(invertedKeys[key]) ? invertedKeys[key] : false;
             },
             /**
              * Конвертирует переданный ключ в нужный числовой формат
@@ -124,7 +125,7 @@ steal(
              */
             __p_convertKey = function(key){
                 var me = this;
-                return isString(key) && __p_containObjKey.call(me, key) ? me.__objKey()[key] : key;
+                return isString(key) && !isUndefined(__p_containObjKey.call(me, key)) ? me.__objKey()[key] : key;
             },
             /**
              * Конвертирует переданный ключ в нужный строковый формат
@@ -137,7 +138,7 @@ steal(
             __p_invertKey = function(key){
                 var me = this,
                     invertedKeys = me.__iObjKey();
-                return $.isNumeric(key)&& __p_containInvertKey.call(me, key) ? invertedKeys[key] : key;
+                return $.isNumeric(key)&& !isUndefined(__p_containInvertKey.call(me, key)) ? invertedKeys[key] : key;
             },
             /**
              * Возвращает стартовый индекс для перебора в зависимости от текущего режима ( стек или очередь )

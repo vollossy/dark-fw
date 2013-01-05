@@ -211,6 +211,26 @@ steal(
                 },
 
                 /**
+                 * Возвращает элемент внутрь которого необходимо отрисовать основной шаблон компонента
+                 * @private
+                 */
+                _getRenderElement: function(){
+                    return this.element;
+                },
+
+                /**
+                 * Добавляет полученный шаблон в элемент отрисовки
+                 * @private
+                 */
+                _renderElement: function(tmpl){
+                    this._getRenderElement().html(tmpl);
+                },
+
+                _getRenderView: function(path, property, helpers){
+                    return this.view('../../dark-fw/views/core/components/' + path, property, helpers);
+                },
+
+                /**
                  * Рендерит шаблон и передает в него параметры
                  * @protected
                  * @see Dark.Controllers.Controller:_getRenderParams
@@ -224,7 +244,7 @@ steal(
 
                     if( !!path ){
 
-                        tmpl = me.view('../../dark-fw/views/core/components/' + path, property, helpers);
+                        tmpl = me._getRenderView(path, property, helpers);
 
                         //!steal-remove-start
                         if (__isUndefined(tmpl))
@@ -232,7 +252,7 @@ steal(
                         //!steal-remove-end
 
                         //me.element[0].innerHtml = tmpl
-                        me.element.append(tmpl);
+                        me._renderElement(tmpl);
                     }
                 },
 

@@ -33,7 +33,7 @@ steal(
                         get: function(description){
                             return 'dark-' + this.Class.shortName.toLowerCase();
                         },
-                        dependency: 'cType'
+                        dependence: 'cType'
                     },
                     align: {
                         fnAfterSet: function(description, value, oldValue){
