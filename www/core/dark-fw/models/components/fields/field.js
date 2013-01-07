@@ -128,7 +128,7 @@ steal(
                         },
                         dependence: ['formName', 'name', 'value', 'fieldInfoType']
                     },
-                    label: 'toComponent',
+                    label: '',
                     /**
                      * Текст блока описания
                      * @var {String}

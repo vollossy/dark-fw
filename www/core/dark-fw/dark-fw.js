@@ -14,7 +14,6 @@ steal(
     ,'dark-fw/models/managers/form_manager.js'
 
     ,'dark-fw/models/components/forms/form.js'
-    ,'dark-fw/models/components/fields/field.js'
 
     ,'dark-fw/controllers/components/buttons/button_controller.js'
     ,'dark-fw/controllers/components/buttons/drop_down_button_controller.js'
@@ -26,7 +25,67 @@ steal(
     ,'dark-fw/controllers/components/containers/button_group_container_controller.js'
     ,'dark-fw/controllers/components/links/link_component_controller.js'
 
-    ,function(){
+    ,'dark-fw/controllers/components/fields/string_field_controller.js'
 
+    ,function(){
+        var field = $.toComponent({
+            cType: 'StringField',
+            label: 'test',
+            name: 't1',
+            value: "test"
+        });
+        $.createController(field, $('#playGround'));
+
+        /*
+         var manager = Dark.Models.Managers.FieldManager.getInstance(),
+         clear = function(){
+         if( !!window.field ) delete window.field;
+         if( !!window.form1 ) manager.unsetForm(form1);
+         if( !!window.form2 ) manager.unsetForm(form2);
+         };
+
+         clear();
+
+         var field = $.toComponent({
+         cType: 'Field',
+         name: 'tf',
+         value: 'str',
+         fieldInfo: {
+         cType: 'FieldInfo',
+         value: 'str1'
+         }
+         }),
+         form1 = $.toComponent({
+         cType: 'Form',
+         name: 'tff1',
+         items: []
+         }),
+         form2 = $.toComponent({
+         cType: 'Form',
+         name: 'tff2',
+         items: []
+         }),
+         log = function(){
+         console.log('-------------------------------------- LOG ----------------------------------------');
+         console.log(manager);
+         console.log('---  Field  ---');
+         console.log(field);
+         console.log('value : ' + field.value());
+         console.log('---  Form 1  ---');
+         console.log(form1);
+         console.log('fields : ', form1.getFields());
+         console.log('values : ', form1.getValues());
+         console.log('---  Form 2  ---');
+         console.log(form2);
+         console.log('fields : ', form2.getFields());
+         console.log('values : ', form2.getValues());
+         };
+
+         field.formName('tff1');
+         log();
+
+
+         //log();
+         */
     }
 );

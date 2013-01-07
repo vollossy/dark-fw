@@ -28,6 +28,14 @@ steal(
             },
             /* @Prototype */
             {//Prototype
+                getContainerElement: function(){
+                    return $('> .'+this.getCss('container'), this.element);
+                },
+
+                getErrorElement: function(){
+                    return $('> .'+this.getCss('errorContainer'), this.getContainerElement());
+                },
+
                 /******************************************************************************************************
                  * Protected methods
                  *****************************************************************************************************/
@@ -65,9 +73,32 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-
+                        value           : 'valueChange',
+                        errors          : 'errorsChange',
+                        _errorVisible   : 'errorVisibleChange'
                     });
                 },
+
+                _updateErrorsText: function(){
+                    this.getErrorElement().html("<ol><li>"+this.component.errors().join('</li><li>')+"</li></ol>");
+                },
+
+                _updateErrorVisible: function(){
+                    var me = this,
+                        el = me.element,
+                        error = me.getCss('error'),
+                        errorVisible = me.component._errorVisible();
+
+                    me.getErrorElement()[errorVisible ? 'show' : 'hide']();
+
+                    if( errorVisible && !el.hasClass(error) ){
+                        el.addClass(error);
+                    }
+                    if( !errorVisible && el.hasClass(error) ){
+                        el.removeClass(error);
+                    }
+                },
+
 
                 /******************************************************************************************************
                  * Public methods
@@ -75,6 +106,16 @@ steal(
                 render:function () {
                     var me = this;
                     me._super();
+                },
+
+                valueChange: $.noop,
+
+                errorsChange: function(event, value){
+                    this._updateErrorsText();
+                },
+
+                errorVisibleChange: function(event, value){
+                    this._updateErrorVisible();
                 },
 
                 destroy:function () {

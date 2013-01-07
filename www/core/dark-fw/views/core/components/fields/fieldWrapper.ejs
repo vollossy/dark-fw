@@ -1,11 +1,11 @@
-<label class="<%=cssClasses.label%>"><%=component.label().text()%></label>
-<div class="<%=cssClasses.container%>">
-    <% if( component.description() ){ %>
+<label class="<%=css.label%>"><%=component.label()%></label>
+<div class="<%=css.container%>">
+    <% if( component.descriptionText() ){ %>
     <% if( component.descriptionPosition() == 'block' ){ %>
-    <p class="<%=cssClasses.help%>-block"><%= component.description() %></p>
+    <p class="<%=css.help%>-block"><%= component.descriptionText() %></p>
     <% }else{ %>
-    <span class="<%=cssClasses.help%>-inline"><%= component.description() %></span>
+    <span class="<%=css.help%>-inline"><%= component.descriptionText() %></span>
     <% } %>
     <% } %>
-    <div class="<%=cssClasses.errorContainer%> <%=cssClasses.alert%>"></div>
+    <div class="<%=css.errorContainer%> <%=css.alert%>"></div>
 </div>
