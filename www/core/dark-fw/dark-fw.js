@@ -13,8 +13,6 @@ steal(
     ,'dark-fw/models/managers/drag_and_drop_manager.js'
     ,'dark-fw/models/managers/form_manager.js'
 
-    ,'dark-fw/models/components/forms/form.js'
-
     ,'dark-fw/controllers/components/buttons/button_controller.js'
     ,'dark-fw/controllers/components/buttons/drop_down_button_controller.js'
     ,'dark-fw/controllers/components/buttons/drop_down_split_button_controller.js'
@@ -25,16 +23,25 @@ steal(
     ,'dark-fw/controllers/components/containers/button_group_container_controller.js'
     ,'dark-fw/controllers/components/links/link_component_controller.js'
 
+    ,'dark-fw/controllers/components/forms/form_controller.js'
+
     ,'dark-fw/controllers/components/fields/string_field_controller.js'
 
     ,function(){
-        var field = $.toComponent({
-            cType: 'StringField',
-            label: 'test',
-            name: 't1',
-            value: "test"
-        });
-        $.createController(field, $('#playGround'));
+        var form = $.toComponent({
+                cType   : 'Form',
+                name    : 'tf',
+                items   : [
+                    {
+                        cType: 'StringField',
+                        label: 'test',
+                        name: 't1',
+                        formName: 'tf',
+                        value: "test"
+                    }
+                ]
+            });
+        $.createController(form, $('#playGround'));
 
         /*
          var manager = Dark.Models.Managers.FieldManager.getInstance(),

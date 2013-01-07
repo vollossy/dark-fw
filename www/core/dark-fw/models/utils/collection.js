@@ -138,7 +138,7 @@ steal(
             __p_invertKey = function(key){
                 var me = this,
                     invertedKeys = me.__iObjKey();
-                return $.isNumeric(key)&& !isUndefined(__p_containInvertKey.call(me, key)) ? invertedKeys[key] : key;
+                return $.isNumeric(key)&& !__p_containInvertKey.call(me, key) ? key : invertedKeys[key];
             },
             /**
              * Возвращает стартовый индекс для перебора в зависимости от текущего режима ( стек или очередь )
