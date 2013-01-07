@@ -26,9 +26,19 @@ steal(
     ,'dark-fw/controllers/components/forms/form_controller.js'
 
     ,'dark-fw/controllers/components/fields/string_field_controller.js'
+    ,'dark-fw/controllers/components/fields/integer_field_controller.js'
 
     ,function(){
-        var form = $.toComponent({
+        var field = $.toComponent({
+                cType: 'IntegerField',
+                label: 'test',
+                name: 't2',
+                formName: 'tf',
+                value: 0,
+                min: 0,
+                max: 10
+            }),
+            form = $.toComponent({
                 cType   : 'Form',
                 name    : 'tf',
                 items   : [
@@ -38,11 +48,20 @@ steal(
                         name: 't1',
                         formName: 'tf',
                         value: "test"
+                    },
+                    {
+                        cType: 'IntegerField',
+                        label: 'test',
+                        name: 't2',
+                        formName: 'tf',
+                        value: 0,
+                        min: 0,
+                        max: 10
                     }
                 ]
             });
         $.createController(form, $('#playGround'));
-
+        //field.min(5);
         /*
          var manager = Dark.Models.Managers.FieldManager.getInstance(),
          clear = function(){

@@ -640,6 +640,10 @@ steal(
                             };
                         }
 
+                        if( !!baseClass._property && !!baseClass._property[prop] ){
+                            me._property[prop] = $.extend({}, baseClass._property[prop], me._property[prop] );
+                        }
+
                         me.prototype[prop] = __s_initProperty.call(me, prop, description);
                     }
 

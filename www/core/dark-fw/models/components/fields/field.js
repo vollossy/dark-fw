@@ -97,20 +97,15 @@ steal(
                             }
 
                             return value;
+                        },
+                        triggerEvent: function (descriptor, value, oldValue) {
+                            return this;
                         }
                     },
                     fieldInfoType: 'FieldInfo',
                     fieldInfo: {
                         converter: function(descriptor, value){
-                            var me = this;
-
-                            value.field = me;
-                            value.formName = me.formName();
-                            value.fieldName = me.name();
-                            // Значение внутри пришедшего fieldInfo важнее чем то что пришло вместе с полем
-                            value.value = value.value || me.value();
-
-                            return $.toComponent(value);
+                            return $.toComponent(this._convertFieldInfo(descriptor, value));
                         },
                         fnAfterSet: function(descriptor, value, oldValue){
                             formManager.provider().setFieldInfo(value);
@@ -118,13 +113,7 @@ steal(
                         },
                         defValue: function(){
                             var me = this;
-                            return $.toComponent({
-                                cType       : me.fieldInfoType(),
-                                field       : me,
-                                formName    : me.formName(),
-                                fieldName   : me.name(),
-                                value       : me.value()
-                            })
+                            return $.toComponent(me._defValueFieldInfo())
                         },
                         dependence: ['formName', 'name', 'value', 'fieldInfoType']
                     },
@@ -166,6 +155,28 @@ steal(
             },
             /* @Prototype */
             {
+                _defValueFieldInfo: function(){
+                    var me = this;
+                    return {
+                        cType       : me.fieldInfoType(),
+                        field       : me,
+                        formName    : me.formName(),
+                        fieldName   : me.name(),
+                        value       : me.value()
+                    };
+                },
+
+                _convertFieldInfo: function(descriptor, value){
+                    var me = this;
+
+                    value.field = me;
+                    value.formName = me.formName();
+                    value.fieldName = me.name();
+                    // Значение внутри пришедшего fieldInfo важнее чем то что пришло вместе с полем
+                    value.value = value.value || me.value();
+
+                    return value;
+                },
                 /**
                  * @public
                  * Метод вызывется чтобы показать ошибки валидации

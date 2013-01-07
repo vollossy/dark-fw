@@ -26,7 +26,17 @@ steal(
                 _property:{
                     fieldName: '',
                     formName: '',
-                    value: {},
+                    value: {
+                        triggerEvent: function (descriptor, value, oldValue) {
+                            var me = this;
+                            // Если класс не находится в режиме инициализации то тригнем событие изменения свойства
+                            if (!me._initializing) {
+                                $(me).triggerHandler(descriptor.eventName, value);
+                                $(me.field()).triggerHandler(descriptor.eventName, value);
+                            }
+                            return this;
+                        }
+                    },
                     field: {}
                 }
             },
