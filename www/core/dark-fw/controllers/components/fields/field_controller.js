@@ -17,6 +17,7 @@ steal(
                 },
 
                 css:{
+                    wrap: 'control-group',
                     label: "control-label",
                     group: "control-group",
                     container: "controls",

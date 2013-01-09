@@ -1,5 +1,5 @@
 <label class="<%=css.label%>"><%=component.label()%></label>
-<div class="<%=css.container%>">
+<div class="<%=css.container%> <%=css.group%>">
     <% if( component.descriptionText() ){ %>
     <% if( component.descriptionPosition() == 'block' ){ %>
     <p class="<%=css.help%>-block"><%= component.descriptionText() %></p>

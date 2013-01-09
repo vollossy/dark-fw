@@ -82,7 +82,14 @@ steal(
             isComponent     = $.isComponent,
             isUndefined     = $.isUndefined,
             __s_defGetters = {},
-            __s_defSetters = {},
+            __s_defSetters = {
+                'stringToDate': function(descriptor, value, oldValue){
+                    if($.isString(value) ){
+                        value = moment(value, this.dateFormat()).toDate()
+                    }
+                    return value;
+                }
+            },
             __s_defConvert = {
                 /**
                  * @hide
@@ -278,15 +285,23 @@ steal(
 
                             return value;
                         },
-                        fnBeforeSet = function (descriptor, value, oldValue) {
+                        fnBeforeSet = function (desc, value, oldValue) {
                             var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
-                            return isFunction(beforeSet) ? beforeSet.call(me, descriptor, value, oldValue) : value;
+                            return isFunction(beforeSet)
+                                ? value = beforeSet.call(me, desc, value, oldValue)
+                                : !!__s_defSetters[beforeSet] && isFunction(__s_defSetters[beforeSet])
+                                ? value = __s_defSetters[beforeSet].call(me, desc, value, oldValue)
+                                : value;
                         },
-                        fnAfterSet = function (descriptor, value, oldValue) {
+                        fnAfterSet = function (desc, value, oldValue) {
                             var me = this;
                             // Если функция переопределена значит вызовем ее иначе просто вернем значение
-                            return isFunction(afterSet) ? afterSet.call(me, descriptor, value, oldValue) : value;
+                            return isFunction(afterSet)
+                                ? value = afterSet.call(me, desc, value, oldValue)
+                                : !!__s_defSetters[afterSet] && isFunction(__s_defSetters[afterSet])
+                                ? value = __s_defSetters[afterSet].call(me, desc, value, oldValue)
+                                : value;
                         },
                         triggerPropertyEvent = function (descriptor, value, oldValue) {
                             var me = this;

@@ -6,6 +6,8 @@
  */
 steal(
     'dark-fw/styles/bootstrap.css'
+    ,'dark-fw/styles/jquery.ui.bootstrap.core.css'
+    ,'dark-fw/styles/jquery.ui.bootstrap.datepicker.css'
     ,'./dark-fw.css'
 
     ,'dark-fw/models/actions/client_script_action.js'
@@ -27,16 +29,15 @@ steal(
 
     ,'dark-fw/controllers/components/fields/string_field_controller.js'
     ,'dark-fw/controllers/components/fields/integer_field_controller.js'
+    ,'dark-fw/controllers/components/fields/date_field_controller.js'
 
     ,function(){
         var field = $.toComponent({
-                cType: 'IntegerField',
+                cType: 'DateField',
                 label: 'test',
-                name: 't2',
+                name: 't3',
                 formName: 'tf',
-                value: 0,
-                min: 0,
-                max: 10
+                value: ""
             }),
             form = $.toComponent({
                 cType   : 'Form',
@@ -54,14 +55,16 @@ steal(
                         label: 'test',
                         name: 't2',
                         formName: 'tf',
+                        step: 3,
                         value: 0,
                         min: 0,
                         max: 10
-                    }
+                    },
+                    field
                 ]
             });
         $.createController(form, $('#playGround'));
-        //field.min(5);
+
         /*
          var manager = Dark.Models.Managers.FieldManager.getInstance(),
          clear = function(){
