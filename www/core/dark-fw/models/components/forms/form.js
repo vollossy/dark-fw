@@ -26,7 +26,8 @@ steal(
                  */
                 _property:{
                     name: '',
-                    provider: 'fProvider'
+                    provider: 'fProvider',
+                    fieldLayout: "horizontal"
                 }
             },
             /* @Prototype */

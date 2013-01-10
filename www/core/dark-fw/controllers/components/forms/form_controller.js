@@ -15,7 +15,7 @@ steal(
                 tmpl:{},
 
                 css:{
-                    wrap: 'form-horizontal'
+
                 }
             },
             /* @Prototype */
@@ -40,6 +40,7 @@ steal(
                 render:function () {
                     var me = this;
                     me._super();
+                    me.element.addClass('form-' + me.component.fieldLayout());
                 },
 
                 destroy:function () {

@@ -44,42 +44,17 @@ steal(
     ,'dark-fw/views/core/components/fields/string_field.ejs'
 ).then(
     function(){
-        var field = $.toComponent({
-                cType: 'DateRangeField',
-                label: 'test',
-                name: 't4',
-                formName: 'tf',
-                value: ""
-            }),
-            form = $.toComponent({
+        var form = $.toComponent({
                 cType   : 'Form',
                 name    : 'tf',
                 items   : [
                     {
-                        cType: 'StringField',
+                        cType: 'DateRangeField',
                         label: 'test',
-                        name: 't1',
-                        formName: 'tf',
-                        value: "test"
-                    },
-                    {
-                        cType: 'IntegerField',
-                        label: 'test',
-                        name: 't2',
-                        formName: 'tf',
-                        step: 3,
-                        value: 0,
-                        min: 0,
-                        max: 10
-                    },
-                    {
-                        cType: 'DateField',
-                        label: 'test',
-                        name: 't3',
+                        name: 't4',
                         formName: 'tf',
                         value: ""
-                    },
-                    field
+                    }
                 ]
             });
         $.createController(form, $('#playGround'));

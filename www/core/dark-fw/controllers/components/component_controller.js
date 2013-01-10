@@ -29,7 +29,7 @@ steal(
                     return $.extend(this._super(), {
                         css     : "cssChange",
                         styles  : "stylesChange",
-                        visible : "visibleChange"
+                        visible : { name: "visibleChange", auto: false }
                     });
                 },
 
@@ -58,7 +58,7 @@ steal(
                 },
 
                 visibleChange:  function (event, element) {
-                    this.element[ this.component.visible() ? 'show' : 'hide']();
+                    this.element.css('visible', [this.component.visible() ? 'visible' : 'hidden']);
                 }
 
                 /******************************************************************************************************

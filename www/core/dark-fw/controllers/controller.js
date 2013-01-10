@@ -326,8 +326,6 @@ steal(
 
                     element.addClass(mCssClass);
                     me.render();
-                    __p_subscribeToProperty.call(me);
-                    me._changeEvents();
 
                     if( component.useDragHandler() ){
                         element.draggable({
@@ -363,6 +361,9 @@ steal(
                  */
                 render: function(){
                     this._renderTemplate();
+                    __p_subscribeToProperty.call(this);
+                    this._changeEvents();
+
                 },
 
                 /**
