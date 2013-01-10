@@ -31,8 +31,19 @@ steal(
     ,'dark-fw/controllers/components/fields/integer_field_controller.js'
     ,'dark-fw/controllers/components/fields/date_field_controller.js'
     ,'dark-fw/controllers/components/fields/date_range_field_controller.js'
-
-    ,function(){
+).then(
+    'dark-fw/views/core/components/buttons/button.ejs'
+    ,'dark-fw/views/core/components/buttons/drop_down_button.ejs'
+    ,'dark-fw/views/core/components/buttons/drop_down_split_button.ejs'
+    ,'dark-fw/views/core/components/containers/container.ejs'
+    ,'dark-fw/views/core/components/containers/drop_down_container_container.ejs'
+    ,'dark-fw/views/core/components/fields/fieldWrapper.ejs'
+    ,'dark-fw/views/core/components/fields/date_field.ejs'
+    ,'dark-fw/views/core/components/fields/date_range_field.ejs'
+    ,'dark-fw/views/core/components/fields/integer_field.ejs'
+    ,'dark-fw/views/core/components/fields/string_field.ejs'
+).then(
+    function(){
         var field = $.toComponent({
                 cType: 'DateRangeField',
                 label: 'test',
@@ -72,57 +83,5 @@ steal(
                 ]
             });
         $.createController(form, $('#playGround'));
-
-        /*
-         var manager = Dark.Models.Managers.FieldManager.getInstance(),
-         clear = function(){
-         if( !!window.field ) delete window.field;
-         if( !!window.form1 ) manager.unsetForm(form1);
-         if( !!window.form2 ) manager.unsetForm(form2);
-         };
-
-         clear();
-
-         var field = $.toComponent({
-         cType: 'Field',
-         name: 'tf',
-         value: 'str',
-         fieldInfo: {
-         cType: 'FieldInfo',
-         value: 'str1'
-         }
-         }),
-         form1 = $.toComponent({
-         cType: 'Form',
-         name: 'tff1',
-         items: []
-         }),
-         form2 = $.toComponent({
-         cType: 'Form',
-         name: 'tff2',
-         items: []
-         }),
-         log = function(){
-         console.log('-------------------------------------- LOG ----------------------------------------');
-         console.log(manager);
-         console.log('---  Field  ---');
-         console.log(field);
-         console.log('value : ' + field.value());
-         console.log('---  Form 1  ---');
-         console.log(form1);
-         console.log('fields : ', form1.getFields());
-         console.log('values : ', form1.getValues());
-         console.log('---  Form 2  ---');
-         console.log(form2);
-         console.log('fields : ', form2.getFields());
-         console.log('values : ', form2.getValues());
-         };
-
-         field.formName('tff1');
-         log();
-
-
-         //log();
-         */
     }
 );
