@@ -17,42 +17,8 @@ steal(
             __isUndefined = $.isUndefined,
             __isPlainObject = $.isPlainObject,
             __isString = $.isString,
-            __isFunction = $.isFunction;
-
-        $.createController = function(model, element){
-            model = $.isRawComponent(model) ? $.toComponent(model) : model;
-            element = $(element);
-
-            var name = darkStore.C[model.cType() + 'Controller'],
-                instanceClass;
-
-            //!steal-remove-start
-            if (__isUndefined(name))
-                throw new Error("Cannot read property 'shortName' of undefined");
-            //!steal-remove-end
-
-            instanceClass = $.String.getObject(name);
-
-            //!steal-remove-start
-            if (__isUndefined(instanceClass))
-                throw new Error("Не могу найти нужного класса контроллера для данной модели.");
-            //!steal-remove-end
-
-            return instanceClass.newInstance(element, model);
-        };
-        $.getComponent = function(selector){
-            return $(selector).data('component');
-        };
-
-        $.getComponentById = function(id){
-            return $('#' + id).data('component');
-        };
-
-        $.getComponentByElement = function(element){
-            return $(element).data('component');
-        };
-
-        var __s_addStore = function () {
+            __isFunction = $.isFunction,
+            __s_addStore = function () {
                 var me = this,
                     store;
 

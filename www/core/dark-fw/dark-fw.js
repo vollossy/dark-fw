@@ -5,6 +5,8 @@
  * ###Little Dark-fw
  */
 steal(
+    './methods.js'
+).then(
     'dark-fw/styles/bootstrap.css'
     ,'dark-fw/styles/jquery.ui.bootstrap.core.css'
     ,'dark-fw/styles/jquery.ui.bootstrap.datepicker.css'
@@ -43,20 +45,5 @@ steal(
     ,'dark-fw/views/core/components/fields/integer_field.ejs'
     ,'dark-fw/views/core/components/fields/string_field.ejs'
 ).then(
-    function(){
-        var form = $.toComponent({
-                cType   : 'Form',
-                name    : 'tf',
-                items   : [
-                    {
-                        cType: 'DateRangeField',
-                        label: 'test',
-                        name: 't4',
-                        formName: 'tf',
-                        value: ""
-                    }
-                ]
-            });
-        $.createController(form, $('#playGround'));
-    }
+    './bootstrap.js'
 );
