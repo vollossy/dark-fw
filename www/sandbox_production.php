@@ -31,7 +31,7 @@ header('Content-Type: text/html; charset=utf-8');
             };
         </script>
         <script type='text/javascript' src='js/prettify/prettify.js'></script>
-        <script type='text/javascript' src='js/bootstrap.js'></script>
+        <script type='text/javascript' src='js/sandbox.js'></script>
     </head>
     <body>
         <div>

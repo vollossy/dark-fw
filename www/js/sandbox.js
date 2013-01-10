@@ -1,8 +1,7 @@
 (function bootstrap(){
     if( window.DarkLoaded )
     {
-        var startTimer = new Timer().start(),
-            sandbox = (function(){
+        var sandbox = (function(){
                 var modelToString = function(model){
                         var str = "", value;
                         for( var i in model ){
@@ -192,24 +191,11 @@
                     checked: true,
                     data: 'test'
                 }
-            }, models, modelTimer;
+            }, models;
 
-        startTimer.end('createRawModels');
-
-        modelTimer = new Timer().start();
         models = $.toComponent(container);
-        modelTimer.end('toComponent');
-
-        modelTimer.start();
         $.createController(models, $('#playGround'));
-        modelTimer.end('createController');
-
-        startTimer.end('renderAll');
-
         window.prettyPrint && prettyPrint();
     }
-    else
-    {
-        setTimeout(bootstrap, 10)
-    }
+    else setTimeout(bootstrap, 10)
 }());

@@ -101,6 +101,10 @@ steal(
                         css = me.isLabelItem() ? 'label' : me.isBadgeItem() ? 'badge' : "text";
 
                     return '<'+tag+' class="' + css + ' ' + css+'-'+me.status() + '">' + me._getInnerHtml() + '</'+tag+'>'
+                },
+
+                runNoController: function(event){
+                    return event;
                 }
             }
             //!steal-remove-start

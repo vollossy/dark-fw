@@ -1,11 +1,13 @@
-<div class="<%=css.inputWrap%>">
-    <% var isToggle = component.asToggleButton(),
-            innerText = component.text(),
-            outerText = !isToggle ? innerText : "",
-            status = component.buttonState(),
-            status = status !== "" ? ' btn-' + status : "",
-            type = isToggle ? 'button' : 'checkbox';
-    %>
+<%
+var isToggle = component.asToggleButton(),
+    innerText = component.text(),
+    outerText = !isToggle ? innerText : "",
+    status = component.buttonState(),
+    status = status !== "" ? ' btn-' + status : "",
+    checkCls = isToggle ? '' : 'checkbox',
+    type = isToggle ? 'button' : 'checkbox';
+%>
+<div class="<%=css.inputWrap%> <%=checkCls%>">
     <input type="<%=type%>" class="<%=css.input%> btn<%=status%>" value="<%=innerText%>"/>
     <%= outerText %>
 </div>

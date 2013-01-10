@@ -116,3 +116,10 @@ body{font-family:Lucida Sans,Lucida Grande,Arial,sans-serif;margin:0;}
 .dark-daterangefield .dark-date-range-end-wrap{
     display: inline-block;
 }
+
+/********************************************************************
+ * Date Range Field
+ *******************************************************************/
+.dark-checkboxfield{
+    cursor: pointer;
+}

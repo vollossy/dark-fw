@@ -18,10 +18,7 @@ steal(
                     component: 'fields/check_box_field.ejs'
                 },
 
-                css:{
-                    inputWrap: "dark-input-wrap",
-                    input: "dark-input"
-                }
+                css:{}
             },
             /* @Prototype */
             {//Prototype
