@@ -4,6 +4,7 @@
  *
  * ###Little Dark-fw
  */
+window.DarkLoaded  = false;
 steal(
     './methods.js'
 ).then(
@@ -47,5 +48,7 @@ steal(
     ,'dark-fw/views/core/components/fields/string_field.ejs'
     ,'dark-fw/views/core/components/fields/check_box_field.ejs'
 ).then(
-    './bootstrap.js'
+    function(){
+        window.DarkLoaded = true;
+    }
 );

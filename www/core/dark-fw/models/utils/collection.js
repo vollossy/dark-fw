@@ -25,15 +25,14 @@ steal(
              */
             __p_activateObserversMode = function(){
                 var me      = this,
-                    binders = {},
-                    Collection = Dark.Models.Utils.Collection;
+                    binders = {};
 
                 me.isObserversMode(true);
 
-                binders[__EVENTS['ADD']] = Collection.newInstance();
-                binders[__EVENTS['SET']] = Collection.newInstance();
-                binders[__EVENTS['REMOVE']] = Collection.newInstance();
-                binders[__EVENTS['MODE']] = Collection.newInstance();
+                binders[__EVENTS['ADD']] = [];
+                binders[__EVENTS['SET']] = [];
+                binders[__EVENTS['REMOVE']] = [];
+                binders[__EVENTS['MODE']] = [];
 
                 me._bindersCallbacks = binders;
 
@@ -51,7 +50,7 @@ steal(
             __p_bindOuterEvents = function(eventNamePostfix, callback){
                 var me = this;
                 if( me.isObserversMode() ){
-                    me._bindersCallbacks[__EVENTS[eventNamePostfix]].add({ isFunc: true, st: '' + callback, cb: callback})
+                    me._bindersCallbacks[__EVENTS[eventNamePostfix]].push({ isFunc: true, st: '' + callback, cb: callback})
                 }
                 return me;
             },
@@ -69,13 +68,13 @@ steal(
                     collection = me._bindersCallbacks[__EVENTS[eventNamePostfix]],
                     removeKey;
                 if( me.isObserversMode() ){
-                    collection.map(function(key, val){
-                        if( '' + callback == val.st ){
-                            removeKey = key;
+                    for( var i = 0, cnt = collection.length; i != cnt; i++ ){
+                        if( '' + callback == collection[i].st ){
+                            removeKey = i;
                         }
-                    });
+                    }
                     if( !!removeKey ){
-                        collection.remove(removeKey)
+                        collection.splice(removeKey, 1);
                     }
                 }
                 return me;
@@ -345,11 +344,14 @@ steal(
                  * @param {Class} item Елемент коллекции из за которого произошло событие
                  */
                 _callbackTriggerEvent: function(event, item){
-                    var me = this;
+                    var me = this,
+                        __binders = me._bindersCallbacks;
                     if( me.isObserversMode() && !me.isMuteMode() && !me._initializing ){
-                        me._bindersCallbacks[event.type].map(function(key, callback){
-                            callback.cb(event, item);
-                        });
+                        __binders = __binders[event.type];
+
+                        for( var i = 0, cnt = __binders.length; i != cnt; i++ ){
+                            __binders[i].cb(event, item)
+                        }
                     }
                 },
 

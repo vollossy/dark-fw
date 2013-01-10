@@ -476,7 +476,8 @@ steal("jquery","jquery/lang/string",function( $ ) {
 		 * @return {class} instance of the class
 		 */
 		newInstance: function() {
-			// get a raw instance objet (init is not called)
+            //var start = new Timer().start();
+            // get a raw instance objet (init is not called)
 			var inst = this.rawInstance(),
 				args;
 				
@@ -488,6 +489,7 @@ steal("jquery","jquery/lang/string",function( $ ) {
 			if ( inst.init ) {
 				inst.init.apply(inst, isArray(args) ? args : arguments);
 			}
+            //start.end('new Instance ' + this.fullName);
 			return inst;
 		},
 		/**
