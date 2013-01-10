@@ -29,16 +29,31 @@ steal(
                  * Protected methods
                  *****************************************************************************************************/
                 _changed: false,
+
+                /**
+                 *
+                 * @protected
+                 * @return {Object}
+                 */
+                _subscribeToProperty:function () {
+                    return $.extend(this._super(), {
+                        asToggle        : {name: 'refresh', auto: false},
+                        text            : {name: 'refresh', auto: false},
+                        buttonState     : {name: 'refresh', auto: false}
+                    });
+                },
+
                 /******************************************************************************************************
                  * Public methods
                  *****************************************************************************************************/
+
                 valueChange: function(event, value){
                     var me = this,
                         input = me.getInputElement();
                     if( value[checked] ){
-                        input.attr(checked, checked);
+                        input.attr(checked, checked).addClass('active');
                     }else{
-                        input.removeAttr(checked)
+                        input.removeAttr(checked).removeClass('active')
                     }
                 },
 

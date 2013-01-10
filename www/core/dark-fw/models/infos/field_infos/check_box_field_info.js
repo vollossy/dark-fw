@@ -35,8 +35,7 @@ steal(
                             if( value === true || value === false ){
                                 value = {
                                     checked: value,
-                                    data: !!oldValue && !!oldValue.data ? oldValue.data : false,
-                                    text: !!oldValue && !!oldValue.text ? oldValue.text : ""
+                                    data: !!oldValue && !!oldValue.data ? oldValue.data : false
                                 }
                             }
                             return value;

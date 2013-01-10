@@ -154,7 +154,8 @@
         item = {
             cType: 'CheckBoxField',
             name: 'test',
-            label: "Выбор",
+            text: "Выбор",
+            asToggle: true,
             value: {
                 checked: true,
                 data: 'test'

@@ -1,3 +1,11 @@
-<div class="<%=css.inputWrap%> input-append input-prepend">
-    <input type="checkbox" class="<%=css.input%>"/>
+<div class="<%=css.inputWrap%>">
+    <% var isToggle = component.asToggle(),
+            innerText = component.text(),
+            outerText = !isToggle ? innerText : "",
+            status = component.buttonState(),
+            status = status !== "" ? ' btn-' + status : "",
+            type = isToggle ? 'button' : 'checkbox';
+    %>
+    <input type="<%=type%>" class="<%=css.input%> btn<%=status%>" value="<%=innerText%>"/>
+    <%= outerText %>
 </div>
