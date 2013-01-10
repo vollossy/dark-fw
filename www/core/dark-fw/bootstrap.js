@@ -144,6 +144,35 @@
                                             value: ""
                                         }
                                     ]
+                                ),
+                                sandbox.sectionHeader('CheckBoxField'),
+                                sandbox.exampleBlock(
+                                    'Вывод без параметров:',
+                                    {
+                                        cType: 'CheckBoxField',
+                                        name: 'test',
+                                        value: false
+                                    }
+                                ),
+                                sandbox.exampleBlock(
+                                    'С заполненным своством <strong>text</strong>',
+                                    {
+                                        cType: 'CheckBoxField',
+                                        name: 'test',
+                                        value: false,
+                                        text: "Произвольный текст"
+                                    }
+                                ),
+                                sandbox.exampleBlock(
+                                    'В виде Toogle кнопки со статусом ( <strong>asToggleButton</strong>,  <strong>buttonState</strong>)',
+                                    {
+                                        cType: 'CheckBoxField',
+                                        name: 'test',
+                                        text: "Выбор",
+                                        asToggleButton: true,
+                                        buttonState: 'success',
+                                        value: false
+                                    }
                                 )
                             ]
                         }
@@ -162,6 +191,6 @@
             }
         };
 
-    $.createController($.toComponent(item), $('#playGround'));
+    $.createController($.toComponent(container), $('#playGround'));
     window.prettyPrint && prettyPrint();
 }());
