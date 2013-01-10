@@ -33,6 +33,7 @@ steal(
     ,'dark-fw/controllers/components/fields/integer_field_controller.js'
     ,'dark-fw/controllers/components/fields/date_field_controller.js'
     ,'dark-fw/controllers/components/fields/date_range_field_controller.js'
+    ,'dark-fw/controllers/components/fields/check_box_field_controller.js'
 ).then(
     'dark-fw/views/core/components/buttons/button.ejs'
     ,'dark-fw/views/core/components/buttons/drop_down_button.ejs'
@@ -44,6 +45,7 @@ steal(
     ,'dark-fw/views/core/components/fields/date_range_field.ejs'
     ,'dark-fw/views/core/components/fields/integer_field.ejs'
     ,'dark-fw/views/core/components/fields/string_field.ejs'
+    ,'dark-fw/views/core/components/fields/check_box_field.ejs'
 ).then(
     './bootstrap.js'
 );

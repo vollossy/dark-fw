@@ -65,93 +65,102 @@
             };
         }()),
         container = {
-        cType: 'Container',
-        layout: { cType: 'HLayout', align: 'layout-align-stretch' },
-        items: [
-            {
-                cType: 'Container',
-                layout: { cType: 'VLayout' },
-                width: 200,
-                items: [
-                    {
-                        cType: 'TextItem',
-                        text: '' +
-                            '<ul class="nav nav-list">' +
-                            '   <li class="nav-header">Примеры</li>'+
-                            '   <li class="Поля"><a href="#">Поля</a></li>'+
-                            '</ul>'
-                    }
-                ]
-            },
-            {
-                cType: 'Container',
-                width: 84, size: '%',
-                items: [
-                    {
-                        cType   : 'Form',
-                        name    : 'tf',
-                        fieldLayout: "",
-                        items   : [
-                            sandbox.pageHeader('Поля для ввода'),
-                            sandbox.sectionHeader('StringField'),
-                            sandbox.exampleBlock(
-                                'Поле для ввода текста: ',
-                                {
-                                    cType: 'StringField',
-                                    name: 'string1',
-                                    value: "test"
-                                }
-                            ),
-                            sandbox.sectionHeader('IntegerField'),
-                            sandbox.exampleBlock(
-                                'Вывод без параметров: ',
-                                {
-                                    cType: 'IntegerField',
-                                    name: 'integer1',
-                                    value: 0
-                                }
-                            ),
-                            sandbox.exampleBlock(
-                                'Установленны свойства <strong>min</strong> и <strong>max</strong>:',
-                                {
-                                    cType: 'IntegerField',
-                                    name: 'integer2',
-                                    value: 3,
-                                    min: 0,
-                                    max: 10
-                                }
-                            ),
-                            sandbox.exampleBlock(
-                                'Установлено свойство <strong>step</strong>:',
-                                {
-                                    cType: 'IntegerField',
-                                    name: 'integer2',
-                                    value: 3,
-                                    step: 2
-                                }
-                            ),
-                            sandbox.exampleBlock(
-                                'Поля для ввода даты',
-                                [
+            cType: 'Container',
+            layout: { cType: 'HLayout', align: 'layout-align-stretch' },
+            items: [
+                {
+                    cType: 'Container',
+                    layout: { cType: 'VLayout' },
+                    width: 200,
+                    items: [
+                        {
+                            cType: 'TextItem',
+                            text: '' +
+                                '<ul class="nav nav-list">' +
+                                '   <li class="nav-header">Примеры</li>'+
+                                '   <li class="Поля"><a href="#">Поля</a></li>'+
+                                '</ul>'
+                        }
+                    ]
+                },
+                {
+                    cType: 'Container',
+                    width: 84, size: '%',
+                    items: [
+                        {
+                            cType   : 'Form',
+                            name    : 'tf',
+                            fieldLayout: "",
+                            items   : [
+                                sandbox.pageHeader('Поля для ввода'),
+                                sandbox.sectionHeader('StringField'),
+                                sandbox.exampleBlock(
+                                    'Поле для ввода текста: ',
                                     {
-                                        cType: 'DateField',
-                                        name: 'datefield',
-                                        value: '2013-01-10 20:43:37'
-                                    },
-                                    {
-                                        cType: 'DateRangeField',
-                                        name: 'daterangefield',
-                                        value: ""
+                                        cType: 'StringField',
+                                        name: 'string1',
+                                        value: "test"
                                     }
-                                ]
-                            )
-                        ]
-                    }
-                ]
+                                ),
+                                sandbox.sectionHeader('IntegerField'),
+                                sandbox.exampleBlock(
+                                    'Вывод без параметров: ',
+                                    {
+                                        cType: 'IntegerField',
+                                        name: 'integer1',
+                                        value: 0
+                                    }
+                                ),
+                                sandbox.exampleBlock(
+                                    'Установленны свойства <strong>min</strong> и <strong>max</strong>:',
+                                    {
+                                        cType: 'IntegerField',
+                                        name: 'integer2',
+                                        value: 3,
+                                        min: 0,
+                                        max: 10
+                                    }
+                                ),
+                                sandbox.exampleBlock(
+                                    'Установлено свойство <strong>step</strong>:',
+                                    {
+                                        cType: 'IntegerField',
+                                        name: 'integer2',
+                                        value: 3,
+                                        step: 2
+                                    }
+                                ),
+                                sandbox.exampleBlock(
+                                    'Поля для ввода даты',
+                                    [
+                                        {
+                                            cType: 'DateField',
+                                            name: 'datefield',
+                                            value: '2013-01-10 20:43:37'
+                                        },
+                                        {
+                                            cType: 'DateRangeField',
+                                            name: 'daterangefield',
+                                            value: ""
+                                        }
+                                    ]
+                                )
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        item = {
+            cType: 'CheckBoxField',
+            name: 'test',
+            label: "Выбор",
+            value: {
+                checked: true,
+                data: 'test'
             }
-        ]
-    };
+        };
 
-    $.createController($.toComponent(container), $('#playGround'));
+    $.createController($.toComponent(item), $('#playGround'));
     window.prettyPrint && prettyPrint();
 }());
