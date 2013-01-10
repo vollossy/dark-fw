@@ -58,6 +58,9 @@ steal(
                     },
                     fieldInfoType: 'IntegerFieldInfo',
                     fieldInfo: {
+                        converter: 'fieldInfoConvert',
+                        fnAfterSet: 'fieldInfoAfter',
+                        defValue: 'fieldInfoDef',
                         dependence: ['formName', 'name', 'value', 'fieldInfoType', 'min', 'max']
                     }
                 }

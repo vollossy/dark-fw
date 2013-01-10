@@ -57,10 +57,7 @@ steal(
                     },
                     fromText: '',
                     toText: '-',
-                    fieldInfoType: 'DateRangeFieldInfo',
-                    fieldInfo: {
-                        dependence: ['formName', 'name', 'value', 'fieldInfoType', 'minDate', 'maxDate', 'startDate', 'endDate']
-                    }
+                    fieldInfoType: 'DateRangeFieldInfo'
                 }
             },
             /* @Prototype */

@@ -104,17 +104,9 @@ steal(
                     },
                     fieldInfoType: 'FieldInfo',
                     fieldInfo: {
-                        converter: function(descriptor, value){
-                            return $.toComponent(this._convertFieldInfo(descriptor, value));
-                        },
-                        fnAfterSet: function(descriptor, value, oldValue){
-                            formManager.provider().setFieldInfo(value);
-                            return value;
-                        },
-                        defValue: function(){
-                            var me = this;
-                            return $.toComponent(me._defValueFieldInfo())
-                        },
+                        converter: 'fieldInfoConvert',
+                        fnAfterSet: 'fieldInfoAfter',
+                        defValue: 'fieldInfoDef',
                         dependence: ['formName', 'name', 'value', 'fieldInfoType']
                     },
                     label: '',

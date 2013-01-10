@@ -94,9 +94,16 @@ steal(
                         value = moment(value, this.dateFormat()).toDate()
                     }
                     return value;
+                },
+                fieldInfoAfter: function(descriptor, value, oldValue){
+                    Dark.Models.Managers.FormManager.getInstance().provider().setFieldInfo(value);
+                    return value;
                 }
             },
             __s_defConvert = {
+                fieldInfoConvert: function(descriptor, value){
+                    return $.toComponent(this._convertFieldInfo(descriptor, value));
+                },
                 /**
                  * @hide
                  * Создает простую коллекцию Dark.Models.Utils.Collection
@@ -165,6 +172,10 @@ steal(
                     return __s_defDefValues.oC.call(me, property).bindWithAllEvent(function(ev, el){
                         $(me).triggerHandler(property.eventName, el)
                     });
+                },
+                fieldInfoDef: function(){
+                    var me = this;
+                    return $.toComponent(me._defValueFieldInfo())
                 }
             },
             __s_dependenceProperty = undefined,

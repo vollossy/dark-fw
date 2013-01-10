@@ -48,6 +48,9 @@ steal(
                     inlineCalendar: 'F',
                     fieldInfoType: 'DateFieldInfo',
                     fieldInfo: {
+                        converter: 'fieldInfoConvert',
+                        fnAfterSet: 'fieldInfoAfter',
+                        defValue: 'fieldInfoDef',
                         dependence: ['formName', 'name', 'value', 'fieldInfoType', 'minDate', 'maxDate']
                     }
                 }
