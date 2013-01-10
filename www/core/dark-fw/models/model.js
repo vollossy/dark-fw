@@ -83,6 +83,12 @@ steal(
             isUndefined     = $.isUndefined,
             __s_defGetters = {},
             __s_defSetters = {
+                toComponent : function(property, value){
+                    return toComponent(value);
+                },
+                toManyComponent : function(property, value){
+                    return toManyComponent(value);
+                },
                 'stringToDate': function(descriptor, value, oldValue){
                     if($.isString(value) ){
                         value = moment(value, this.dateFormat()).toDate()

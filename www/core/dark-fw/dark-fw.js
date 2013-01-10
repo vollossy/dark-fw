@@ -30,12 +30,13 @@ steal(
     ,'dark-fw/controllers/components/fields/string_field_controller.js'
     ,'dark-fw/controllers/components/fields/integer_field_controller.js'
     ,'dark-fw/controllers/components/fields/date_field_controller.js'
+    ,'dark-fw/controllers/components/fields/date_range_field_controller.js'
 
     ,function(){
         var field = $.toComponent({
-                cType: 'DateField',
+                cType: 'DateRangeField',
                 label: 'test',
-                name: 't3',
+                name: 't4',
                 formName: 'tf',
                 value: ""
             }),
@@ -59,6 +60,13 @@ steal(
                         value: 0,
                         min: 0,
                         max: 10
+                    },
+                    {
+                        cType: 'DateField',
+                        label: 'test',
+                        name: 't3',
+                        formName: 'tf',
+                        value: ""
                     },
                     field
                 ]

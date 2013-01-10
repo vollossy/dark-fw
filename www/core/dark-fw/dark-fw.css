@@ -108,3 +108,11 @@ body{font-family:Lucida Sans,Lucida Grande,Arial,sans-serif;margin:0;}
        -moz-border-radius: 0 4px 4px 0;
             border-radius: 0 4px 4px 0;
 }
+
+/********************************************************************
+ * Date Range Field
+ *******************************************************************/
+.dark-daterangefield .dark-date-range-start-wrap,
+.dark-daterangefield .dark-date-range-end-wrap{
+    display: inline-block;
+}
