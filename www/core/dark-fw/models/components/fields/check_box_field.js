@@ -26,7 +26,7 @@ steal(
                  */
                 _property:{
                     text: "",
-                    asToggle: false,
+                    asToggleButton: false,
                     buttonState: '',
                     fieldInfoType: 'CheckBoxFieldInfo'
                 }

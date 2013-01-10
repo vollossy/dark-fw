@@ -37,7 +37,7 @@ steal(
                  */
                 _subscribeToProperty:function () {
                     return $.extend(this._super(), {
-                        asToggle        : {name: 'refresh', auto: false},
+                        asToggleButton        : {name: 'refresh', auto: false},
                         text            : {name: 'refresh', auto: false},
                         buttonState     : {name: 'refresh', auto: false}
                     });

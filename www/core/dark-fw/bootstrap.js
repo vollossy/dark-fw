@@ -155,7 +155,7 @@
             cType: 'CheckBoxField',
             name: 'test',
             text: "Выбор",
-            asToggle: true,
+            asToggleButton: true,
             value: {
                 checked: true,
                 data: 'test'
